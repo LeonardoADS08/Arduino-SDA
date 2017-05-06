@@ -14,7 +14,7 @@ namespace SDA_Core.Files
     /// ES: Clase generica encargada de almacenar y leer archivos binarios de tipo <T>. 
     ///     NOTA: La clase pasada para instanciar este objeto debe ser Serializable.
     /// </summary>
-    class DataSerializer<T>
+    public class DataSerializer<T>
     {
         // ES: _fileName  = Nombre del archivo donde se guardara o se deberá leer los datos serializados  
         private string _fileDirection;
@@ -31,7 +31,7 @@ namespace SDA_Core.Files
         /// <summary>
         /// ES: Constructor de la clase DataSerializer, la cual la dirección del archivo será la dirección de instalación mas el nombre de la clase.
         /// </summary>
-        DataSerializer()
+        public DataSerializer()
         {
             try
             {
@@ -45,7 +45,7 @@ namespace SDA_Core.Files
         /// <summary>
         /// ES: Constructor de la clase DataSerializer, permite escoger el nombre del archivo donde se guardará los datos, la dirección sigue siendo donde se encuentre instalado el programa.
         /// </summary>
-        DataSerializer(string FileName)
+        public DataSerializer(string FileName)
         {
             try
             {
