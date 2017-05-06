@@ -39,7 +39,7 @@ namespace SDA_Core.Files
                 _stream = new FileStream(_fileDirection + ".data", FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
                 _formatter = new BinaryFormatter();
             }
-            catch (Exception ex) { RuntimeLogs.WriteLine(ex.Message); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, nameof(DataSerializer<T>) + ".DataSerializer()"); }
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace SDA_Core.Files
                 _stream = new FileStream(_fileDirection + ".data", FileMode.Append, FileAccess.ReadWrite, FileShare.ReadWrite);
                 _formatter = new BinaryFormatter();
             }
-            catch (Exception ex) { RuntimeLogs.WriteLine(ex.Message); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, nameof(DataSerializer<T>) + ".DataSerializer(string)"); }
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace SDA_Core.Files
         public void SaveData(T data) { _formatter.Serialize(_stream, data); }
 
         /// <summary>
-        /// ES: Recupera todos los datos almacenados en el archivo binario en ese momento.
+        /// ES: Recupera todos los datos almacenados en el archivo binario en ese momento en una lista.
         /// </summary>
         public List<T> RecoverAllData()
         {
@@ -76,7 +76,7 @@ namespace SDA_Core.Files
                     list.Add(result);
                 }
             }
-            catch (Exception ex) { RuntimeLogs.WriteLine(ex.Message); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, nameof(DataSerializer<T>) + ".RecoverAllData()"); }
             return list;
         }
 
@@ -91,7 +91,7 @@ namespace SDA_Core.Files
                 _stream.Seek((IdRegister - 1) * typeSize, SeekOrigin.Begin);
                 return (T)_formatter.Deserialize(_stream);
             }
-            catch (Exception ex) { RuntimeLogs.WriteLine(ex.Message); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, nameof(DataSerializer<T>) + ".RecoverData(int)"); }
             return default(T);
         }
     }

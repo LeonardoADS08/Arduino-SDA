@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace SDA_Core
 {
     /// <summary>
     /// ES: Una clase que almacena registros en tiempo de ejecución, enfocado para guardar mensajes de excepciones u otros errores, 
     ///     para que sea posteriormente analizado y sea más fácil encontrar errores.
+    ///     Este proceso se ejecuta en otro hilo.
     /// </summary>
     public static class RuntimeLogs
     {
-        public static void WriteLine(string message, bool enumerate = true)
+
+        private static void WriteLine(string message, string direction, bool enumerate = true)
         {
             try
             {
@@ -25,11 +28,30 @@ namespace SDA_Core
                 
                 // ES: El mensaje que será guardado en el Log
                 string final = "";
-                if (enumerate) final = DateTime.Now.ToString("hh:mm:ss") + ": " + message + "\r\n";
-                else final = message + "\r\n\n\n";
+                if (enumerate) final = DateTime.Now.ToString("hh:mm:ss") + ": " + direction + "\n" + message + "\r\n";
+                else final = direction + "\n" + message + "\r\n\n\n";
                 File.AppendAllText(logfile, final);
             }
             catch (Exception ex) { MessageBox.Show("A error message cannot be saved in the runtime log.\n" + ex.Message, "Error - RuntimeLog", MessageBoxButtons.OK); }
         }
+
+        /// <summary>
+        /// ES: Envia un log a los registros del programa, esta función intentará ejecutarse en otro hilo de proceso.
+        /// </summary>
+        public static void SendLog(string message, string direction, bool enumerate = true)
+        {
+            try
+            {
+                Thread _thread = new Thread(() => WriteLine(message, direction, enumerate));
+                _thread.Start();
+            }
+            catch (Exception ex)
+            {
+                WriteLine(ex.Message, nameof(RuntimeLogs) + "SendLog(string, string, bool = true)", false);
+                WriteLine(message, direction, enumerate);
+            }
+            
+        }
+
     }
 }

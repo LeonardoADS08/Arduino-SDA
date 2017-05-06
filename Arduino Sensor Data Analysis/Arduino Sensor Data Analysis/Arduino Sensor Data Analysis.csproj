@@ -141,7 +141,12 @@
   <ItemGroup>
     <Resource Include="Resources\Icono.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SDA Core\SDA Core.csproj">
+      <Project>{19109efe-4773-4b78-a52b-8985c9e2d40f}</Project>
+      <Name>SDA Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

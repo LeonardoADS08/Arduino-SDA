@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 namespace SDA_Core.Files
 {
     /// <summary>
-    /// 
+    /// ES: Clase para guardar perfiles de usuario y sus configuraciones.
     /// </summary>
     public class ProfileManager
     {
+        /// <summary>
+        /// Estructura para configuraciones de un perfil
+        /// </summary>
         [Serializable]
         private struct ProfileConfigurations
         {

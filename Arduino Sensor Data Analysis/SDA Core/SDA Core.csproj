@@ -49,6 +49,7 @@
     <Compile Include="Files\DataSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Files\RuntimeLogs.cs" />
+    <Compile Include="Sensors\Sensor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icono.ico" />
