@@ -8,7 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace SDA_Core.Files
+namespace SDA_Core.Data
 {
     /// <summary>
     /// ES: Clase generica encargada de almacenar y leer archivos binarios de tipo <T>. 
@@ -43,8 +43,9 @@ namespace SDA_Core.Files
         }
 
         /// <summary>
-        /// ES: Constructor de la clase DataSerializer, permite escoger el nombre del archivo donde se guardará los datos, la dirección sigue siendo donde se encuentre instalado el programa.
+        /// ES: Constructor de la clase DataSerializer.
         /// </summary>
+        /// <param name="FileName">ES: Nombre del archivo binario.</param>
         public DataSerializer(string FileName)
         {
             try
@@ -57,8 +58,9 @@ namespace SDA_Core.Files
         }
 
         /// <summary>
-        /// ES: Guarda el dato pasado como parámetro en el archivo binario.
+        /// ES: Guarda elementos en el archivo binario.
         /// </summary>
+        /// <param name="data">ES: Dato a almacenar en el archivo binario.</param>
         public void SaveData(T data) { _formatter.Serialize(_stream, data); }
 
         /// <summary>
@@ -81,8 +83,9 @@ namespace SDA_Core.Files
         }
 
         /// <summary>
-        /// ES: Recupera el registro que se encuentre en la posición 'IdRegister' en el archivo binario.
+        /// ES: Recupera un registro que se encuentre en el archivo binario.
         /// </summary>
+        /// <param name="IdRegister">ES: Registro a devolver</param>
         public T RecoverData(int IdRegister)
         {
             try

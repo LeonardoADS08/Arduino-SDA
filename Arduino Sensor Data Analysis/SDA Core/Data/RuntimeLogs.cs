@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading;
 
-namespace SDA_Core
+namespace SDA_Core.Data
 {
     /// <summary>
     /// ES: Una clase que almacena registros en tiempo de ejecución, enfocado para guardar mensajes de excepciones u otros errores, 
