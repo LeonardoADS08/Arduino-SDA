@@ -67,12 +67,16 @@ namespace SDA_Core.Files
         public List<T> RecoverAllData()
         {
             List<T> list = new List<T>();
-            _stream.Position = 0;
-            while (_stream.Position < _stream.Length)
+            try
             {
-                T result = (T)_formatter.Deserialize(_stream);
-                list.Add(result);
+                _stream.Position = 0;
+                while (_stream.Position < _stream.Length)
+                {
+                    T result = (T)_formatter.Deserialize(_stream);
+                    list.Add(result);
+                }
             }
+            catch (Exception ex) { RuntimeLogs.WriteLine(ex.Message); }
             return list;
         }
 
@@ -81,9 +85,14 @@ namespace SDA_Core.Files
         /// </summary>
         public T RecoverData(int IdRegister)
         {
-            int typeSize = Marshal.SizeOf(typeof(T));
-            _stream.Seek((IdRegister - 1) * typeSize, SeekOrigin.Begin);
-            return (T)_formatter.Deserialize(_stream);
+            try
+            {
+                int typeSize = Marshal.SizeOf(typeof(T));
+                _stream.Seek((IdRegister - 1) * typeSize, SeekOrigin.Begin);
+                return (T)_formatter.Deserialize(_stream);
+            }
+            catch (Exception ex) { RuntimeLogs.WriteLine(ex.Message); }
+            return default(T);
         }
     }
 }
