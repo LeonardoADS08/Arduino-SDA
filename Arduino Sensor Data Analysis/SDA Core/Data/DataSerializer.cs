@@ -18,8 +18,6 @@ namespace SDA_Core.Data
     {
         // ES: _fileName  = Nombre del archivo donde se guardara o se deberá leer los datos serializados  
         private string _fileDirection;
-        // ES: _stream    = Objeto stream para leer o escribir sobre un archivo                             
-        private Stream _stream;
         // ES: _formatter = Objeto para darle formato binario a los archivos a escribir                     
         private IFormatter _formatter;
 
@@ -28,6 +26,10 @@ namespace SDA_Core.Data
             get { return _fileDirection; }
         }
 
+        private Stream WriteStream() { return new FileStream(_fileDirection, FileMode.Append, FileAccess.Write, FileShare.ReadWrite); }
+
+        private Stream ReadStream() { return new FileStream(_fileDirection, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite); }
+
         /// <summary>
         /// ES: Constructor de la clase DataSerializer, la cual la dirección del archivo será la dirección de instalación mas el nombre de la clase.
         /// </summary>
@@ -35,11 +37,10 @@ namespace SDA_Core.Data
         {
             try
             {
-                _fileDirection = AppDomain.CurrentDomain.BaseDirectory + nameof(T);
-                _stream = new FileStream(_fileDirection + ".data", FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+                _fileDirection = AppDomain.CurrentDomain.BaseDirectory + typeof(T).Name + ".data";
                 _formatter = new BinaryFormatter();
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, nameof(DataSerializer<T>) + ".DataSerializer()"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".DataSerializer()"); }
         }
 
         /// <summary>
@@ -51,34 +52,53 @@ namespace SDA_Core.Data
             try
             {
                 _fileDirection = AppDomain.CurrentDomain.BaseDirectory + FileName;
-                _stream = new FileStream(_fileDirection + ".data", FileMode.Append, FileAccess.ReadWrite, FileShare.ReadWrite);
                 _formatter = new BinaryFormatter();
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, nameof(DataSerializer<T>) + ".DataSerializer(string)"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".DataSerializer(string)"); }
         }
 
         /// <summary>
         /// ES: Guarda elementos en el archivo binario.
         /// </summary>
         /// <param name="data">ES: Dato a almacenar en el archivo binario.</param>
-        public void SaveData(T data) { _formatter.Serialize(_stream, data); }
+        public void SaveData(T data)
+        {
+            try
+            {
+                _formatter.Serialize(WriteStream(), data);
+            }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".SaveData(T)"); }
+        }
+
+        /// <summary>
+        /// ES: Guarda todos los elementos almacenados en una lista en el archivo binario.
+        /// </summary>
+        /// <param name="data">ES: Lista que contiene los datos.</param>
+        public void SaveData(List<T> data)
+        {
+            try
+            {
+                for (int i = 0; i < data.Count; ++i) { SaveData(data[i]); }
+            }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".SaveData(List<T>)"); }
+        }
 
         /// <summary>
         /// ES: Recupera todos los datos almacenados en el archivo binario en ese momento en una lista.
         /// </summary>
-        public List<T> RecoverAllData()
+        public List<T> RecoverData()
         {
             List<T> list = new List<T>();
             try
             {
-                _stream.Position = 0;
-                while (_stream.Position < _stream.Length)
+                Stream stream = ReadStream();
+                while (stream.Position < stream.Length)
                 {
-                    T result = (T)_formatter.Deserialize(_stream);
+                    T result = (T)_formatter.Deserialize(stream);
                     list.Add(result);
                 }
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, nameof(DataSerializer<T>) + ".RecoverAllData()"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".RecoverAllData()"); }
             return list;
         }
 
@@ -90,12 +110,23 @@ namespace SDA_Core.Data
         {
             try
             {
+                Stream stream = ReadStream();
                 int typeSize = Marshal.SizeOf(typeof(T));
-                _stream.Seek((IdRegister - 1) * typeSize, SeekOrigin.Begin);
-                return (T)_formatter.Deserialize(_stream);
+                stream.Seek((IdRegister - 1) * typeSize, SeekOrigin.Begin);
+                return (T)_formatter.Deserialize(stream);
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, nameof(DataSerializer<T>) + ".RecoverData(int)"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".RecoverData(int)"); }
             return default(T);
+        }
+
+        /// <summary>
+        /// ES: Elimina todos los datos del archivo binario.
+        /// PRECAUCIÓN: Una vez eliminados, no es posible recuperarlos.
+        /// </summary>
+        public void ClearBinary()
+        {
+            try { WriteStream().SetLength(0); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".ClearBinary()"); }
         }
     }
 }

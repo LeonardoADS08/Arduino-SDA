@@ -25,11 +25,11 @@ namespace SDA_Core.Data
                 // ES: Dirección donde se guardará el archivo.
                 //     Dirección del programa + "Runtime_Log " + Fecha + ".log"
                 string logfile = AppDomain.CurrentDomain.BaseDirectory + "Runtime_Log " + DateTime.Today.ToString("dd-MM-yyyy") + ".log";
-                
+
                 // ES: El mensaje que será guardado en el Log
                 string final = "";
-                if (enumerate) final = DateTime.Now.ToString("hh:mm:ss") + ": " + direction + "\n" + message + "\r\n";
-                else final = direction + "\n" + message + "\r\n\n\n";
+                if (enumerate) final = DateTime.Now.ToString("hh:mm:ss") + ": " + direction + " - " + message + "\r\n";
+                else final = direction + " - " + message + "\r\n";
                 File.AppendAllText(logfile, final);
             }
             catch (Exception ex) { MessageBox.Show("A error message cannot be saved in the runtime log.\n" + ex.Message, "Error - RuntimeLog", MessageBoxButtons.OK); }

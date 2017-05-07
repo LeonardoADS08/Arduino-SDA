@@ -11,7 +11,7 @@ namespace SDA_Core.Data
     /// ES: Clase para almacenar sensores y los datos de de su conjunto
     /// </summary>
     [Serializable]
-    class SensorSet
+    public class SensorSet
     {
         // ES: Los datos se amlacenan en un dataset.
         private DataTable _data;
