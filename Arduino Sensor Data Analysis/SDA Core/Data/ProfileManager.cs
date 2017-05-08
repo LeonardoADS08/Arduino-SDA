@@ -76,7 +76,6 @@ namespace SDA_Core.Data
             {
                 _dataManagerProfiles = new DataSerializer<Profile>();
                 _profiles = _dataManagerProfiles.RecoverData();
-
             }
             catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).DeclaringMethod + ".ProfileManager()"); }
         }
@@ -91,10 +90,35 @@ namespace SDA_Core.Data
                 _profiles.Add(profileData);
                 _dataManagerProfiles.SaveData(profileData);
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).DeclaringMethod + ".NewProfile()"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).DeclaringMethod + ".NewProfile(Profile)"); }
         }
 
+        /// <summary>
+        /// ES: Actualiza un perfil ya guardado.
+        /// </summary>
+        /// <param name="Id">ES: Identificador del perfil que se desea editar.</param>
+        /// <param name="profileData">ES: Nuevos datos del perfil a editar.</param>
+        public void UpdateProfile(int IdProfile, Profile profileData)
+        {
+            try
+            {
+                _dataManagerProfiles.UpdateData(IdProfile, profileData);
+            }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).DeclaringMethod + ".UpdateProfile(int, Profile)"); }
+        }
 
-
+        /// <summary>
+        /// ES: Elimina permanentemente un perfil.
+        /// </summary>
+        /// <param name="Id">ES: Identificador del perfil que se desea eliminar.</param>
+        public void DeleteProfile(int IdProfile)
+        {
+            try
+            {
+                _dataManagerProfiles.DeleteRegister(IdProfile);
+            }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).DeclaringMethod + ".DeleteProfile(int)"); }
+            
+        }
     }
 }

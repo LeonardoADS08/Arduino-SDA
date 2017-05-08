@@ -27,10 +27,17 @@ namespace Arduino_Sensor_Data_Analysis
         {
             InitializeComponent();
             //pmanager.NewProfile(p);
-
+            //pmanager.DeleteProfile(2);
+            //pmanager = new SDA_Core.Data.ProfileManager();
             label.Content = "None.";
             label1.Content = "None.";
             label2.Content = "None.";
+
+            SDA_Core.Communication.Serial ser = new SDA_Core.Communication.Serial("COM4", 9600);
+            ser.Open();
+            ser.Write("a");
+            System.Threading.Thread.Sleep(5000);
+            ser.Write("b");
         }
 
         private void change()

@@ -125,8 +125,44 @@ namespace SDA_Core.Data
         /// </summary>
         public void ClearBinary()
         {
-            try { WriteStream().SetLength(0); }
+            try
+            {
+                Stream stream = new FileStream(_fileDirection, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite);
+            }
             catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".ClearBinary()"); }
+        }
+
+        /// <summary>
+        /// ES: Elimina un registro en el archivo binario.
+        /// </summary>
+        /// <param name="IdRegister">ES: Identificador del registro que se desea eliminar.</param>
+        public void DeleteRegister(int IdRegister)
+        {
+            try
+            {
+                List<T> list = this.RecoverData();
+                list.Remove(list[IdRegister]);
+                this.ClearBinary();
+                this.SaveData(list);
+            }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).Name + ".DeleteRegister(int)"); }
+        }
+
+        /// <summary>
+        /// ES: Actualiza un registro del archivo binario.
+        /// </summary>
+        /// <param name="IdRegister">ES: Identificador del registro que se desea actualizar.</param>
+        /// <param name="data">ES: Elemento por el cual debe actualizado</param>
+        public void UpdateData(int IdRegister, T data)
+        {
+            try
+            {
+                List<T> list = this.RecoverData();
+                list[IdRegister] = data;
+                ClearBinary();
+                SaveData(list);
+            }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).Name + ".UpdateData(int, T)"); }
         }
     }
 }
