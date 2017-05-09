@@ -19,6 +19,11 @@ namespace SDA_Core.Communication
         private string _communicationHistory = "";
         private Thread _thread;
 
+        public string CommunicationHistory
+        {
+            get { return _communicationHistory; }
+        }
+
         /// <summary>
         /// ES: Constructor de la clase Serial.
         /// </summary>

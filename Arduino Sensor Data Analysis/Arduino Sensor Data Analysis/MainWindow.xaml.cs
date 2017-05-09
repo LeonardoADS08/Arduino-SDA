@@ -46,7 +46,7 @@ namespace Arduino_Sensor_Data_Analysis
         {
             while (true)
             {
-                textBlock.Text = ser.temp;
+                textBlock.Text = ser.CommunicationHistory;
                 await Task.Delay(100);
             }
         }
