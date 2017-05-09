@@ -19,6 +19,9 @@ namespace SDA_Core.Communication
         private string _communicationHistory = "";
         private Thread _thread;
 
+        /// <summary>
+        /// ES: Es la variable que contiene toda la comunicación que se ha hecho con el arduino, esta variable se actualiza cada vez que se encuentra un nuevo mensaje.
+        /// </summary>
         public string CommunicationHistory
         {
             get { return _communicationHistory; }
