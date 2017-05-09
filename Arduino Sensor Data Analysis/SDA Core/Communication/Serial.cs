@@ -13,7 +13,7 @@ namespace SDA_Core.Communication
     /// <summary>
     /// ES: Clase para la comunicación serial con un arduino, la clase utiliza un hilo independiente especialmente para escuchar los datos que envia el arduino.
     /// </summary>
-    public class Serial
+    public class Serial : Connection
     {
         private SerialPort _serialConnection;
         private string _communicationHistory = "";
@@ -56,7 +56,7 @@ namespace SDA_Core.Communication
         /// <summary>
         /// ES: Lee una linea del 'buffer' que existe en el serial del arduino.
         /// </summary>
-        private string Read()
+        public override string Read()
         {
             try
             {
@@ -71,7 +71,7 @@ namespace SDA_Core.Communication
         /// ES: Envia un mensaje al serial del arduino.
         /// </summary>
         /// <param name="message">ES: Mensaje a enviar.</param>
-        public void Write(string message)
+        public override void Write(string message)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace SDA_Core.Communication
         /// <summary>
         /// ES: Pregunta si el puerto esta disponible para comunicación.
         /// </summary>
-        public bool Available()
+        public override bool Available()
         {
             try
             {
@@ -98,7 +98,7 @@ namespace SDA_Core.Communication
         /// <summary>
         /// ES: Comienza si no esta abierta la comunicación con el arduino con los parametros dados.
         /// </summary>
-        public void Open()
+        public override void Open()
         {
             try
             {
@@ -114,7 +114,7 @@ namespace SDA_Core.Communication
         /// <summary>
         /// ES: Cierra si esta abierta la conexión con el arduino.
         /// </summary>
-        public void Close()
+        public override void Close()
         {
             try
             {

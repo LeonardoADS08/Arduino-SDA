@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communication\Connection.cs" />
     <Compile Include="Communication\Serial.cs" />
     <Compile Include="Data\ProfileManager.cs" />
     <Compile Include="Data\DataSerializer.cs" />
