@@ -21,8 +21,10 @@ namespace Arduino_Sensor_Data_Analysis
     public partial class MainWindow : Window
     {
         int actual = 0;
+        bool encendido = true;
         SDA_Core.Data.ProfileManager pmanager = new SDA_Core.Data.ProfileManager();
         SDA_Core.Data.ProfileManager.Profile p = new SDA_Core.Data.ProfileManager.Profile("Campos electromagneticos", "Variaciones de campos electromagneticos.");
+        SDA_Core.Communication.Serial ser = new SDA_Core.Communication.Serial("COM4", 9600);
         public MainWindow()
         {
             InitializeComponent();
@@ -33,11 +35,20 @@ namespace Arduino_Sensor_Data_Analysis
             label1.Content = "None.";
             label2.Content = "None.";
 
-            SDA_Core.Communication.Serial ser = new SDA_Core.Communication.Serial("COM4", 9600);
+            
             ser.Open();
-            ser.Write("a");
-            System.Threading.Thread.Sleep(5000);
             ser.Write("b");
+            escuchar();
+            
+        }
+
+        private async void escuchar()
+        {
+            while (true)
+            {
+                textBlock.Text = ser.temp;
+                await Task.Delay(100);
+            }
         }
 
         private void change()
@@ -60,6 +71,9 @@ namespace Arduino_Sensor_Data_Analysis
         private void button_Click(object sender, RoutedEventArgs e)
         {
             change();
+            if (encendido) ser.Write("b");
+            else ser.Write("a");
+            encendido = !encendido;
         }
     }
 }

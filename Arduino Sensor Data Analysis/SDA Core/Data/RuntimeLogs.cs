@@ -32,12 +32,15 @@ namespace SDA_Core.Data
                 else final = direction + " - " + message + "\r\n";
                 File.AppendAllText(logfile, final);
             }
-            catch (Exception ex) { MessageBox.Show("A error message cannot be saved in the runtime log.\n" + ex.Message, "Error - RuntimeLog", MessageBoxButtons.OK); }
+            catch (Exception ex) { MessageBox.Show("An error message cannot be saved in the runtime log.\n" + ex.Message, "Error - RuntimeLog", MessageBoxButtons.OK); }
         }
 
         /// <summary>
         /// ES: Envia un log a los registros del programa, esta función intentará ejecutarse en otro hilo de proceso.
         /// </summary>
+        /// <param name="message">ES: Mensaje o razón por la cual se crea el log.</param>
+        /// <param name="direction">ES: Dirección de donde se ha llamado el procedimiento.</param>
+        /// <param name="enumerate">ES: Si se debe especificar el momento en el cual se ha llamado el procedimiento.</param>
         public static void SendLog(string message, string direction, bool enumerate = true)
         {
             try
