@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arduino_Sensor_Data_Analysis"
         mc:Ignorable="d"
-        Title="Arduino Sensor Data Analysis" Width="1024" Height="768" WindowStartupLocation="CenterScreen" Icon="Resources/Icono.ico" Background="#ecf0f1">
+        Title="Arduino Sensor Data Analysis" Width="1024" Height="768" WindowStartupLocation="CenterScreen" Icon="Resources/Icono.ico" Background="#ECF0F1">
     <Border Height="55" VerticalAlignment="Top"  Background="#62AEB2">
         <DockPanel x:Name="Navegacion" Height="50" VerticalAlignment="Top" Background="#00878F">
-            <Button x:Name="B_Home"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="25,0,0,0" Content="Home" Width="150" Height="30"  Foreground="Black" BorderBrush="#FF8C7965" FontSize="16" FontWeight="Light" BorderThickness="1,1,1,0" Background="#FF62AEB2"/>
-
+            <Button x:Name="B_Home"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="25,0,0,0" Content="Home" Width="150" Height="30"  Foreground="Black" BorderBrush="#FF8C7965" FontSize="16" FontWeight="Light" BorderThickness="1,1,1,0" Background="#FF62AEB2" Click="B_Home_Click"/>
+            <Button x:Name="B_Profiles" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Profiles" Width="150" Height="30" Foreground="Black" BorderBrush="#FF8C7965" FontSize="16" FontWeight="Light" BorderThickness="1,1,1,0" Background="#FF649799" Click="B_Profiles_Click"/>
+            <Button x:Name="B_Communication" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Communication" Width="150" Height="30" Foreground="Black" BorderBrush="#FF8C7965" FontSize="16" FontWeight="Light" BorderThickness="1,1,1,0" Background="#FF649799" Click="B_Communication_Click"/>
         </DockPanel>
     </Border>
 
