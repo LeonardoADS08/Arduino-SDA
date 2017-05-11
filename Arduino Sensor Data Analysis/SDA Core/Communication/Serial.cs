@@ -59,6 +59,7 @@ namespace SDA_Core.Communication
         /// <summary>
         /// ES: Lee una linea del 'buffer' que existe en el serial del arduino.
         /// </summary>
+        /// <returns>ES: Devuelve una linea o vacio.</returns>
         public override string Read()
         {
             try
@@ -88,6 +89,7 @@ namespace SDA_Core.Communication
         /// <summary>
         /// ES: Pregunta si el puerto esta disponible para comunicación.
         /// </summary>
+        /// <returns>ES: Estado de la conexión.</returns>
         public override bool Available()
         {
             try

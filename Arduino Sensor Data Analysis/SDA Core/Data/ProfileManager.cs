@@ -23,7 +23,7 @@ namespace SDA_Core.Data
 
         /// <summary>
         /// ES: Devuelve todos los perfiles existentes en una lista.
-        /// NOTA: Hacer set de 'ProfileList' es una operación costosa, requiere reescribir todos los datos existentes en el archivo binario.
+        /// NOTA: Hacer set de 'ProfileList' es una operación relativamente costosa, requiere reescribir todos los datos existentes en el archivo binario.
         /// </summary>
         public List<Profile> ProfileList
         {

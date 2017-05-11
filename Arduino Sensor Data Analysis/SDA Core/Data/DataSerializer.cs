@@ -21,17 +21,29 @@ namespace SDA_Core.Data
         // ES: _formatter = Objeto para darle formato binario a los archivos a escribir                     
         private IFormatter _formatter;
 
+        /// <summary>
+        /// ES: Dirección del archivo.
+        /// </summary>
         public string FileDirection
         {
             get { return _fileDirection; }
         }
 
+        /// <summary>
+        /// ES: Instancia de una clase Stream para escritura.
+        /// </summary>
+        /// <returns>ES: Stream en modo escritura.</returns>
         private Stream WriteStream() { return new FileStream(_fileDirection, FileMode.Append, FileAccess.Write, FileShare.ReadWrite); }
 
+
+        /// <summary>
+        /// ES: Instancia de una clase Stream para lectura.
+        /// </summary>
+        /// <returns>ES: Stream en modo lectura.</returns>
         private Stream ReadStream() { return new FileStream(_fileDirection, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite); }
 
         /// <summary>
-        /// ES: Constructor de la clase DataSerializer, la cual la dirección del archivo será la dirección de instalación mas el nombre de la clase.
+        /// ES: Constructor de la clase DataSerializer, dictará cual será la dirección del archivo binario.
         /// </summary>
         public DataSerializer()
         {
@@ -86,6 +98,7 @@ namespace SDA_Core.Data
         /// <summary>
         /// ES: Recupera todos los datos almacenados en el archivo binario en ese momento en una lista.
         /// </summary>
+        /// <returns>ES: Devuelve todos los datos presentes en el binario en una lista.</returns>
         public List<T> RecoverData()
         {
             List<T> list = new List<T>();
@@ -106,6 +119,7 @@ namespace SDA_Core.Data
         /// ES: Recupera un registro que se encuentre en el archivo binario.
         /// </summary>
         /// <param name="IdRegister">ES: Registro a devolver</param>
+        /// <returns>ES: Devuelve un registro si es que existe en el binario, caso de que no exista devuelve un valor por defecto.</returns>
         public T RecoverData(int IdRegister)
         {
             try

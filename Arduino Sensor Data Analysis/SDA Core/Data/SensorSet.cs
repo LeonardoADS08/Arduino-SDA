@@ -8,7 +8,7 @@ using System.Data;
 namespace SDA_Core.Data
 {
     /// <summary>
-    /// ES: Clase para almacenar sensores y los datos de de su conjunto
+    /// ES: Clase para almacenar sensores y los datos de de su conjunto.
     /// </summary>
     [Serializable]
     public class SensorSet
@@ -18,6 +18,9 @@ namespace SDA_Core.Data
         // ES: Se guarda el nombre de la tabla donde se guardaran los datos.
         private string _sensorSetName;
 
+        /// <summary>
+        /// ES: Nombre del conjunto de sensores.
+        /// </summary>
         public string SensorSetName
         {
             get { return _sensorSetName; }
@@ -27,7 +30,7 @@ namespace SDA_Core.Data
         /// <summary>
         /// ES: Inicializa los campos de la clase a sus valores por defecto que es un data set con unica columna: la columna 'Time'.
         /// </summary>
-        /// <param name="setName">ES: Nombre del SensorSet</param>
+        /// <param name="setName">ES: Nombre del SensorSet.</param>
         private void Initialize(string setName)
         {
             _data = new DataTable();
@@ -38,13 +41,13 @@ namespace SDA_Core.Data
         /// <summary>
         /// ES: Se crea por defecto la primera columna que será el tiempo: 'Time'.
         /// </summary>
-        /// <param name="setName">ES: Nombre del SensorSet</param>
+        /// <param name="setName">ES: Nombre del SensorSet.</param>
         public SensorSet(string setName) { Initialize(setName); }
 
         /// <summary>
         /// ES: Permite iniciar un SensorSet con varias columnas al iniciar, la primera columna sigue siendo 'Time'.
         /// </summary>
-        /// <param name="setName">ES: Nombre del SensorSet</param>
+        /// <param name="setName">ES: Nombre del SensorSet.</param>
         public SensorSet(string setName, params string[] list)
         {
             Initialize(setName);
@@ -66,14 +69,14 @@ namespace SDA_Core.Data
         /// ES: Edita el nombre de la columna a partir del nombre.
         /// </summary>
         /// <param name="columnName">ES: Nombre de la columna a editar.</param>
-        /// <param name="newName">ES: Nuevo nombre de la columna</param>
+        /// <param name="newName">ES: Nuevo nombre de la columna.</param>
         public void EditColumn(string columnName, string newName) { _data.Columns[columnName].ColumnName = newName; }
 
         /// <summary>
         /// ES: Edita el nombre de la columna a partir de la posicion en la tabla.
         /// </summary>
         /// <param name="columnPosition">ES: Número de la columna que se desea editar. </param>
-        /// <param name="newName">ES: Nuevo nombre de la columna</param>
+        /// <param name="newName">ES: Nuevo nombre de la columna.</param>
         public void EditColumn(int columnPosition, string newName) { _data.Columns[columnPosition].ColumnName = newName; }
 
         /// <summary>
