@@ -9,48 +9,17 @@ namespace SDA_Core.Data
     /// <summary>
     /// ES: Clase para guardar perfiles de usuario y sus configuraciones.
     /// </summary>
-    public class ProfileManager
+    public class ProfileManager : DataSerializer<Profile>
     {
         /// <summary>
         /// ES: Estructura para almacenar datos de un perfil.
         /// </summary>
-        [Serializable]
-        public class Profile
-        {
-            private string _name;
-            private string _information;
-            private SensorSet _sensors;
-
-            public string Name
-            {
-                get { return _name; }
-                set { _name = value; }
-            }
-
-            public string Information
-            {
-                get { return _information; }
-                set { _information = value; }
-            }
-
-            public SensorSet Sensors
-            {
-                get { return _sensors; }
-                set { _sensors = value; }
-            }
-
-            public Profile(string name = "New Profile", string information = "This is a new profile.")
-            {
-                _name = name;
-                _information = information;
-                _sensors = new SensorSet("New SensorSet");
-            }
-        }
+        
 
         // ES: Lista de todos los perfiles existentes.
         private List<Profile> _profiles;
         // ES: DataSerializer para persistencia de datos de los perfiles
-        private DataSerializer<Profile> _dataManagerProfiles;
+        //private DataSerializer<Profile> _dataManagerProfiles;
 
         /// <summary>
         /// ES: Devuelve todos los perfiles existentes en una lista.
@@ -61,23 +30,23 @@ namespace SDA_Core.Data
             get { return _profiles; }
             set
             {
-                _dataManagerProfiles.ClearBinary();
-                _dataManagerProfiles.SaveData(value);
+                ClearBinary();
+                SaveData(value);
                 _profiles = value;
             }
         }
 
         /// <summary>
-        /// ES: Constructor.
+        /// ES: Constructor de la clase ProfileManager.
         /// </summary>
         public ProfileManager()
         {
             try
             {
-                _dataManagerProfiles = new DataSerializer<Profile>();
-                _profiles = _dataManagerProfiles.RecoverData();
+                _profiles = RecoverData();
+                RuntimeLogs.SendLog("SE HA RECUPERADO LOS DATOS " + _profiles.Count().ToString(),   "-+-.ProfileManager()");
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).DeclaringMethod + ".ProfileManager()"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).Name + ".ProfileManager()"); }
         }
 
         /// <summary>
@@ -88,9 +57,9 @@ namespace SDA_Core.Data
         {
             try { 
                 _profiles.Add(profileData);
-                _dataManagerProfiles.SaveData(profileData);
+                SaveData(profileData);
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).DeclaringMethod + ".NewProfile(Profile)"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).Name + ".NewProfile(Profile)"); }
         }
 
         /// <summary>
@@ -102,9 +71,9 @@ namespace SDA_Core.Data
         {
             try
             {
-                _dataManagerProfiles.UpdateData(IdProfile, profileData);
+                UpdateData(IdProfile, profileData);
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).DeclaringMethod + ".UpdateProfile(int, Profile)"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).Name + ".UpdateProfile(int, Profile)"); }
         }
 
         /// <summary>
@@ -115,9 +84,9 @@ namespace SDA_Core.Data
         {
             try
             {
-                _dataManagerProfiles.DeleteRegister(IdProfile);
+                DeleteRegister(IdProfile);
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).DeclaringMethod + ".DeleteProfile(int)"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).Name + ".DeleteProfile(int)"); }
             
         }
     }

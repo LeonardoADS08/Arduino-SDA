@@ -40,7 +40,7 @@ namespace SDA_Core.Data
                 _fileDirection = AppDomain.CurrentDomain.BaseDirectory + typeof(T).Name + ".data";
                 _formatter = new BinaryFormatter();
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".DataSerializer()"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).Name + ".DataSerializer()"); }
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace SDA_Core.Data
                 _fileDirection = AppDomain.CurrentDomain.BaseDirectory + FileName;
                 _formatter = new BinaryFormatter();
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".DataSerializer(string)"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).Name + ".DataSerializer(string)"); }
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace SDA_Core.Data
             {
                 _formatter.Serialize(WriteStream(), data);
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".SaveData(T)"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).Name + ".SaveData(T)"); }
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace SDA_Core.Data
             {
                 for (int i = 0; i < data.Count; ++i) { SaveData(data[i]); }
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".SaveData(List<T>)"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).Name + ".SaveData(List<T>)"); }
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace SDA_Core.Data
                     list.Add(result);
                 }
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".RecoverAllData()"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).Name + ".RecoverAllData()"); }
             return list;
         }
 
@@ -115,7 +115,7 @@ namespace SDA_Core.Data
                 stream.Seek((IdRegister - 1) * typeSize, SeekOrigin.Begin);
                 return (T)_formatter.Deserialize(stream);
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".RecoverData(int)"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).Name + ".RecoverData(int)"); }
             return default(T);
         }
 
@@ -129,7 +129,7 @@ namespace SDA_Core.Data
             {
                 Stream stream = new FileStream(_fileDirection, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite);
             }
-            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).DeclaringMethod + ".ClearBinary()"); }
+            catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).Name + ".ClearBinary()"); }
         }
 
         /// <summary>
