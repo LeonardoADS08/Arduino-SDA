@@ -16,7 +16,7 @@ namespace SDA_Core.Communication
     public class Serial : Connection
     {
         private SerialPort _serialConnection;
-        private string _communicationHistory = "";
+        private string _communicationHistory;
         private Thread _thread;
 
         /// <summary>
@@ -37,6 +37,7 @@ namespace SDA_Core.Communication
         {
             _serialConnection = new SerialPort(portName, baudRate);
             _thread = new Thread(() => Hear(hearInterval));
+            _communicationHistory = "";
         }
 
         /// <summary>
