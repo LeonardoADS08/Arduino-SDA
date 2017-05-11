@@ -34,22 +34,6 @@ namespace Arduino_Sensor_Data_Analysis
             test.NewProfile(p);
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            if (encendido) ser.Write("b");
-            else ser.Write("a");
-            encendido = !encendido;
-            label_Copy.Content = actual.ToString();
-            if (actual != test.ProfileList.Count())
-            {
-                label.Content = test.ProfileList[actual].Name;
-                actual++;
-            }
-            else
-            {
-                actual = 0;
-                label.Content = test.ProfileList[actual].Name;
-            }
-        }
+       
     }
 }

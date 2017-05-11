@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Arduino_Sensor_Data_Analysis"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>

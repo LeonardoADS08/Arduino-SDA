@@ -5,6 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arduino_Sensor_Data_Analysis"
         mc:Ignorable="d"
-        Title="Arduino Sensor Data Analysis" Width="1024" Height="768" WindowStartupLocation="CenterScreen" Icon="Resources/Icono.ico" >
-    <Grid/>
+        Title="Arduino Sensor Data Analysis" Width="1024" Height="768" WindowStartupLocation="CenterScreen" Icon="Resources/Icono.ico" Background="#ecf0f1">
+    <Border Height="55" VerticalAlignment="Top"  Background="#62AEB2">
+        <DockPanel x:Name="Navegacion" Height="50" VerticalAlignment="Top" Background="#00878F">
+            <Button x:Name="B_Home"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="25,0,0,0" Content="Home" Width="150" Height="30"  Foreground="Black" BorderBrush="#FF8C7965" FontSize="16" FontWeight="Light" BorderThickness="1,1,1,0" Background="#FF62AEB2"/>
+
+        </DockPanel>
+    </Border>
+
 </Window>
