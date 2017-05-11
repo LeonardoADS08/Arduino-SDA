@@ -14,7 +14,7 @@ namespace SDA_Core.Data
         /// <summary>
         /// ES: Estructura para almacenar datos de un perfil.
         /// </summary>
-        
+
 
         // ES: Lista de todos los perfiles existentes.
         private List<Profile> _profiles;
@@ -65,7 +65,7 @@ namespace SDA_Core.Data
         /// <summary>
         /// ES: Actualiza un perfil ya guardado.
         /// </summary>
-        /// <param name="Id">ES: Identificador del perfil que se desea editar.</param>
+        /// <param name="IdProfile">ES: Identificador del perfil que se desea editar.</param>
         /// <param name="profileData">ES: Nuevos datos del perfil a editar.</param>
         public void UpdateProfile(int IdProfile, Profile profileData)
         {
@@ -79,7 +79,7 @@ namespace SDA_Core.Data
         /// <summary>
         /// ES: Elimina permanentemente un perfil.
         /// </summary>
-        /// <param name="Id">ES: Identificador del perfil que se desea eliminar.</param>
+        /// <param name="IdProfile">ES: Identificador del perfil que se desea eliminar.</param>
         public void DeleteProfile(int IdProfile)
         {
             try

@@ -56,7 +56,6 @@ namespace SDA_Core.Data
                 _data = new DataTable();
                 _data.Columns.Add(list[i], typeof(double));
             }
-            
         }
 
         /// <summary>
