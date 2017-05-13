@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communication\Bluetooth.cs" />
     <Compile Include="Communication\Connection.cs" />
     <Compile Include="Communication\Serial.cs" />
+    <Compile Include="Communication\USB.cs" />
     <Compile Include="Data\Profile.cs" />
     <Compile Include="Data\ProfileManager.cs" />
     <Compile Include="Data\DataSerializer.cs" />
@@ -65,6 +67,10 @@
     <Folder Include="Data\Processing\" />
     <Folder Include="Statistics\" />
     <Folder Include="SyntaxAnalysis\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
