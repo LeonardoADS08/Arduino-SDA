@@ -44,7 +44,6 @@ namespace SDA_Core.Data
             try
             {
                 _profiles = RecoverData();
-                RuntimeLogs.SendLog("SE HA RECUPERADO LOS DATOS " + _profiles.Count().ToString(),   "-+-.ProfileManager()");
             }
             catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).Name + ".ProfileManager()"); }
         }

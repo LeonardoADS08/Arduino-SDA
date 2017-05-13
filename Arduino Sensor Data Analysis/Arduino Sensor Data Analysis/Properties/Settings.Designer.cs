@@ -22,5 +22,17 @@ namespace SDA_Program.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SelectedProfile {
+            get {
+                return ((int)(this["SelectedProfile"]));
+            }
+            set {
+                this["SelectedProfile"] = value;
+            }
+        }
     }
 }

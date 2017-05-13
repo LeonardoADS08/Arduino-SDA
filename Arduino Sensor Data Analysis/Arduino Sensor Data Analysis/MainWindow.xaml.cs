@@ -29,9 +29,10 @@ namespace Arduino_Sensor_Data_Analysis
         public MainWindow()
         {
             InitializeComponent();
+            CB_Profiles.ItemsSource = test.ProfileList;
             ser.Open();
             ser.Write("a");
-            test.NewProfile(p);
+          //  test.NewProfile(p);
         }
 
         // 98, 174, 178
