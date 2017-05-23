@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SDA_Core.Data.Set&lt;T&gt;">
+    <Position X="7.5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAFIAAAYAAAAAAAAAAAACAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Data\Set.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SDA_Core.Data.SensorSet">
+    <Position X="7.5" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\SensorSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SDA_Core.Data.RuntimeLogs">
+    <Position X="11.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\RuntimeLogs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SDA_Core.Data.ProfileManager">
+    <Position X="11.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAABAAAECAAgAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Data\ProfileManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_dataManagerProfiles" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_profiles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="SDA_Core.Data.Profiles">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAMAIAAAAAAAAAAAAAAAQAAAAAABAAAAAAAIAAAAA=</HashCode>
+      <FileName>Data\Profile.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_sensors" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SDA_Core.Data.DataSerializer&lt;T&gt;">
+    <Position X="13.75" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ABEAAAAAEACAAAAAAABAAAQQAAAAAAAAAAAAAEAAASA=</HashCode>
+      <FileName>Data\DataSerializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SDA_Core.Communication.USB">
+    <Position X="2" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Communication\USB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SDA_Core.Communication.Serial">
+    <Position X="3.5" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACIAQAAAABAABgBAAAAAAAAAAAAAGCAAA=</HashCode>
+      <FileName>Communication\Serial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SDA_Core.Communication.Bluetooth">
+    <Position X="5.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Communication\Bluetooth.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SDA_Core.Communication.Connection">
+    <Position X="3.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAABgAAAAAAAAAAAAAAGAAAA=</HashCode>
+      <FileName>Communication\Connection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SDA_Core.Data.Processing.Processing">
+    <Position X="0.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Processing\Processing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SDA_Core.Data.Files.Files">
+    <Position X="8" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Files\Files.cs</FileName>
+      <NewMemberFileName>Data\FIles\Files.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SDA_Core.Communication.ConnectionManager">
+    <Position X="3.5" Y="10" Width="2" />
+    <AssociationLine Name="_bluetoothCommunication" Type="SDA_Core.Communication.Bluetooth" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.083" Y="10" />
+        <Point X="4.083" Y="9.497" />
+        <Point X="6.25" Y="9.497" />
+        <Point X="6.25" Y="8.983" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_usbCommunication" Type="SDA_Core.Communication.USB" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.833" Y="10" />
+        <Point X="3.833" Y="9.459" />
+        <Point X="2.75" Y="9.459" />
+        <Point X="2.75" Y="8.983" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_filesManager" Type="SDA_Core.Data.Files.Files" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.375" Y="10" />
+        <Point X="4.375" Y="9.742" />
+        <Point X="8.75" Y="9.742" />
+        <Point X="8.75" Y="8.618" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAACAAAAAAIAAAABgAAAAAAAAEAAE=</HashCode>
+      <FileName>Communication\ConnectionManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_bluetoothCommunication" />
+      <Field Name="_usbCommunication" />
+      <Field Name="_processer" />
+      <Field Name="_filesManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SDA_Core.Program.Program">
+    <Position X="8" Y="12" Width="1.5" />
+    <AssociationLine Name="_connectionmanager" Type="SDA_Core.Communication.ConnectionManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.5" Y="12" />
+        <Point X="8.5" Y="10.744" />
+        <Point X="5.5" Y="10.744" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_profileManager" Type="SDA_Core.Data.ProfileManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.938" Y="12" />
+        <Point X="8.938" Y="10.75" />
+        <Point X="11.5" Y="10.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.069" Y="0.06" Height="0.182" Width="1.24" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Program\Program.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_connectionmanager" />
+      <Field Name="_profileManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SDA_Core.Communication
 {
-    class USB : Serial
+    public class USB : Serial
     {
         public USB(string portName, int baudRate, int hearInterval = 100) : base(portName, baudRate, hearInterval)
         {

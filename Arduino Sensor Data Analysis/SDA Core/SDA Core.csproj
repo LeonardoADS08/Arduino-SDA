@@ -48,11 +48,16 @@
   <ItemGroup>
     <Compile Include="Communication\Bluetooth.cs" />
     <Compile Include="Communication\Connection.cs" />
+    <Compile Include="Communication\ConnectionManager.cs" />
     <Compile Include="Communication\Serial.cs" />
     <Compile Include="Communication\USB.cs" />
+    <Compile Include="Data\Files\Files.cs" />
+    <Compile Include="Data\Processing\Processing.cs" />
     <Compile Include="Data\Profile.cs" />
     <Compile Include="Data\ProfileManager.cs" />
     <Compile Include="Data\DataSerializer.cs" />
+    <Compile Include="Data\Set.cs" />
+    <Compile Include="Program\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\RuntimeLogs.cs" />
     <Compile Include="Data\SensorSet.cs" />
@@ -64,9 +69,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\Processing\" />
     <Folder Include="Statistics\" />
-    <Folder Include="SyntaxAnalysis\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Program.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

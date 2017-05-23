@@ -9,29 +9,24 @@ namespace SDA_Core.Data
     /// <summary>
     /// ES: Clase para guardar perfiles de usuario y sus configuraciones.
     /// </summary>
-    public class ProfileManager : DataSerializer<Profile>
+    public class ProfileManager
     {
-        /// <summary>
-        /// ES: Estructura para almacenar datos de un perfil.
-        /// </summary>
-
-
         // ES: Lista de todos los perfiles existentes.
-        private List<Profile> _profiles;
+        private List<Profiles> _profiles;
         // ES: DataSerializer para persistencia de datos de los perfiles
-        //private DataSerializer<Profile> _dataManagerProfiles;
+        private DataSerializer<Profiles> _dataManagerProfiles;
 
         /// <summary>
         /// ES: Devuelve todos los perfiles existentes en una lista.
         /// NOTA: Hacer set de 'ProfileList' es una operación relativamente costosa, requiere reescribir todos los datos existentes en el archivo binario.
         /// </summary>
-        public List<Profile> ProfileList
+        public List<Profiles> Profiles
         {
             get { return _profiles; }
             set
             {
-                ClearBinary();
-                SaveData(value);
+                _dataManagerProfiles.ClearBinary();
+                _dataManagerProfiles.SaveData(value);
                 _profiles = value;
             }
         }
@@ -43,7 +38,7 @@ namespace SDA_Core.Data
         {
             try
             {
-                _profiles = RecoverData();
+                _profiles = _dataManagerProfiles.RecoverData();
             }
             catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).Name + ".ProfileManager()"); }
         }
@@ -52,11 +47,11 @@ namespace SDA_Core.Data
         /// ES: Guarda un nuevo perfil.
         /// </summary>
         /// <param name="profileData">ES: Datos del nuevo perfil a añadir.</param>
-        public void NewProfile(Profile profileData)
+        public void NewProfile(Profiles profileData)
         {
             try { 
                 _profiles.Add(profileData);
-                SaveData(profileData);
+                _dataManagerProfiles.SaveData(profileData);
             }
             catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).Name + ".NewProfile(Profile)"); }
         }
@@ -66,11 +61,11 @@ namespace SDA_Core.Data
         /// </summary>
         /// <param name="IdProfile">ES: Identificador del perfil que se desea editar.</param>
         /// <param name="profileData">ES: Nuevos datos del perfil a editar.</param>
-        public void UpdateProfile(int IdProfile, Profile profileData)
+        public void UpdateProfile(int IdProfile, Profiles profileData)
         {
             try
             {
-                UpdateData(IdProfile, profileData);
+                _dataManagerProfiles.UpdateData(IdProfile, profileData);
             }
             catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).Name + ".UpdateProfile(int, Profile)"); }
         }
@@ -83,7 +78,7 @@ namespace SDA_Core.Data
         {
             try
             {
-                DeleteRegister(IdProfile);
+                _dataManagerProfiles.DeleteRegister(IdProfile);
             }
             catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(ProfileManager).Name + ".DeleteProfile(int)"); }
             
