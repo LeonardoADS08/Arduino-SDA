@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SDA_Core.Data.Files
+namespace SDA_Core.Analysis
 {
-    class Files
+    abstract class Analysis
     {
     }
 }

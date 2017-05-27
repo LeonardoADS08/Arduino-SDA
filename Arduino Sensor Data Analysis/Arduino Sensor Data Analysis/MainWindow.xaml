@@ -21,6 +21,8 @@
             </Grid>
         </DockPanel>
         <Frame x:Name="frame" Content=""  Margin="0,105,0,0" Background="#ecf0f1"/>
+        <DataGrid x:Name="dg1" HorizontalAlignment="Left" Height="142" Margin="65,142,0,-179" VerticalAlignment="Top" Width="295"/>
+        <DataGrid x:Name="dg2" HorizontalAlignment="Left" Height="142" Margin="404,142,0,-179" VerticalAlignment="Top" Width="295"/>
     </Grid>
 
 

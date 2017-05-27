@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace SDA_Core.Program
 {
-    class Program
+    public class Program
     {
-        private Data.ProfileManager _profileManager;
-        private Communication.ConnectionManager _connectionmanager;
+        private Communication.ConnectionManager _connectionManager;
+        private Data.SensorDataArray _data;
+        private Analysis.Statistics _statistics;
+
+        public Program()
+        {
+
+        }
     }
 }

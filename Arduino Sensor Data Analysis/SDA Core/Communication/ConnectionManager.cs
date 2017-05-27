@@ -9,12 +9,9 @@ using System.Windows.Controls;
 
 namespace SDA_Core.Communication
 {
-    class ConnectionManager
+    public class ConnectionManager : Data.Processing
     {
-        private USB _usbCommunication;
-        private Bluetooth _bluetoothCommunication;
-        private Data.Files.Files _filesManager;
-        private Data.Processing.Processing _processer;
+        //private Data.Processing _processer;
 
         /// <summary>
         /// ES: Comienza una conexión a través de USB en serial con los datos proporcionados.
@@ -24,7 +21,7 @@ namespace SDA_Core.Communication
         /// <param name="hearInterval">ES: Intervalo de tiempo (ms.) al que se debe escuchar el Serial del arduino.</param>
         public void StartUsbConnection(string portName, int baudRate, int hearInterval = 100)
         {
-            _usbCommunication = new Communication.USB(portName, baudRate, hearInterval);
+            //_usbCommunication = new Communication.USB(portName, baudRate, hearInterval);
 
         }
 
@@ -36,22 +33,8 @@ namespace SDA_Core.Communication
         /// <param name="hearInterval">ES: Intervalo de tiempo (ms.) al que se debe escuchar el Serial del arduino.</param>
         public void StartBluetoothConnection(string portName, int baudRate, int hearInterval = 100)
         {
-            _bluetoothCommunication = new Communication.Bluetooth(portName, baudRate, hearInterval);
+           // _bluetoothCommunication = new Communication.Bluetooth(portName, baudRate, hearInterval);
 
-        }
-
-
-        /// <summary>
-        /// ES: Permite subir un archivo con los datos pre-procesados.
-        /// </summary>
-        public void UploadFile()
-        {
-            OpenFileDialog browser = new OpenFileDialog();
-            browser.Filter = "SDA Data (*.sda)|*.sda";
-            if (browser.ShowDialog() == DialogResult.OK)
-            {
-
-            }
         }
     }
 }

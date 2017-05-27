@@ -13,13 +13,14 @@ namespace SDA_Core.Data
     [Serializable]
     public class SensorSet : Set<double>
     {
+        private Processing _processing;
+
         /// <summary>
-        /// ES: Nombre del conjunto de sensores.
+        /// ES: Se crea por defecto la primera columna que será el tiempo: 'Time'.
         /// </summary>
-        public string SensorSetName
+        public SensorSet()
         {
-            get { return SetName; }
-            set { SetName = value; }
+            NewColumn("Time");
         }
 
         /// <summary>
@@ -35,8 +36,10 @@ namespace SDA_Core.Data
         /// ES: Permite iniciar un SensorSet con varias columnas al iniciar, la primera columna sigue siendo 'Time'.
         /// </summary>
         /// <param name="setName">ES: Nombre del SensorSet.</param>
+        /// <param name="list">ES: Una lista con todos los nombre de las columnas que se desea que tenga el SensorSet.</param>
         public SensorSet(string setName, params string[] list)
         {
+            NewColumn("Time");
             for (int i = 0; i < list.Length; ++i)
                 NewColumn(list[i]);
         }

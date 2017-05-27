@@ -28,6 +28,15 @@ namespace SDA_Core.Data
         }
 
         /// <summary>
+        /// ES: Devuelve el objeto en un tipo DataTable.
+        /// </summary>
+        public DataTable Data
+        {
+            get { return _data; }
+            set { _data = value; }
+        }
+
+        /// <summary>
         /// ES: Inicializa los campos de la clase a sus valores por defecto que es un data set con unica columna: la columna 'Time'.
         /// </summary>
         /// <param name="setName">ES: Nombre del set.</param>
@@ -85,5 +94,15 @@ namespace SDA_Core.Data
         /// </summary>
         /// <param name="rowIndex"> ES: El número de la fila que se desea. </param>
         public DataRow GetData(int rowIndex) { return _data.Rows[rowIndex]; }
+
+        /// <summary>
+        /// ES: Limpia los datos del set.
+        /// </summary>
+        public void Clear() { _data.Clear(); }
+
+        /// <summary>
+        /// ES: Limpia los datos del set.
+        /// </summary>
+        public DataRow NewRow() { return _data.NewRow(); }
     }
 }

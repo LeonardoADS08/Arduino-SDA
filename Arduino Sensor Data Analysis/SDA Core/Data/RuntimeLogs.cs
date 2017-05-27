@@ -15,7 +15,7 @@ namespace SDA_Core.Data
     ///     para que sea posteriormente analizado y sea más fácil encontrar errores.
     ///     Este proceso se ejecuta en otro hilo.
     /// </summary>
-    public static class RuntimeLogs
+    static class RuntimeLogs
     {
 
         private static void WriteLine(string message, string direction, bool enumerate = true)

@@ -51,16 +51,21 @@
     <Compile Include="Communication\ConnectionManager.cs" />
     <Compile Include="Communication\Serial.cs" />
     <Compile Include="Communication\USB.cs" />
-    <Compile Include="Data\Files\Files.cs" />
-    <Compile Include="Data\Processing\Processing.cs" />
-    <Compile Include="Data\Profile.cs" />
-    <Compile Include="Data\ProfileManager.cs" />
-    <Compile Include="Data\DataSerializer.cs" />
-    <Compile Include="Data\Set.cs" />
+    <Compile Include="Analysis\Analysis.cs" />
+    <Compile Include="Data\GenericArray.cs" />
+    <Compile Include="Data\Program.cs" />
+    <Compile Include="Data\SensorData.cs" />
+    <Compile Include="Data\SensorDataArray.cs" />
+    <Compile Include="Data\Processing.cs" />
+    <Compile Include="Analysis\Statistics.cs" />
+    <Compile Include="NotImplemented\Profile.cs" />
+    <Compile Include="NotImplemented\ProfileManager.cs" />
+    <Compile Include="NotImplemented\DataSerializer.cs" />
+    <Compile Include="NotImplemented\Set.cs" />
     <Compile Include="Program\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\RuntimeLogs.cs" />
-    <Compile Include="Data\SensorSet.cs" />
+    <Compile Include="NotImplemented\SensorSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icono.ico" />
@@ -68,9 +73,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Statistics\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Program.cd" />
   </ItemGroup>

@@ -14,7 +14,7 @@ namespace SDA_Core.Data
     /// ES: Clase generica encargada de almacenar y leer archivos binarios de tipo <T>. 
     ///     NOTA: La clase pasada para instanciar este objeto debe ser Serializable.
     /// </summary>
-    public class DataSerializer<T>
+    class DataSerializer<T>
     {
         // ES: _fileName  = Nombre del archivo donde se guardara o se deberá leer los datos serializados  
         private string _fileDirection;

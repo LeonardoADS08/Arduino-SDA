@@ -13,18 +13,19 @@ namespace SDA_Core.Communication
     /// <summary>
     /// ES: Clase para la comunicación serial con un arduino, la clase utiliza un hilo independiente especialmente para escuchar los datos que envia el arduino.
     /// </summary>
-    public class Serial : Connection
+    class Serial : Connection
     {
         private SerialPort _serialConnection;
-        private string _communicationHistory;
+        private List<string> _messagesHistory;
         private Thread _thread;
 
         /// <summary>
-        /// ES: Es la variable que contiene toda la comunicación que se ha hecho con el arduino, esta variable se actualiza cada vez que se encuentra un nuevo mensaje.
+        /// ES: Es la lista que contiene todos los mensajes recibidos durante la comunicación que se ha hecho con el arduino, esta lista se actualiza cada vez que se encuentra un nuevo mensaje.
         /// </summary>
-        public string CommunicationHistory
+        public List<string> MessagesHistory
         {
-            get { return _communicationHistory; }
+            get { return _messagesHistory; }
+            set { _messagesHistory = value; }
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace SDA_Core.Communication
         {
             _serialConnection = new SerialPort(portName, baudRate);
             _thread = new Thread(() => Hear(hearInterval));
-            _communicationHistory = "";
+            _messagesHistory = new List<string>();
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace SDA_Core.Communication
             while (Available())
             {
                 data = Read();
-                if (data != "") _communicationHistory += data + "\n";
+                if (data != "") _messagesHistory.Add(data);
                 await Task.Delay(timeInterval);
             }
             // ES: Si por alguna razón deja de escuchar, se termina la conexión.

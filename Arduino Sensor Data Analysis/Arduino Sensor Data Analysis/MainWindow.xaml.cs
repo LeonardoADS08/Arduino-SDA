@@ -20,19 +20,9 @@ namespace Arduino_Sensor_Data_Analysis
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        bool encendido = true;
-        int actual = 0;
-        SDA_Core.Communication.Serial ser = new SDA_Core.Communication.Serial("COM4", 9600);
-        SDA_Core.Data.ProfileManager test = new SDA_Core.Data.ProfileManager();
-        SDA_Core.Data.Profiles p = new SDA_Core.Data.Profiles("Sensor de temperatura.", "Temperatura de ambiente.");
         public MainWindow()
         {
             InitializeComponent();
-            CB_Profiles.ItemsSource = test.Profiles;
-            ser.Open();
-            ser.Write("a");
-          //  test.NewProfile(p);
         }
 
         // 98, 174, 178
