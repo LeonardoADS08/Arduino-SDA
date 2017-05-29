@@ -8,13 +8,14 @@ namespace SDA_Core.Program
 {
     public class Program
     {
-        private Communication.ConnectionManager _connectionManager;
         private Data.SensorDataArray _data;
         private Analysis.Statistics _statistics;
+        private Communication.USB _usbConnection;
+        private Communication.Bluetooth _bluetoothConnection;
 
         public Program()
         {
-
+            
         }
     }
 }

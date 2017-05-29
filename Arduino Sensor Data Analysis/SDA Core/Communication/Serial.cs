@@ -7,22 +7,30 @@ using System.Threading.Tasks;
 using System.IO.Ports;
 using System.Windows.Forms;
 using System.Windows.Controls;
+using SDA_Core.Data;
 
 namespace SDA_Core.Communication
 {
     /// <summary>
     /// ES: Clase para la comunicación serial con un arduino, la clase utiliza un hilo independiente especialmente para escuchar los datos que envia el arduino.
     /// </summary>
-    class Serial : Connection
+    public class Serial : Connection
     {
         private SerialPort _serialConnection;
-        private List<string> _messagesHistory;
+        private SensorDataArray _messagesHistory;
         private Thread _thread;
+        private Processing _processer;
+
+        protected SerialPort SerialConnection
+        {
+            get { return _serialConnection; }
+            set { _serialConnection = value; }
+        }
 
         /// <summary>
         /// ES: Es la lista que contiene todos los mensajes recibidos durante la comunicación que se ha hecho con el arduino, esta lista se actualiza cada vez que se encuentra un nuevo mensaje.
         /// </summary>
-        public List<string> MessagesHistory
+        public SensorDataArray MessagesHistory
         {
             get { return _messagesHistory; }
             set { _messagesHistory = value; }
@@ -31,6 +39,17 @@ namespace SDA_Core.Communication
         /// <summary>
         /// ES: Constructor de la clase Serial.
         /// </summary>
+        public Serial()
+        {
+            _serialConnection = new SerialPort();
+            _thread = new Thread(() => Hear(100));
+            _messagesHistory = new SensorDataArray();
+            _processer = new Processing();
+        }
+
+        /// <summary>
+        /// ES: Constructor de la clase Serial, preparada para una conexión.
+        /// </summary>
         /// <param name="portName">ES: Nombre del puerto al que está conectado el arduino.</param>
         /// <param name="baudRate">ES: Ratio de baudios (Baud Rate).</param>
         /// <param name="hearInterval">ES: Intervalo de tiempo (ms.) al que se debe escuchar el Serial del arduino.</param>
@@ -38,20 +57,31 @@ namespace SDA_Core.Communication
         {
             _serialConnection = new SerialPort(portName, baudRate);
             _thread = new Thread(() => Hear(hearInterval));
-            _messagesHistory = new List<string>();
+            _messagesHistory = new SensorDataArray();
+            _processer = new Processing();
         }
 
         /// <summary>
-        /// ES: Escucha lo que el arduino está enviando.
+        /// ES: Escucha lo que el arduino está enviando, este método es asíncrono y se ejecutará hasta que se indique o hasta que falle la conexión.
         /// </summary>
         /// <param name="timeInterval">ES: Intervalo de tiempo (ms.) al que se debe escuchar el Serial del arduino.</param>
         private async void Hear(int timeInterval = 100)
         {
             string data;
+            bool firstData = true;
             while (Available())
             {
                 data = Read();
-                if (data != "") _messagesHistory.Add(data);
+                if (data != "")
+                {
+                    // Se rechaza el primer dato recibido.
+                    if (firstData)
+                    {
+                        firstData = false;
+                        continue;
+                    }
+                    _processer.Process(data, ref _messagesHistory);
+                }
                 await Task.Delay(timeInterval);
             }
             // ES: Si por alguna razón deja de escuchar, se termina la conexión.
@@ -132,6 +162,17 @@ namespace SDA_Core.Communication
                 }
             }
             catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(Serial).FullName + ".Close()"); }
+        }
+
+        /// <summary>
+        /// ES: Enlista todos los puertos disponibles.
+        /// </summary>
+        /// <returns>ES: GenericArray<string> Con todos los puertos disponibles para una comunicación Serial. </returns>
+        public Data.GenericArray<string> SerialPorts()
+        {
+            Data.GenericArray<string> res = new Data.GenericArray<string>();
+            res.FromDefaultArray( SerialPort.GetPortNames() );
+            return res;
         }
 
     }

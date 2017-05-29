@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SDA_Core.Data
 {
-    class GenericArray<T>
+    public class GenericArray<T>
     {
         private int _size;
-        private T[] _data = new T[50];
+        private T[] _data = new T[5000];
         
         /// <summary>
         /// ES: Tamaño del arreglo.
@@ -58,6 +58,26 @@ namespace SDA_Core.Data
                 _data[i] = _data[i + 1];
             }
             _size--;
+        }
+
+        /// <summary>
+        /// ES: Elimina todos los datos del arreglo.
+        /// </summary>
+        public void Clear()
+        {
+            _size = 0;
+        }
+
+        /// <summary>
+        /// ES: Llena los datos a partir de un array génerico.
+        /// </summary>
+        /// <param name="array">ES: Array contenedora de datos.</param>
+        public void FromDefaultArray(T[] array)
+        {
+            for (int i = 0; i < array.Length; ++i)
+            {
+                Add(array[i]);
+            }
         }
 
     }

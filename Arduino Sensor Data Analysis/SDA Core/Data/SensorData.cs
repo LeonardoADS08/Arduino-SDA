@@ -6,13 +6,24 @@ using System.Threading.Tasks;
 
 namespace SDA_Core.Data
 {
-    class SensorData
+    public class SensorData
     {
-        private List<double> _data;
+        private GenericArray<double> _values;
 
         public SensorData()
         {
-            _data = new List<double>();
+            _values = new GenericArray<double>();
         }
+
+        public double Values(int pos)
+        {
+            return _values.Data[pos];
+        }
+
+        public void Values(int pos, double val)
+        {
+            _values.Data[pos] = val;
+        }
+
     }
 }
