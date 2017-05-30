@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SDA_Core.Analysis
 {
-    abstract class Analysis
+    public abstract class Analysis
     {
     }
 }

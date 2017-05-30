@@ -9,6 +9,7 @@ namespace SDA_Core.Data
     public class SensorDataArray
     {
         private GenericArray<string> _columns;
+        private GenericArray<string> _measures;
         private GenericArray<SensorData> _rows;
 
         /// <summary>
@@ -17,16 +18,19 @@ namespace SDA_Core.Data
         public SensorDataArray()
         {
             _columns = new GenericArray<string>();
+            _measures = new GenericArray<string>();
             _rows = new GenericArray<SensorData>();
         }
 
         /// <summary>
-        /// ES: Constructor de la clase SensorDataArray, iniciando la cantidad y nombre de las columnas.
+        /// ES: Constructor de la clase SensorDataArray, iniciando la cantidad y nombre de las columnas y sus medidas.
         /// </summary>
-        /// <param name="columns"></param>
-        public SensorDataArray(GenericArray<string> columns)
+        /// <param name="columns">ES: Lista de columnas.</param>
+        /// <param name="measures">ES: Lista de medidas.</param>
+        public SensorDataArray(GenericArray<string> columns, GenericArray<string> measures)
         {
             _columns = columns;
+            _measures = measures;
             _rows = new GenericArray<SensorData>();
         }
 
@@ -43,7 +47,7 @@ namespace SDA_Core.Data
         /// ES: Registra una nueva columna.
         /// </summary>
         /// <param name="column">ES: Nombre de la columna.</param>
-        public void NewColumn(string column)
+        public void NewColumn(string column, string measure)
         {
             _columns.Add(column);
         }
@@ -65,6 +69,25 @@ namespace SDA_Core.Data
         public GenericArray<string> Columns()
         {
             return _columns;
+        }
+
+        /// <summary>
+        /// ES: Devuelve la medida que se registro para una columna.
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        public string Measure(int pos)
+        {
+            return _measures.Data[pos];
+        }
+
+        /// <summary>
+        /// ES: Devuelve todas las mediciones en un GenericArray<string>.
+        /// </summary>
+        /// <returns>ES: Columnas.</returns>
+        public GenericArray<string> Measures(int pos)
+        {
+            return _measures;
         }
 
         /// <summary>

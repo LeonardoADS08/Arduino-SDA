@@ -92,6 +92,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interface\Home.cs" />
+    <Compile Include="Interface\MainWindow.cs" />
     <Compile Include="View\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>

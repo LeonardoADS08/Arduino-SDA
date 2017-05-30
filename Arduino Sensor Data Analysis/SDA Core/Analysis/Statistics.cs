@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SDA_Core.Analysis
 {
-    class Statistics : Analysis
+    public class Statistics : Analysis
     {
 
     }

@@ -18,15 +18,11 @@ namespace SDA_Core.Data
     /// </summary>
     public class Processing
     {
-        private GenericArray<string> _processedData;
 
         /// <summary>
         /// ES: Constructor de la clase Processing.
         /// </summary>
-        public Processing()
-        {
-            _processedData = new GenericArray<string>();
-        }
+        public Processing() { }
 
         /// <summary>
         /// ES: Procesa datos recogidos por Arduino SDA.
@@ -38,7 +34,10 @@ namespace SDA_Core.Data
         {
             if (clearTable) resultTable.Clear();
             if (resultTable.RowCount() == 5000) resultTable.Clear();
-           // Debug.WriteLine(rawData);
+
+            // Se verifica que el mensaje sea para SDA.
+            if (rawData.StartsWith("SDA: ")) rawData = rawData.Remove(0, 5);
+            else return;
 
             // Se separan los datos
             string[] rawColumnsData = rawData.Split(' ');

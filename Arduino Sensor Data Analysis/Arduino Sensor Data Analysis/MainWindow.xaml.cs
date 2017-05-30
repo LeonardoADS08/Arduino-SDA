@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Arduino_Sensor_Data_Analysis
 {
@@ -23,71 +22,31 @@ namespace Arduino_Sensor_Data_Analysis
     /// </summary>
     public partial class MainWindow : Window
     {
-        SDA_Core.Data.SensorDataArray sda;
-        DataTable procesado;
-        SDA_Core.Communication.USB usb;
-        SDA_Core.Data.Processing pro;
+        SDA_Program.Interface.MainWindow IO;
+
         public MainWindow()
         {
             InitializeComponent();
-            FrameWindow.Content = new SDA_Program.View.Home();
 
-            procesado = new DataTable();
-            procesado.Columns.Add("Tiempo", typeof(double));
-            procesado.Columns.Add("Datos", typeof(double));
+            IO = new SDA_Program.Interface.MainWindow();
 
-            sda = new SDA_Core.Data.SensorDataArray();
-            pro = new SDA_Core.Data.Processing();
-            usb = new SDA_Core.Communication.USB("COM4", 9600);
-
-
-           // dg1.DataContext = procesado;
-
-            usb.Open();
-            mostrar();
+            IO.HomeClicked(B_Home, B_Profiles, B_Communication, FrameWindow);
         }
 
-        private async void mostrar()
-        {
-            int lastProcesadoRow = 0;
-            while (usb.Available())
-            {
-                //label.Content = lastProcesadoRow.ToString();
-                for (int i = lastProcesadoRow; i < usb.MessagesHistory.RowCount(); ++i)
-                {
-                    DataRow temp = procesado.NewRow();
-                    temp[0] = usb.MessagesHistory.Row(i).Values(0);
-                    temp[1] = usb.MessagesHistory.Row(i).Values(1);
-                  //  label.Content = temp[0].ToString() + " - " + temp[1].ToString();
-                    procesado.Rows.Add(temp);
-                    lastProcesadoRow = i + 1;
-                }
-               // dg1.DataContext = procesado;
-                await Task.Delay(100);
-            }
-        }
-
-        // 98, 174, 178
-        // 100, 151, 153
         private void B_Home_Click(object sender, RoutedEventArgs e)
         {
-            B_Home.Background = new SolidColorBrush(Color.FromRgb(98, 174, 178));
-            B_Profiles.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
-            B_Communication.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
+            IO.HomeClicked(B_Home, B_Profiles, B_Communication, FrameWindow);
         }
 
         private void B_Profiles_Click(object sender, RoutedEventArgs e)
         {
-            B_Home.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
-            B_Profiles.Background = new SolidColorBrush(Color.FromRgb(98, 174, 178));
-            B_Communication.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
+
+            IO.ProfilesClicked(B_Home, B_Profiles, B_Communication, FrameWindow);
         }
 
         private void B_Communication_Click(object sender, RoutedEventArgs e)
         {
-            B_Home.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
-            B_Profiles.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
-            B_Communication.Background = new SolidColorBrush(Color.FromRgb(98, 174, 178));
+            IO.CommunicationClicked(B_Home, B_Profiles, B_Communication, FrameWindow);
         }
 
        
