@@ -33,7 +33,7 @@ namespace SDA_Core.Data
         public void Process(string rawData, ref SensorDataArray resultTable, bool clearTable = false)
         {
             if (clearTable) resultTable.Clear();
-            if (resultTable.RowCount() == 5000) resultTable.Clear();
+            if (resultTable.RowCount()+1 == 1000000) resultTable.Clear();
 
             // Se verifica que el mensaje sea para SDA.
             if (rawData.StartsWith("SDA: ")) rawData = rawData.Remove(0, 5);
@@ -46,8 +46,16 @@ namespace SDA_Core.Data
             // Se convierten los datos a double
             for (int i = 0; i < rawColumnsData.Length; ++i)
             {
-                double aux = Convert.ToDouble(rawColumnsData[i]);
-                data.Values(i, aux);
+                try
+                {
+                    double aux = Convert.ToDouble(rawColumnsData[i]);
+                    data.Values(i, aux);
+                }
+                catch
+                {
+                    RuntimeLogs.SendLog("Imposible convertir: " + rawColumnsData[i], "Processing.Process(string, ref SensorDataArray, bool = false)");
+                }
+                
             }
 
             resultTable.NewRow(data);

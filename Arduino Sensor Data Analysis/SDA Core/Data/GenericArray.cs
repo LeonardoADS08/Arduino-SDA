@@ -9,7 +9,7 @@ namespace SDA_Core.Data
     public class GenericArray<T>
     {
         private int _size;
-        private T[] _data = new T[5000];
+        private T[] _data = new T[1000000];
         
         /// <summary>
         /// ES: Tamaño del arreglo.

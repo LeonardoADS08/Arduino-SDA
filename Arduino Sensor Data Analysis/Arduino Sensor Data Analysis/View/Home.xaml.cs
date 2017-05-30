@@ -58,6 +58,11 @@ namespace SDA_Program.View
             IO.StartConnection(CB_Ports, TB_BaudRate, CB_ConnectionMode, DG_ColumnList, DG_Monitor, G_Serial, B_Connect);
         }
 
+        private void DG_Monitor_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            label.Content = DG_Monitor.Items.Count.ToString();
+        }
+
         private void B_Cancel_Click(object sender, RoutedEventArgs e)
         {
             IO.CloseConnections(G_Serial, B_Connect);
