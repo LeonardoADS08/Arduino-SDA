@@ -1,0 +1,15 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SDA_Program.View"
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="SDA_Program.View.Statistics"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="Statistics" Background="#ECF0F1">
+
+    <Grid>
+        <telerik:RadCartesianChart x:Name="t1" HorizontalAlignment="Left" Height="389" Margin="160,180,0,0" VerticalAlignment="Top" Width="545"/>
+    </Grid>
+</Page>

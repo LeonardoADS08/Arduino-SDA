@@ -13,7 +13,6 @@ namespace SDA_Core
         static private Analysis.Statistics _statistics;
         static private Communication.USB _usbConnection;
         static private Communication.Bluetooth _bluetoothConnection;
-        
 
         public static Statistics Statistics
         {

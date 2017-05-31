@@ -60,7 +60,7 @@ namespace SDA_Program.View
 
         private void DG_Monitor_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            label.Content = DG_Monitor.Items.Count.ToString();
+            //label.Content = DG_Monitor.Items.Count.ToString();
         }
 
         private void B_Cancel_Click(object sender, RoutedEventArgs e)

@@ -30,23 +30,18 @@ namespace Arduino_Sensor_Data_Analysis
 
             IO = new SDA_Program.Interface.MainWindow();
 
-            IO.HomeClicked(B_Home, B_Profiles, B_Communication, FrameWindow);
+            IO.HomeClicked(B_Home, B_Statistics, FrameWindow);
         }
 
         private void B_Home_Click(object sender, RoutedEventArgs e)
         {
-            IO.HomeClicked(B_Home, B_Profiles, B_Communication, FrameWindow);
+            IO.HomeClicked(B_Home, B_Statistics, FrameWindow);
         }
 
         private void B_Profiles_Click(object sender, RoutedEventArgs e)
         {
 
-            IO.ProfilesClicked(B_Home, B_Profiles, B_Communication, FrameWindow);
-        }
-
-        private void B_Communication_Click(object sender, RoutedEventArgs e)
-        {
-            IO.CommunicationClicked(B_Home, B_Profiles, B_Communication, FrameWindow);
+            IO.StatisticsClicked(B_Home, B_Statistics, FrameWindow);
         }
 
        

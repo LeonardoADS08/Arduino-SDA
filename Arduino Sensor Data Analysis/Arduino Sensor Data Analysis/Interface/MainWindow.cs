@@ -19,31 +19,29 @@ namespace SDA_Program.Interface
 {
     class MainWindow
     {
-        private SDA_Program.View.Home HomeWindow = new SDA_Program.View.Home();
+        private SDA_Program.View.Home HomeWindow;
+        private SDA_Program.View.Statistics StatisticsWindow;
+
+        public MainWindow()
+        {
+            HomeWindow = new View.Home();
+            StatisticsWindow = new View.Statistics();
+        }
 
         // Color seleccionado   : 98, 174, 178
         // Color deseleccionado : 100, 151, 153
-        public void HomeClicked(Button B_Home, Button B_Profiles, Button B_Communication, Frame F_Page)
+        public void HomeClicked(Button B_Home, Button B_Statistics, Frame F_Page)
         {
             B_Home.Background = new SolidColorBrush(Color.FromRgb(98, 174, 178));
-            B_Profiles.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
-            B_Communication.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
+            B_Statistics.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
             F_Page.Content = HomeWindow;
         }
 
-        public void ProfilesClicked(Button B_Home, Button B_Profiles, Button B_Communication, Frame F_Frame)
-        {
-
-            B_Home.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
-            B_Profiles.Background = new SolidColorBrush(Color.FromRgb(98, 174, 178));
-            B_Communication.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
-        }
-
-        public void CommunicationClicked(Button B_Home, Button B_Profiles, Button B_Communication, Frame F_Frame)
+        public void StatisticsClicked(Button B_Home, Button B_Statistics, Frame F_Page)
         {
             B_Home.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
-            B_Profiles.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
-            B_Communication.Background = new SolidColorBrush(Color.FromRgb(98, 174, 178));
+            B_Statistics.Background = new SolidColorBrush(Color.FromRgb(98, 174, 178));
+            F_Page.Content = StatisticsWindow;
         }
     }
 }

@@ -33,7 +33,6 @@
         </GroupBox>
         <Button x:Name="B_Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="195,553,0,0" VerticalAlignment="Top" Width="122" FontWeight="Bold" Click="B_Cancel_Click" RenderTransformOrigin="0.59,1.35"/>
         <Button x:Name="B_Connect" Content="Connect" HorizontalAlignment="Left" Margin="67,553,0,0" VerticalAlignment="Top" Width="120" FontWeight="Bold" Click="B_Connect_Click"/>
-        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="34,591,0,0" VerticalAlignment="Top"/>
 
 
 
