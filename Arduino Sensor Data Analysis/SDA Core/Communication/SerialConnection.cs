@@ -14,37 +14,19 @@ namespace SDA_Core.Communication
     /// <summary>
     /// ES: Clase para la comunicación serial con un arduino, la clase utiliza un hilo independiente especialmente para escuchar los datos que envia el arduino.
     /// </summary>
-    public class Serial : Connection
+    public class SerialConnection : Connection
     {
+        private SerialConfiguration _serialConfiguration;
         private SerialPort _serialConnection;
-        private SensorDataArray _messagesHistory;
-        private Thread _thread;
-        private Processing _processer;
-
-        protected SerialPort SerialConnection
-        {
-            get { return _serialConnection; }
-            set { _serialConnection = value; }
-        }
-
-        /// <summary>
-        /// ES: Es la lista que contiene todos los mensajes recibidos durante la comunicación que se ha hecho con el arduino, esta lista se actualiza cada vez que se encuentra un nuevo mensaje.
-        /// </summary>
-        public SensorDataArray MessagesHistory
-        {
-            get { return _messagesHistory; }
-            set { _messagesHistory = value; }
-        }
 
         /// <summary>
         /// ES: Constructor de la clase Serial.
         /// </summary>
-        public Serial()
+        public SerialConnection()
         {
+            _serialConfiguration = new SerialConfiguration();
             _serialConnection = new SerialPort();
-            _thread = new Thread(() => Hear(100));
-            _messagesHistory = new SensorDataArray();
-            _processer = new Processing();
+
         }
 
         /// <summary>
@@ -53,12 +35,9 @@ namespace SDA_Core.Communication
         /// <param name="portName">ES: Nombre del puerto al que está conectado el arduino.</param>
         /// <param name="baudRate">ES: Ratio de baudios (Baud Rate).</param>
         /// <param name="hearInterval">ES: Intervalo de tiempo (ms.) al que se debe escuchar el Serial del arduino.</param>
-        public Serial(string portName, int baudRate, int hearInterval = 100)
+        public SerialConnection(SerialConfiguration configurations)
         {
-            _serialConnection = new SerialPort(portName, baudRate);
-            _thread = new Thread(() => Hear(hearInterval));
-            _messagesHistory = new SensorDataArray();
-            _processer = new Processing();
+            _serialConnection = new SerialPort(configurations.Port, configurations.BaudRate);
         }
 
         /// <summary>
@@ -80,12 +59,12 @@ namespace SDA_Core.Communication
                         firstData = false;
                         continue;
                     }
-                    _processer.Process(data, ref _messagesHistory);
+               //     _processer.Process(data, ref _messagesHistory);
                 }
                 await Task.Delay(timeInterval);
             }
             // ES: Si por alguna razón deja de escuchar, se termina la conexión.
-            _thread.Abort();
+            //_thread.Abort();
         }
 
         /// <summary>
@@ -99,7 +78,7 @@ namespace SDA_Core.Communication
                 if (!_serialConnection.IsOpen) _serialConnection.Open();
                 return _serialConnection.ReadLine();
             }
-            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(Serial).FullName + ".Write()"); }
+            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnection).FullName + ".Write()"); }
             return "";
         }
 
@@ -114,7 +93,7 @@ namespace SDA_Core.Communication
                 if (!_serialConnection.IsOpen) _serialConnection.Open();
                 _serialConnection.Write(message);
             }
-            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(Serial).FullName + ".Write()"); }
+            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnection).FullName + ".Write()"); }
         }
 
         
@@ -128,7 +107,7 @@ namespace SDA_Core.Communication
             {
                 return _serialConnection.IsOpen;
             }
-            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(Serial).FullName + ".Available()"); }
+            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnection).FullName + ".Available()"); }
             return false;
         }
 
@@ -142,10 +121,10 @@ namespace SDA_Core.Communication
                 if (!_serialConnection.IsOpen)
                 {
                     _serialConnection.Open();
-                    _thread.Start();
+                    //_thread.Start();
                 }
             }
-            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(Serial).FullName + ".Open()"); }
+            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnection).FullName + ".Open()"); }
         }   
 
         /// <summary>
@@ -158,21 +137,21 @@ namespace SDA_Core.Communication
                 if (_serialConnection.IsOpen)
                 {
                     _serialConnection.Close();
-                    _thread.Abort();
+                    //_thread.Abort();
                 }
             }
-            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(Serial).FullName + ".Close()"); }
+            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnection).FullName + ".Close()"); }
         }
 
         /// <summary>
         /// ES: Enlista todos los puertos disponibles.
         /// </summary>
         /// <returns>ES: GenericArray<string> Con todos los puertos disponibles para una comunicación Serial. </returns>
-        public Data.GenericArray<string> SerialPorts()
+        public List<string> SerialPorts()
         {
-            Data.GenericArray<string> res = new Data.GenericArray<string>();
-            res.FromDefaultArray( SerialPort.GetPortNames() );
-            return res;
+            List<string> serialPorts = new List<string>();
+            serialPorts = SerialPort.GetPortNames().ToList();
+            return serialPorts;
         }
 
     }

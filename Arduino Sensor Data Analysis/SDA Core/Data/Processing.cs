@@ -30,18 +30,15 @@ namespace SDA_Core.Data
         /// <param name="rawData">ES: String con los datos sin procesar.</param>
         /// <param name="resultTable">ES: SensorDataArray donde se almacenaran los resultados</param>
         /// <param name="clearTable">ES: Indicar 'true' si se quiere limpiar los datos de la tabla</param>
-        public void Process(string rawData, ref SensorDataArray resultTable, bool clearTable = false)
+        public void Process(string rawData, ref Containers.SensorData resultTable)
         {
-            if (clearTable) resultTable.Clear();
-            if (resultTable.RowCount()+1 == 1000000) resultTable.Clear();
-
             // Se verifica que el mensaje sea para SDA.
             if (rawData.StartsWith("SDA: ")) rawData = rawData.Remove(0, 5);
             else return;
 
             // Se separan los datos
             string[] rawColumnsData = rawData.Split(' ');
-            SensorData data = new SensorData();
+            List<double> data = new List<double>();
 
             // Se convierten los datos a double
             for (int i = 0; i < rawColumnsData.Length; ++i)
@@ -49,7 +46,7 @@ namespace SDA_Core.Data
                 try
                 {
                     double aux = Convert.ToDouble(rawColumnsData[i]);
-                    data.Values(i, aux);
+                    data.Add(aux);
                 }
                 catch
                 {
@@ -58,7 +55,7 @@ namespace SDA_Core.Data
                 
             }
 
-            resultTable.NewRow(data);
+            resultTable.Data.Information.Add(data);
         }
 
         /// <summary>
@@ -67,12 +64,12 @@ namespace SDA_Core.Data
         /// <param name="rawData">ES: Lista de strings con los datos sin procesar. </param>
         /// <param name="resultTable">ES: SensorDataArray donde se almacenaran los resultados</param>
         /// <param name="clearTable">ES: Indicar 'true' si se quiere limpiar los datos de la tabla</param>
-        public void Process(List<String> rawData, ref SensorDataArray resultTable, bool clearTable = false)
+        public void Process(List<String> rawData, ref Containers.SensorData resultTable, bool clearTable = false)
         {
-            if (clearTable) resultTable.Clear();
+            if (clearTable) resultTable.Data.Information.Clear();
             foreach (string data in rawData)
             {
-                Process(data, ref resultTable, clearTable);
+                Process(data, ref resultTable);
             }
         }
 

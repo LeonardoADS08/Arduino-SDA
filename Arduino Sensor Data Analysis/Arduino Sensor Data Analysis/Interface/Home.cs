@@ -35,10 +35,11 @@ namespace SDA_Program.Interface
         /// </summary>
         public void LoadSerialPorts(ComboBox CB_Ports)
         {
-            SDA_Core.Data.GenericArray<string> AvailableSerialPorts = USBConnection.SerialPorts();
-            for (int i = 0; i < AvailableSerialPorts.Size; ++i)
+            SDA_Core.Communication.SerialConnection serial = new SDA_Core.Communication.SerialConnection();
+            List<string> AvailableSerialPorts = serial.SerialPorts();
+            for (int i = 0; i < AvailableSerialPorts.Count; ++i)
             {
-                CB_Ports.Items.Add(AvailableSerialPorts.Data[i]);
+                CB_Ports.Items.Add(AvailableSerialPorts[i]);
             }
         }
 
@@ -89,40 +90,11 @@ namespace SDA_Program.Interface
 
         }
 
-        /// <summary>
-        /// ES: Método para comenzar la comunicacion por puerto USB, necesita un DataTable para el formato del DataGrid donde se mostrarán los datos.
-        /// </summary>
-        public void StartUSBConnection(DataGrid DG_Monitor)
-        {
-
-            // Se limpian los datos.
-            _serialMonitor.Clear();
-            DG_Monitor.DataContext = _serialMonitor;
-
-            // Comienza la conexión y empieza a tabular datos.
-            if (!USBConnection.Available()) USBConnection.Open();
-            USBConnect(DG_Monitor, _serialMonitor);
-        }
-
-        /// <summary>
-        /// ES: Método para comenzar la comunicacion por puerto USB, necesita un DataTable para el formato del DataGrid donde se mostrarán los datos.
-        /// </summary>
-        public void StartBluetoothConnection(DataGrid DG_Monitor)
-        {
-
-            // Se limpian los datos.
-            _serialMonitor.Clear();
-            DG_Monitor.DataContext = _serialMonitor;
-
-            // Comienza la conexión y empieza a tabular datos.
-            if (!BluetoothConnection.Available()) BluetoothConnection.Open();
-            BluetoothConnect(DG_Monitor, _serialMonitor);
-        }
 
         /// <summary>
         /// ES: Funcion encargada de tabular los datos recogidos, este metodo seguira vigente hasta que la conexion USB se haya cerrado.
         /// </summary>
-        private async void USBConnect(DataGrid DG_Monitor, DataTable ProcessedData)
+   /*     private async void USBConnect(DataGrid DG_Monitor, DataTable ProcessedData)
         {
             int lastProcessedRow = 0;
             while (USBConnection.Available())
@@ -164,11 +136,11 @@ namespace SDA_Program.Interface
                 await Task.Delay(100);
             }
         }
-
+        */
         /// <summary>
         /// ES: Se inicia la conexión con el arduino, se analizan y validan los datos básicos.
         /// </summary>
-        public bool StartConnection(ComboBox CB_Port, TextBox TB_BaudRate, ComboBox CB_ConnectionMode, DataGrid DG_ColumnList, DataGrid DG_Monitor, Grid G_Serial, Button B_Connect)
+      /*  public bool StartConnection(ComboBox CB_Port, TextBox TB_BaudRate, ComboBox CB_ConnectionMode, DataGrid DG_ColumnList, DataGrid DG_Monitor, Grid G_Serial, Button B_Connect)
         {
             _serialMonitor = new DataTable();
 
@@ -197,6 +169,7 @@ namespace SDA_Program.Interface
 
             // SensorDataArray, que creará un formato, formato que luego será pasado al controlador escogido.
             SDA_Core.Data.SensorDataArray format = new SDA_Core.Data.SensorDataArray();
+
             // DataTable para tabular los datos, tambien se crea el mismo formato acá
             DataTable table = ((DataView)DG_ColumnList.ItemsSource).ToTable();
             foreach (DataRow row in table.Rows)
@@ -246,7 +219,7 @@ namespace SDA_Program.Interface
             B_Connect.IsEnabled = false;
             return true;
         }
-
+        */
         /// <summary>
         /// ES: Cierra las conexiones activas.
         /// </summary>
@@ -254,9 +227,6 @@ namespace SDA_Program.Interface
         {
             G_Serial.IsEnabled = true;
             B_Connect.IsEnabled = true;
-
-            USBConnection.Close();
-            BluetoothConnection.Close();
         }
     }
 }
