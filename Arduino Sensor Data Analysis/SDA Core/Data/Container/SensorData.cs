@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Diagnostics;
 
 namespace SDA_Core.Data.Containers
 {
@@ -12,62 +13,130 @@ namespace SDA_Core.Data.Containers
     /// </summary>
     public class SensorData
     {
-
-        private Sensor _headers;
-        private Data _data;
-
-        /// <summary>
-        /// ES: Cabeceras del SensorData, con sus respectivos nombres y medidas.
-        /// </summary>
-        public Sensor Headers
+        private string _sensorName;
+        private List<MeasurementList> _values;
+        private int _rows;
+        private int _columns;
+        public string SensorName
         {
-            get { return _headers; }
-            set { _headers = value; }
+            get { return _sensorName; }
+            set { _sensorName = value; }
         }
 
-        /// <summary>
-        /// ES: Datos del SensorData, separados por filas y columnas.
-        /// </summary>
-        public Data Data
+        public int Rows
         {
-            get { return _data; }
-            set { _data = value; }
+            get { return _rows; }
+            set { _rows = value; }
+        }
+
+        public int Columns
+        {
+            get { return _columns; }
+            set { _columns = value; }
         }
 
         /// <summary>
         /// ES: Constructor de la clase SensorData.
         /// </summary>
-        public SensorData()
+        public SensorData(int columns)
         {
-            _headers = new Sensor();
-            _data = new Data();
+            _values = new List<MeasurementList>();
+            for (int i = 0; i < columns; ++i)
+            {
+                _values.Add(new MeasurementList());
+            }
+            _sensorName = "";
+            _rows = 0;
+            _columns = columns;
+        }
+
+
+        /// <summary>
+        /// ES: Método para añadir una nueva fila.
+        /// </summary>
+        public void Add(List<Measurement> data)
+        {
+            for (int i = 0; i < _columns; ++i)
+            {
+                _values[i].Measures.Add(data[i]);
+            }
+            _rows++;
         }
 
         /// <summary>
-        /// ES: Convierte el objeto en un DataTable.
+        /// ES: Elimina todos los datos del SensorData.
         /// </summary>
+        public void Clear()
+        {
+            _values = new List<MeasurementList>();
+            for (int i = 0; i < _columns; ++i)
+            {
+                _values.Add(new MeasurementList());
+            }
+        }
+
+        /// <summary>
+        /// ES: Sobrecarga del operador '[]'.
+        /// </summary>
+        /// <param name="key">ES: Posición a acceder.</param>
+        public List<Measurement> this[int key]
+        {
+            get
+            {
+                List<Measurement> result = new List<Measurement>();
+                for (int i = 0; i < _values.Count; ++i)
+                {
+                    result.Add(_values[i].Measures[key]);
+                }
+                return result;
+            }
+            set
+            {
+                for (int i = 0; i < value.Count; ++i)
+                {
+                    _values[i].Measures[key] = value[i];
+                }
+            }
+        }
+
         public DataTable ToDataTable()
         {
             DataTable result = new DataTable();
 
-            // Se crean primero las cabeceras.
-            foreach (Measurement header in _headers.MeasureList.Measures)
+            if (_rows == 0 || _columns == 0) return result;
+
+            for (int i = 0; i < _columns; ++i)
             {
-                result.Columns.Add(header.Name + " (" + header.Measure + ")");
+                result.Columns.Add(_values[i].Measures[0].Name);
             }
 
-            // Se pasan los datos.
-            foreach (List<double> row in _data.Information)
+            for (int i = 0; i < _rows; ++i)
             {
-                DataRow resultRow = result.NewRow();
-                for (int i = 0; i < row.Count; ++i)
+                DataRow newRow = result.NewRow();
+                for (int j = 0; j < _columns; ++j)
                 {
-                    resultRow[i] = row[i];
+                    newRow[j] = _values[j].Measures[i].Value;
                 }
-                result.Rows.Add(resultRow);
+                result.Rows.Add(newRow);
             }
 
             return result;
+        }
+
+        public void UpdateDataTable(DataTable table)
+        {
+            int rowCount = _rows;
+            for (int i = table.Rows.Count; i < rowCount; ++i)
+            {
+                DataRow newRow = table.NewRow();
+                for (int j = 0; j < _columns; ++j)
+                {
+                    Debug.WriteLine(rowCount + " - " + _columns);
+                    Debug.WriteLine(j + " " + j + " " + i);
+                    newRow[j] = _values[j].Measures[i].Value;
+                }
+                table.Rows.Add(newRow);
+            }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace SDA_Core.Data
         /// <param name="rawData">ES: String con los datos sin procesar.</param>
         /// <param name="resultTable">ES: SensorDataArray donde se almacenaran los resultados</param>
         /// <param name="clearTable">ES: Indicar 'true' si se quiere limpiar los datos de la tabla</param>
-        public void Process(string rawData, ref Containers.SensorData resultTable)
+        public void Process(string rawData, ref Containers.SensorData resultTable, List<Containers.Measurement> format)
         {
             // Se verifica que el mensaje sea para SDA.
             if (rawData.StartsWith("SDA: ")) rawData = rawData.Remove(0, 5);
@@ -38,15 +38,20 @@ namespace SDA_Core.Data
 
             // Se separan los datos
             string[] rawColumnsData = rawData.Split(' ');
-            List<double> data = new List<double>();
+            List<Containers.Measurement> receivedData = new List<Containers.Measurement>();
 
             // Se convierten los datos a double
             for (int i = 0; i < rawColumnsData.Length; ++i)
             {
                 try
                 {
-                    double aux = Convert.ToDouble(rawColumnsData[i]);
-                    data.Add(aux);
+                    double processedData = Convert.ToDouble(rawColumnsData[i]);
+                    Containers.Measurement newMeasure = new Containers.Measurement();
+
+                    newMeasure.Value = processedData;
+                    newMeasure.Measure = format[i].Measure;
+                    newMeasure.Name = format[i].Name;
+                    receivedData.Add(newMeasure);
                 }
                 catch
                 {
@@ -54,8 +59,7 @@ namespace SDA_Core.Data
                 }
                 
             }
-
-            resultTable.Data.Information.Add(data);
+            resultTable.Add(receivedData);
         }
 
         /// <summary>
@@ -64,12 +68,12 @@ namespace SDA_Core.Data
         /// <param name="rawData">ES: Lista de strings con los datos sin procesar. </param>
         /// <param name="resultTable">ES: SensorDataArray donde se almacenaran los resultados</param>
         /// <param name="clearTable">ES: Indicar 'true' si se quiere limpiar los datos de la tabla</param>
-        public void Process(List<String> rawData, ref Containers.SensorData resultTable, bool clearTable = false)
+        public void Process(List<String> rawData, ref Containers.SensorData resultTable, List<Containers.Measurement> format, bool clearTable = false)
         {
-            if (clearTable) resultTable.Data.Information.Clear();
+            if (clearTable) resultTable.Clear();
             foreach (string data in rawData)
             {
-                Process(data, ref resultTable);
+                Process(data, ref resultTable, format);
             }
         }
 

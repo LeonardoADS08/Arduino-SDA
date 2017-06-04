@@ -63,10 +63,8 @@
     <Compile Include="Analysis\Analysis.cs" />
     <Compile Include="Data\Processing.cs" />
     <Compile Include="Analysis\Statistics.cs" />
-    <Compile Include="Data\Container\Data.cs" />
     <Compile Include="Data\Container\Measurement.cs" />
     <Compile Include="Data\Container\MeasurementList.cs" />
-    <Compile Include="Data\Container\Sensor.cs" />
     <Compile Include="Data\Container\SensorData.cs" />
     <Compile Include="Program\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,7 +78,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Data\Container\SensorData Diagram.cd" />
     <None Include="Program.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

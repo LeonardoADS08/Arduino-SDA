@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,29 +26,74 @@ namespace SDA_Program.View
         Interface.Home IO;
         SDA_Core.Data.Processing pr = new SDA_Core.Data.Processing();
         SDA_Core.Communication.SerialConnection srl = new SDA_Core.Communication.SerialConnection(new SDA_Core.Communication.SerialConfiguration("COM4", 9600));
-
+        SDA_Core.Data.Containers.SensorData data = new SDA_Core.Data.Containers.SensorData(2);
+        List<SDA_Core.Data.Containers.Measurement> formatList = new List<SDA_Core.Data.Containers.Measurement>();
+        DataTable res = null;
+        Thread _thread;
+        
         public Home()
         {
             InitializeComponent();
             IO = new Interface.Home();
+            SDA_Core.Data.Containers.Measurement ms1 = new SDA_Core.Data.Containers.Measurement("Time", "ms.");
+            SDA_Core.Data.Containers.Measurement ms2 = new SDA_Core.Data.Containers.Measurement("Light", "int.");
+            formatList.Add(ms1);
+            formatList.Add(ms2);
+
+            _thread = new Thread(() => leer());
 
             srl.Open();
-            leer();
-            SDA_Core.Program._data.Headers.MeasureList.Measures.Add(new SDA_Core.Data.Containers.Measurement("Time", "ms."));
-            SDA_Core.Program._data.Headers.MeasureList.Measures.Add(new SDA_Core.Data.Containers.Measurement("Light", "int."));
-            // IO.LoadSerialPorts(CB_Ports);
-            /*IO.LoadConnectionModes(CB_ConnectionMode);
-            IO.LoadDataStructure(DG_ColumnList);
-            */
+            _thread.Start();
+            update();
+           
+            //leer();
+
+        }
+
+        private async void update()
+        {
+            while (srl.Available())
+            {
+                //DG_Monitor.DataContext = res;
+                DG_Monitor.Items.Refresh();
+                await Task.Delay(500);
+            }
         }
 
         private async void leer()
         {
+            Debug.WriteLine("Funcionando!!");
+            bool first = true;
             while (srl.Available())
             {
-                pr.Process(srl.Read(), ref SDA_Core.Program._data);
-                DG_Monitor.DataContext = SDA_Core.Program._data.ToDataTable();
-                await Task.Delay(100);
+                pr.Process(srl.Read(), ref data, formatList);
+                for (int i = 0; i < data.Rows; ++i)
+                {
+                    for (int j = 0; j < data.Columns; ++j)
+                    {
+                        Debug.WriteLine(data[i][j].Value + " " + data[i][j].Measure);
+                    }
+                }
+                if (res == null) res = data.ToDataTable();
+                else
+                {
+                    res = data.ToDataTable();
+                    //data.UpdateDataTable(res);
+                }
+              //  DG_Monitor.DataContext = res;
+                
+               /*  if (first && data.Size > 0)
+                 {
+                     first = false;
+                     res = data.ToDataTable();
+                     DG_Monitor.DataContext = res;
+                 }
+                 if (!first)
+                 {
+                     data.UpdateDataTable(res);
+                     DG_Monitor.DataContext = res;
+                 }*/
+                await Task.Delay(500);
             }
         }
 
@@ -57,7 +103,7 @@ namespace SDA_Program.View
         }
         private void B_NewColumn_Click(object sender, RoutedEventArgs e)
         {
-          //  IO.NewColumnToStructure(TB_ColumnName, TB_ColumnMeasure, DG_ColumnList);
+            //  IO.NewColumnToStructure(TB_ColumnName, TB_ColumnMeasure, DG_ColumnList);
         }
 
         private void B_DeleteColumn_Click(object sender, RoutedEventArgs e)

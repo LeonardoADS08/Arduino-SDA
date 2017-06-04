@@ -11,7 +11,7 @@ namespace SDA_Core
     public class Program
     {
         static private Analysis.Statistics _statistics;
-        static public SDA_Core.Data.Containers.SensorData _data = new Data.Containers.SensorData();
+        static public SDA_Core.Data.Containers.SensorData _data = new Data.Containers.SensorData(2);
         public static Statistics Statistics
         {
             get { return _statistics; }

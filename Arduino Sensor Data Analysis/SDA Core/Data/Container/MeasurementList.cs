@@ -19,7 +19,6 @@ namespace SDA_Core.Data.Containers
             set { _measures = value; }
         }
 
-
         /// <summary>
         /// ES: Constructor de la clase MeasurementList.
         /// </summary>

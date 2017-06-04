@@ -29,7 +29,7 @@
             <ComboBox x:Name="CB_ConnectionMode" HorizontalAlignment="Left" Margin="99,179,0,0" VerticalAlignment="Top" Width="200"/>
         </Grid>
         <GroupBox x:Name="GB_SerialMonitor" Header="Serial Monitor" Margin="340,10,10,10" FontSize="24">
-            <DataGrid x:Name="DG_Monitor" Margin="5" GridLinesVisibility="None" ItemsSource="{Binding}" FontSize="14" IsSynchronizedWithCurrentItem="True" Focusable="True" IsHitTestVisible="True" SelectionMode="Single" IsReadOnly="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" LoadingRow="DG_Monitor_LoadingRow"/>
+            <DataGrid x:Name="DG_Monitor" Margin="5" GridLinesVisibility="None" ItemsSource="{Binding}" FontSize="14" IsSynchronizedWithCurrentItem="False" Focusable="True" IsHitTestVisible="True" SelectionMode="Single" IsReadOnly="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" LoadingRow="DG_Monitor_LoadingRow"/>
         </GroupBox>
         <Button x:Name="B_Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="195,553,0,0" VerticalAlignment="Top" Width="122" FontWeight="Bold" Click="B_Cancel_Click" RenderTransformOrigin="0.59,1.35"/>
         <Button x:Name="B_Connect" Content="Connect" HorizontalAlignment="Left" Margin="67,553,0,0" VerticalAlignment="Top" Width="120" FontWeight="Bold" Click="B_Connect_Click"/>

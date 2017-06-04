@@ -13,6 +13,7 @@ namespace SDA_Core.Data.Containers
     {
         private string _name;
         private string _measure;
+        private double _value;
 
         public string Name
         {
@@ -24,6 +25,12 @@ namespace SDA_Core.Data.Containers
         {
             get { return _measure; }
             set { _measure = value; }
+        }
+
+        public double Value
+        {
+            get { return _value; }
+            set { _value = value; }
         }
 
         /// <summary>

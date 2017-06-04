@@ -204,7 +204,7 @@ namespace SDA_Program.Interface
             }
             else
             {
-                MessageBox.Show("Unknow connection mode.", "Unknow value.", MessageBoxButton.OK);
+                MessageBox.Show("Unknown connection mode.", "Unknown value.", MessageBoxButton.OK);
                 return false;
             }
 

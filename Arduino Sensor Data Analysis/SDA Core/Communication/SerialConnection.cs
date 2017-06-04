@@ -78,7 +78,7 @@ namespace SDA_Core.Communication
                 if (!_serialConnection.IsOpen) _serialConnection.Open();
                 return _serialConnection.ReadLine();
             }
-            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnection).FullName + ".Write()"); }
+            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnection).FullName + ".Read()"); }
             return "";
         }
 
