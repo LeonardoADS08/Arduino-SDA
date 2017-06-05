@@ -16,7 +16,7 @@ namespace SDA_Core.Communication
     /// </summary>
     public class SerialConnection : Connection
     {
-        private SerialConfiguration _serialConfiguration;
+        private BaudRates _serialConfiguration;
         private SerialPort _serialConnection;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace SDA_Core.Communication
         /// </summary>
         public SerialConnection()
         {
-            _serialConfiguration = new SerialConfiguration();
+            _serialConfiguration = new BaudRates();
             _serialConnection = new SerialPort();
 
         }
@@ -35,9 +35,9 @@ namespace SDA_Core.Communication
         /// <param name="portName">ES: Nombre del puerto al que está conectado el arduino.</param>
         /// <param name="baudRate">ES: Ratio de baudios (Baud Rate).</param>
         /// <param name="hearInterval">ES: Intervalo de tiempo (ms.) al que se debe escuchar el Serial del arduino.</param>
-        public SerialConnection(SerialConfiguration configurations)
+        public SerialConnection(string port, BaudRates baudRate)
         {
-            _serialConnection = new SerialPort(configurations.Port, configurations.BaudRate);
+            _serialConnection = new SerialPort(port, baudRate.BaudRate);
         }
 
         /// <summary>

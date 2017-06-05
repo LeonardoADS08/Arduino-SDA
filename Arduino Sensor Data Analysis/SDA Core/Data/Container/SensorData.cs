@@ -17,6 +17,7 @@ namespace SDA_Core.Data.Containers
         private List<MeasurementList> _values;
         private int _rows;
         private int _columns;
+
         public string SensorName
         {
             get { return _sensorName; }
@@ -35,6 +36,23 @@ namespace SDA_Core.Data.Containers
             set { _columns = value; }
         }
 
+        public List<MeasurementList> Values
+        {
+            get { return _values; }
+            set { _values = value; }
+        }
+
+        /// <summary>
+        /// ES: Constructor de la clase SensorData.
+        /// </summary>
+        public SensorData()
+        {
+            _values = new List<MeasurementList>();
+            _sensorName = "";
+            _rows = 0;
+            _columns = 0;
+        }
+
         /// <summary>
         /// ES: Constructor de la clase SensorData.
         /// </summary>
@@ -49,7 +67,6 @@ namespace SDA_Core.Data.Containers
             _rows = 0;
             _columns = columns;
         }
-
 
         /// <summary>
         /// ES: Método para añadir una nueva fila.
@@ -84,7 +101,7 @@ namespace SDA_Core.Data.Containers
             get
             {
                 List<Measurement> result = new List<Measurement>();
-                for (int i = 0; i < _values.Count; ++i)
+                for (int i = 0; i < _columns; ++i)
                 {
                     result.Add(_values[i].Measures[key]);
                 }
@@ -107,9 +124,9 @@ namespace SDA_Core.Data.Containers
 
             for (int i = 0; i < _columns; ++i)
             {
-                result.Columns.Add(_values[i].Measures[0].Name);
+                result.Columns.Add(_values[i].Measures[0].Name + " (" + _values[i].Measures[0].Measure + ")");
             }
-
+            
             for (int i = 0; i < _rows; ++i)
             {
                 DataRow newRow = result.NewRow();
@@ -123,20 +140,5 @@ namespace SDA_Core.Data.Containers
             return result;
         }
 
-        public void UpdateDataTable(DataTable table)
-        {
-            int rowCount = _rows;
-            for (int i = table.Rows.Count; i < rowCount; ++i)
-            {
-                DataRow newRow = table.NewRow();
-                for (int j = 0; j < _columns; ++j)
-                {
-                    Debug.WriteLine(rowCount + " - " + _columns);
-                    Debug.WriteLine(j + " " + j + " " + i);
-                    newRow[j] = _values[j].Measures[i].Value;
-                }
-                table.Rows.Add(newRow);
-            }
-        }
     }
 }

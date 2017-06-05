@@ -26,5 +26,14 @@ namespace SDA_Core.Data.Containers
         {
             _measures = new List<Measurement>();
         }
+
+        /// <summary>
+        /// ES: Constructor de la clase MeasurementList.
+        /// </summary>
+        public MeasurementList(Measurement data)
+        {
+            _measures = new List<Measurement>();
+            _measures.Add(data);
+        }
     }
 }

@@ -96,10 +96,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interface\BaudRates.cs" />
     <Compile Include="Interface\Home.cs" />
     <Compile Include="Interface\MainWindow.cs" />
+    <Compile Include="Interface\Sensors.cs" />
+    <Compile Include="View\Configurations.xaml.cs">
+      <DependentUpon>Configurations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Popups\BaudRates.xaml.cs">
+      <DependentUpon>BaudRates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Popups\Sensors.xaml.cs">
+      <DependentUpon>Sensors.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
@@ -116,7 +127,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Configurations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Popups\BaudRates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Popups\Sensors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -180,7 +203,9 @@
   <ItemGroup>
     <Resource Include="Test.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\061 Sync.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Logo.png" />
   </ItemGroup>

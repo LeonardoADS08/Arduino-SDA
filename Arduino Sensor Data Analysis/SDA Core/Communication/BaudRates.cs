@@ -6,16 +6,9 @@ using System.Threading.Tasks;
 
 namespace SDA_Core.Communication
 {
-    public class SerialConfiguration
+    public class BaudRates
     {
-        private string _port;
         private int _baudRate;
-
-        public string Port
-        {
-            get { return _port; }
-            set { _port = value; }
-        }
 
         public int BaudRate
         {
@@ -23,15 +16,13 @@ namespace SDA_Core.Communication
             set { _baudRate = value; }
         }
 
-        public SerialConfiguration()
+        public BaudRates()
         {
-            _port = "";
             _baudRate = 0;
         }
 
-        public SerialConfiguration(string port, int baudrate)
+        public BaudRates(int baudrate)
         {
-            _port = port;
             _baudRate = baudrate;
         }
     }

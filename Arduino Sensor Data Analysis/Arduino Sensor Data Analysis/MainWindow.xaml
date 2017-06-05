@@ -11,8 +11,9 @@
             <Image x:Name="Logo" VerticalAlignment="Center" HorizontalAlignment="Left" Width="180"  Margin="25,0,0,0" Source="Resources/Logo.png"/>
             <Button x:Name="B_Home"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="25,0,0,0" Content="Home" Width="150" Height="30"  Foreground="Black" BorderBrush="#FF8C7965" FontSize="16" FontWeight="Light" BorderThickness="1,1,1,0" Background="#FF62AEB2" Click="B_Home_Click"/>
             <Button x:Name="B_Statistics" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Statistics" Width="150" Height="30" Foreground="Black" BorderBrush="#FF8C7965" FontSize="16" FontWeight="Light" BorderThickness="1,1,1,0" Background="#FF649799" Click="B_Profiles_Click"/>
+            <Button x:Name="B_Connection" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Configurations" Width="150" Height="30" Foreground="Black" BorderBrush="#FF8C7965" FontSize="16" FontWeight="Light" BorderThickness="1,1,1,0" Background="#FF649799" Click="B_Profiles_Click"/>
         </DockPanel>
-        <Frame x:Name="FrameWindow" Margin="0,105,0,0" Background="#ECF0F1"/>
+        <Frame x:Name="FrameWindow" Margin="0,105,0,0" Background="#ECF0F1" NavigationUIVisibility="Hidden"/>
     </Grid>
 
 

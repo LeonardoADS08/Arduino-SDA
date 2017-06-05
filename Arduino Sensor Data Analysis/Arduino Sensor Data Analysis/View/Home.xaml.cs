@@ -25,7 +25,7 @@ namespace SDA_Program.View
     {
         Interface.Home IO;
         SDA_Core.Data.Processing pr = new SDA_Core.Data.Processing();
-        SDA_Core.Communication.SerialConnection srl = new SDA_Core.Communication.SerialConnection(new SDA_Core.Communication.SerialConfiguration("COM4", 9600));
+        SDA_Core.Communication.SerialConnection srl = new SDA_Core.Communication.SerialConnection("COM4", new SDA_Core.Communication.BaudRates(9600));
         SDA_Core.Data.Containers.SensorData data = new SDA_Core.Data.Containers.SensorData(2);
         List<SDA_Core.Data.Containers.Measurement> formatList = new List<SDA_Core.Data.Containers.Measurement>();
         DataTable res = null;
@@ -35,6 +35,11 @@ namespace SDA_Program.View
         {
             InitializeComponent();
             IO = new Interface.Home();
+
+            IO.LoadSerialPorts(CB_Ports);
+            IO.LoadBaudRates(CB_BaudRate);
+            IO.LoadSensors(CB_Sensors);
+
             SDA_Core.Data.Containers.Measurement ms1 = new SDA_Core.Data.Containers.Measurement("Time", "ms.");
             SDA_Core.Data.Containers.Measurement ms2 = new SDA_Core.Data.Containers.Measurement("Light", "int.");
             formatList.Add(ms1);
@@ -45,7 +50,7 @@ namespace SDA_Program.View
             srl.Open();
             _thread.Start();
             update();
-           
+            
             //leer();
 
         }
@@ -54,46 +59,18 @@ namespace SDA_Program.View
         {
             while (srl.Available())
             {
-                //DG_Monitor.DataContext = res;
-                DG_Monitor.Items.Refresh();
-                await Task.Delay(500);
+                DG_Monitor.DataContext = SDA_Core.Program.SerialMonitor;
+                await Task.Delay(100);
             }
         }
 
         private async void leer()
         {
-            Debug.WriteLine("Funcionando!!");
-            bool first = true;
             while (srl.Available())
             {
                 pr.Process(srl.Read(), ref data, formatList);
-                for (int i = 0; i < data.Rows; ++i)
-                {
-                    for (int j = 0; j < data.Columns; ++j)
-                    {
-                        Debug.WriteLine(data[i][j].Value + " " + data[i][j].Measure);
-                    }
-                }
-                if (res == null) res = data.ToDataTable();
-                else
-                {
-                    res = data.ToDataTable();
-                    //data.UpdateDataTable(res);
-                }
-              //  DG_Monitor.DataContext = res;
-                
-               /*  if (first && data.Size > 0)
-                 {
-                     first = false;
-                     res = data.ToDataTable();
-                     DG_Monitor.DataContext = res;
-                 }
-                 if (!first)
-                 {
-                     data.UpdateDataTable(res);
-                     DG_Monitor.DataContext = res;
-                 }*/
-                await Task.Delay(500);
+                SDA_Core.Program.SerialMonitor = data.ToDataTable();
+                await Task.Delay(100);
             }
         }
 
@@ -126,6 +103,31 @@ namespace SDA_Program.View
           //  IO.CloseConnections(G_Serial, B_Connect);
         }
 
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            SDA_Program.View.Popups.Sensors temp = new Popups.Sensors();
+            temp.Show();
+        }
+
+        private void button_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            SDA_Program.View.Popups.BaudRates temp = new Popups.BaudRates();
+            temp.Show();
+        }
+
+        private void I_RefreshPorts_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            IO.LoadSerialPorts(CB_Ports);
+        }
+
+        private void I_RefreshBaudRates_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            IO.LoadBaudRates(CB_BaudRate);
+        }
+        private void I_RefreshSensors_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            IO.LoadSensors(CB_Sensors);
+        }
 
     }
 }
