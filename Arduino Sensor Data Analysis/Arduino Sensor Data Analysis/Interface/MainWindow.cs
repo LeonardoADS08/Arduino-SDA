@@ -41,7 +41,7 @@ namespace SDA_Program.Interface
         {
             B_Home.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
             B_Statistics.Background = new SolidColorBrush(Color.FromRgb(98, 174, 178));
-            F_Page.Content = StatisticsWindow;
+            F_Page.Content = new SDA_Program.View.Statistics();
         }
     }
 }
