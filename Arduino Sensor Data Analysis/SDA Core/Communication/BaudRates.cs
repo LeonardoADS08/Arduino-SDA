@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SDA_Core.Communication
 {
+    [Serializable]
     public class BaudRates
     {
         private int _baudRate;

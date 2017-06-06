@@ -9,6 +9,7 @@ namespace SDA_Core.Data.Containers
     /// <summary>
     /// ES: Clase para guardar el nombre de una medición y su medida.
     /// </summary>
+    [Serializable]
     public class Measurement
     {
         private string _name;

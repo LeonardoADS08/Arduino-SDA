@@ -24,12 +24,6 @@ namespace SDA_Program.View
     public partial class Home : Page
     {
         Interface.Home IO;
-        SDA_Core.Data.Processing pr = new SDA_Core.Data.Processing();
-        SDA_Core.Communication.SerialConnection srl = new SDA_Core.Communication.SerialConnection("COM4", new SDA_Core.Communication.BaudRates(9600));
-        SDA_Core.Data.Containers.SensorData data = new SDA_Core.Data.Containers.SensorData(2);
-        List<SDA_Core.Data.Containers.Measurement> formatList = new List<SDA_Core.Data.Containers.Measurement>();
-        DataTable res = null;
-        Thread _thread;
         
         public Home()
         {
@@ -40,79 +34,32 @@ namespace SDA_Program.View
             IO.LoadBaudRates(CB_BaudRate);
             IO.LoadSensors(CB_Sensors);
 
-            SDA_Core.Data.Containers.Measurement ms1 = new SDA_Core.Data.Containers.Measurement("Time", "ms.");
-            SDA_Core.Data.Containers.Measurement ms2 = new SDA_Core.Data.Containers.Measurement("Light", "int.");
-            formatList.Add(ms1);
-            formatList.Add(ms2);
+            IO.LoadReceivedSensors(DG_SensorsList);
 
-            _thread = new Thread(() => leer());
-
-            srl.Open();
-            _thread.Start();
-            update();
-            
-            //leer();
-
+            IO.CheckLists(CB_Ports, CB_BaudRate, CB_Sensors);
         }
 
-        private async void update()
+        private async void UpdateSerialMonitor()
         {
-            while (srl.Available())
+            while (IO.SerialConnection.Available())
             {
                 DG_Monitor.DataContext = SDA_Core.Program.SerialMonitor;
                 await Task.Delay(100);
             }
-        }
-
-        private async void leer()
-        {
-            while (srl.Available())
-            {
-                pr.Process(srl.Read(), ref data, formatList);
-                SDA_Core.Program.SerialMonitor = data.ToDataTable();
-                await Task.Delay(100);
-            }
-        }
-
-        private void DG_ColumnList_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
-        }
-        private void B_NewColumn_Click(object sender, RoutedEventArgs e)
-        {
-            //  IO.NewColumnToStructure(TB_ColumnName, TB_ColumnMeasure, DG_ColumnList);
-        }
-
-        private void B_DeleteColumn_Click(object sender, RoutedEventArgs e)
-        {
-           // IO.DeleteColumnToStructure(TB_ColumnName, TB_ColumnMeasure, DG_ColumnList);
+            G_Serial.IsEnabled = true;
         }
 
         private void B_Connect_Click(object sender, RoutedEventArgs e)
         {
-         //   IO.StartConnection(CB_Ports, TB_BaudRate, CB_ConnectionMode, DG_ColumnList, DG_Monitor, G_Serial, B_Connect);
-        }
-
-        private void DG_Monitor_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-            //label.Content = DG_Monitor.Items.Count.ToString();
+            IO.StartConnection(CB_Ports, CB_BaudRate);
+            UpdateSerialMonitor();
+            G_Serial.IsEnabled = false;
         }
 
         private void B_Cancel_Click(object sender, RoutedEventArgs e)
         {
-          //  IO.CloseConnections(G_Serial, B_Connect);
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            SDA_Program.View.Popups.Sensors temp = new Popups.Sensors();
-            temp.Show();
-        }
-
-        private void button_Copy_Click(object sender, RoutedEventArgs e)
-        {
-            SDA_Program.View.Popups.BaudRates temp = new Popups.BaudRates();
-            temp.Show();
+            IO.StopConnection();
+            G_Serial.IsEnabled = true;
         }
 
         private void I_RefreshPorts_MouseDown(object sender, MouseButtonEventArgs e)
@@ -120,14 +67,36 @@ namespace SDA_Program.View
             IO.LoadSerialPorts(CB_Ports);
         }
 
-        private void I_RefreshBaudRates_MouseDown(object sender, MouseButtonEventArgs e)
+        private void B_BaudRatesLists_Click(object sender, RoutedEventArgs e)
         {
-            IO.LoadBaudRates(CB_BaudRate);
-        }
-        private void I_RefreshSensors_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            IO.LoadSensors(CB_Sensors);
+            View.Popups.BaudRates popup = new Popups.BaudRates();
+            popup.Show();
         }
 
+        private void B_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            IO.DeleteReceivedSensor(DG_SensorsList);
+        }
+
+        private void B_Add_Click(object sender, RoutedEventArgs e)
+        {
+            IO.SaveReceivedSensor(DG_SensorsList, CB_Sensors);
+        }
+
+        private void B_SensorList_Click(object sender, RoutedEventArgs e)
+        {
+            View.Popups.Sensors popup = new Popups.Sensors();
+            popup.Show();
+        }
+
+        private void DG_SensorsList_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        }
+
+        private void DG_Monitor_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        }
     }
 }

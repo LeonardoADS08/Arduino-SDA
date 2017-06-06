@@ -9,6 +9,7 @@ namespace SDA_Core.Data.Containers
     /// <summary>
     /// ES: Clase para guardar una lista de mediciones.
     /// </summary>
+    [Serializable]
     public class MeasurementList
     {
         private List<Measurement> _measures;

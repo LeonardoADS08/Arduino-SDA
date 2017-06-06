@@ -55,9 +55,7 @@ namespace SDA_Program.Interface
 
             foreach (SDA_Core.Data.Containers.Measurement value in _format)
             {
-                List<SDA_Core.Data.Containers.Measurement> valueList = new List<SDA_Core.Data.Containers.Measurement>();
-                valueList.Add(value);
-                newSensor.Add(valueList);
+                newSensor.AddColumn(value);
             }
 
             DG_NewSensor.ItemsSource = null;
@@ -67,6 +65,8 @@ namespace SDA_Program.Interface
 
             SDA_Core.Program.SensorList.SensorList.Add(newSensor);
             LoadSensors(DG_Sensors);
+
+            NewChanges();
         }
         public void DeleteSensorField(DataGrid DG_NewSensor)
         {
@@ -106,6 +106,8 @@ namespace SDA_Program.Interface
 
                 SDA_Core.Program.SensorList.SensorList.RemoveAt(selected);
                 LoadSensors(DG_Sensors);
+
+                NewChanges();
             }
         }
 
@@ -127,6 +129,12 @@ namespace SDA_Program.Interface
             }
 
             return result;
+        }
+
+        private void NewChanges()
+        {
+            SDA_Core.Program.SaveSensorsToBinary();
+            SDA_Core.Program.ReloadLists = true;
         }
     }
 }

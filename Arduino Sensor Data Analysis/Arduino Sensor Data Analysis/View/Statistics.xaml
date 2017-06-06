@@ -4,12 +4,21 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SDA_Program.View"
-      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="SDA_Program.View.Statistics"
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="SDA_Program.View.Statistics"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="Statistics" Background="#ECF0F1">
 
     <Grid>
-        <telerik:RadCartesianChart x:Name="t1" HorizontalAlignment="Left" Height="389" Margin="160,180,0,0" VerticalAlignment="Top" Width="545"/>
+        <Grid x:Name="G_General" Margin="10,10,10,528">
+            <GroupBox x:Name="GB_Statistic" Header="General" FontSize="24" d:IsLocked="True" />
+            <DataGrid x:Name="DG_General" Margin="10,73,10,10"/>
+            <Label x:Name="L_Summary" Content="Respect to:" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" FontSize="14"/>
+            <ComboBox x:Name="CB_General_Variables" HorizontalAlignment="Left" Margin="93,41,0,0" VerticalAlignment="Top" Width="170"/>
+        </Grid>
+        <Grid x:Name="G_Charts" Margin="10,245,10,10">
+            <GroupBox x:Name="GB_Charts" Header="Charts" FontSize="24" d:IsLocked="True"/>
+            <Slider x:Name="S_TimeSlider" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Height="28" Width="984"/>
+        </Grid>
     </Grid>
 </Page>

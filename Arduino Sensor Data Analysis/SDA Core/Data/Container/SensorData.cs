@@ -11,6 +11,7 @@ namespace SDA_Core.Data.Containers
     /// <summary>
     /// ES: Clase que funciona para almacenar datos recibidos en un formato de tabla.
     /// </summary>
+    [Serializable]
     public class SensorData
     {
         private string _sensorName;
@@ -68,10 +69,16 @@ namespace SDA_Core.Data.Containers
             _columns = columns;
         }
 
+        public void AddColumn(Measurement data)
+        {
+            MeasurementList temp = new MeasurementList(data);
+            _values.Add(temp);
+            _columns++;
+        }
         /// <summary>
         /// ES: Método para añadir una nueva fila.
         /// </summary>
-        public void Add(List<Measurement> data)
+        public void AddRow(List<Measurement> data)
         {
             for (int i = 0; i < _columns; ++i)
             {

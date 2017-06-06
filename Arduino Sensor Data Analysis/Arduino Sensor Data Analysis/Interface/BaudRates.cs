@@ -40,6 +40,8 @@ namespace SDA_Program.Interface
                     SDA_Core.Program.BaudRatesList.BaudRates.Add(newBaudRate);
                     TB_BaudRate.Text = "";
                     LoadBaudRates(DG_BaudRates);
+
+                    NewChanges();
                 }
                 else
                 {
@@ -62,7 +64,15 @@ namespace SDA_Program.Interface
                 int selected = DG_BaudRates.SelectedIndex;
                 SDA_Core.Program.BaudRatesList.BaudRates.RemoveAt(selected);
                 LoadBaudRates(DG_BaudRates);
+
+                NewChanges();
             }
+        }
+
+        private void NewChanges()
+        {
+            SDA_Core.Program.SaveBaudRatesToBinary();
+            SDA_Core.Program.ReloadLists = true;
         }
     }
 }

@@ -24,6 +24,8 @@ namespace SDA_Program.View.Popups
         {
             InitializeComponent();
             IO = new Interface.Sensors();
+
+            IO.LoadSensors(DG_Sensors);
         }
 
         private void B_AddField_Click(object sender, RoutedEventArgs e)
@@ -43,6 +45,16 @@ namespace SDA_Program.View.Popups
         private void B_DeleteSensorField_Click(object sender, RoutedEventArgs e)
         {
             IO.DeleteSensorField(DG_NewSensor);
+        }
+
+        private void DG_Sensors_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        }
+
+        private void DG_NewSensor_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
     }
 }

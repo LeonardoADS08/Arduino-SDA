@@ -7,6 +7,7 @@ using SDA_Core.Communication;
 
 namespace SDA_Core.Data.Files
 {
+    [Serializable]
     public class BaudRatesList
     {
         List<Communication.BaudRates> _baudRatesList;

@@ -8,14 +8,14 @@
         Title="Sensors" Height="547.334" Width="459" ResizeMode="NoResize" Background="#ECF0F1">
     <Grid>
         <GroupBox x:Name="GB_Sensors" Header="Sensors" Margin="10,10,10,10" d:IsLocked="True" />
-        <DataGrid x:Name="DG_Sensors" HorizontalAlignment="Left" Margin="20,33,0,0" VerticalAlignment="Top" Height="177" Width="410"/>
+        <DataGrid x:Name="DG_Sensors" HorizontalAlignment="Left" Margin="20,33,0,0" VerticalAlignment="Top" Height="177" Width="410" GridLinesVisibility="None" LoadingRow="DG_Sensors_LoadingRow"/>
         <Button x:Name="B_DeleteSensor" Content="Delete" HorizontalAlignment="Left" Margin="298,215,0,0" VerticalAlignment="Top" Width="132" Click="B_DeleteSensor_Click"/>
         <Grid Margin="10,226,10,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <GroupBox x:Name="GB_NewSensor" Header="New sensor" Margin="10,10,10,10" d:IsLocked="True"/>
-            <DataGrid x:Name="DG_NewSensor" HorizontalAlignment="Left" Height="94" Margin="21,65,0,0" VerticalAlignment="Top" Width="389"/>
+            <DataGrid x:Name="DG_NewSensor" HorizontalAlignment="Left" Height="94" Margin="21,65,0,0" VerticalAlignment="Top" Width="389" GridLinesVisibility="None" LoadingRow="DG_NewSensor_LoadingRow"/>
             <Label x:Name="L_Name" Content="Sensor name" HorizontalAlignment="Left" Margin="21,34,0,0" VerticalAlignment="Top"/>
             <Label x:Name="L_Measure" Content="Measure" HorizontalAlignment="Left" Margin="21,210,0,0" VerticalAlignment="Top"/>
             <Label x:Name="L_Unit" Content="Unit" HorizontalAlignment="Left" Margin="259,210,0,0" VerticalAlignment="Top"/>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,68 +13,118 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
+using System.Diagnostics;
 
-namespace Arduino_Sensor_Data_Analysis
+namespace SDA_Program.View
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para Home.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Home : Page
     {
-        int actual = 0;
-        bool encendido = true;
-        SDA_Core.Data.ProfileManager pmanager = new SDA_Core.Data.ProfileManager();
-        SDA_Core.Data.ProfileManager.Profile p = new SDA_Core.Data.ProfileManager.Profile("Campos electromagneticos", "Variaciones de campos electromagneticos.");
-        SDA_Core.Communication.Serial ser = new SDA_Core.Communication.Serial("COM4", 9600);
-        public MainWindow()
+        Interface.Home IO;
+
+        SDA_Core.Data.Processing pr = new SDA_Core.Data.Processing();
+        SDA_Core.Communication.SerialConnection srl = new SDA_Core.Communication.SerialConnection("COM5", new SDA_Core.Communication.BaudRates(9600));
+        SDA_Core.Data.Containers.SensorData data = new SDA_Core.Data.Containers.SensorData(2);
+        List<SDA_Core.Data.Containers.Measurement> formatList = new List<SDA_Core.Data.Containers.Measurement>();
+        DataTable res = null;
+        Thread _thread;
+        
+        public Home()
         {
             InitializeComponent();
-            //pmanager.NewProfile(p);
-            //pmanager.DeleteProfile(2);
-            //pmanager = new SDA_Core.Data.ProfileManager();
-            label.Content = "None.";
-            label1.Content = "None.";
-            label2.Content = "None.";
+            IO = new Interface.Home();
 
+            IO.LoadSerialPorts(CB_Ports);
+            IO.LoadBaudRates(CB_BaudRate);
+            IO.LoadSensors(CB_Sensors);
+
+            IO.LoadReceivedSensors(DG_SensorsList);
+
+            IO.CheckLists(CB_Ports, CB_BaudRate, CB_Sensors);
+
+            SDA_Core.Data.Containers.Measurement ms1 = new SDA_Core.Data.Containers.Measurement("Time", "ms.");
+            SDA_Core.Data.Containers.Measurement ms2 = new SDA_Core.Data.Containers.Measurement("Light", "int.");
+            formatList.Add(ms1);
+            formatList.Add(ms2);
+
+            _thread = new Thread(() => leer());
+
+            srl.Open();
+            _thread.Start();
+            UpdateSerialMonitor();
             
-            ser.Open();
-            ser.Write("b");
-            escuchar();
-            
+            //leer();
+
         }
 
-        private async void escuchar()
+        private async void UpdateSerialMonitor()
         {
-            while (true)
+            while (srl.Available())
             {
-                textBlock.Text = ser.CommunicationHistory;
+                DG_Monitor.DataContext = IO.SerialMonitor;
                 await Task.Delay(100);
             }
         }
 
-        private void change()
+        private async void leer()
         {
-            if (actual < pmanager.ProfileList.Count())
+            while (srl.Available())
             {
-                label.Content = pmanager.ProfileList[actual].Name;
-                label1.Content = pmanager.ProfileList[actual].Information;
-                label2.Content = actual.ToString();
-                dataGrid.DataContext = pmanager.ProfileList[actual].Sensors;
-                actual++;
-            }
-            else
-            {
-                actual = 0;
-                change();
+                pr.Process(srl.Read(), ref data, formatList);
+                IO.SerialMonitor = data.ToDataTable();
+                await Task.Delay(100);
             }
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void B_Connect_Click(object sender, RoutedEventArgs e)
         {
-            change();
-            if (encendido) ser.Write("b");
-            else ser.Write("a");
-            encendido = !encendido;
+         //   IO.StartConnection(CB_Ports, TB_BaudRate, CB_ConnectionMode, DG_ColumnList, DG_Monitor, G_Serial, B_Connect);
+         
+        }
+
+        private void B_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+          //  IO.CloseConnections(G_Serial, B_Connect);
+        }
+
+        private void I_RefreshPorts_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            IO.LoadSerialPorts(CB_Ports);
+        }
+
+        private void B_BaudRatesLists_Click(object sender, RoutedEventArgs e)
+        {
+            View.Popups.BaudRates popup = new Popups.BaudRates();
+            popup.Show();
+        }
+
+        private void B_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            IO.DeleteReceivedSensor(DG_SensorsList);
+        }
+
+        private void B_Add_Click(object sender, RoutedEventArgs e)
+        {
+            IO.SaveReceivedSensor(DG_SensorsList, CB_Sensors);
+        }
+
+        private void B_SensorList_Click(object sender, RoutedEventArgs e)
+        {
+            View.Popups.Sensors popup = new Popups.Sensors();
+            popup.Show();
+        }
+
+        private void DG_SensorsList_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        }
+
+        private void DG_Monitor_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
     }
 }

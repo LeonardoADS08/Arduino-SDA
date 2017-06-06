@@ -7,6 +7,7 @@ using SDA_Core.Data.Containers;
 
 namespace SDA_Core.Data.Files
 {
+    [Serializable]
     public class SensorLists
     {
         List<Containers.SensorData> _sensorList;

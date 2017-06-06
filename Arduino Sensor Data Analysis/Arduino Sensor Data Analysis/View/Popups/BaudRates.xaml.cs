@@ -37,5 +37,10 @@ namespace SDA_Program.View.Popups
         {
             IO.NewBaudRate(DG_BaudRates, TB_BaudRate);
         }
+
+        private void DG_BaudRates_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        }
     }
 }

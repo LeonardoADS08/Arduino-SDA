@@ -15,22 +15,21 @@ namespace SDA_Core
 {
     public static class Program
     {
-        private static Data.Containers.SensorData _dataStructure;
-        private static DataTable _serialMonitor;
+        private static Data.Containers.SensorData _receivedData;
         private static Data.Files.BaudRatesList _baudRatesList;
         private static Data.Files.SensorLists _sensorList;
-        private static Data.Files.SensorLists _dataStructuresList;
+        private static DataTable _serialMonitor;
+        private static Data.Files.SensorLists _sensorsFormat;
+        private static bool _reloadLists;
 
-        public static SensorData DataStructure
-        {
-            get  { return _dataStructure; }
-            set { _dataStructure = value; }
-        }
+        // Para manejar archivos externos 
+        private static DataSerializer<BaudRates> _baudRatesFile;
+        private static DataSerializer<SensorData> _sensorListFile;
 
-        public static DataTable SerialMonitor
+        public static SensorData ReceivedData
         {
-            get { return _serialMonitor; }
-            set { _serialMonitor = value; }
+            get  { return _receivedData; }
+            set { _receivedData = value; }
         }
 
         public static BaudRatesList BaudRatesList
@@ -45,19 +44,38 @@ namespace SDA_Core
             set { _sensorList = value; }
         }
 
-        public static SensorLists DataStructuresList
+        public static SensorLists SensorsFormat
         {
-            get { return _dataStructuresList; }
-            set { _dataStructuresList = value; }
+            get { return _sensorsFormat; }
+            set { _sensorsFormat = value; }
+        }
+
+        public static bool ReloadLists
+        {
+            get { return _reloadLists; }
+            set { _reloadLists = value; }
+        }
+
+        public static DataTable SerialMonitor
+        {
+            get { return _serialMonitor; }
+            set { _serialMonitor = value; }
         }
 
         static Program()
         {
-            _dataStructure = new Data.Containers.SensorData();
-            _serialMonitor = new DataTable();
+            _receivedData = new Data.Containers.SensorData();
             _baudRatesList = new Data.Files.BaudRatesList();
             _sensorList = new SensorLists();
-            _dataStructuresList = new SensorLists();
+            _sensorsFormat = new SensorLists();
+            _serialMonitor = new DataTable();
+
+            _sensorListFile = new DataSerializer<SensorData>();
+            _baudRatesFile = new DataSerializer<BaudRates>();
+
+            _baudRatesList.BaudRates = _baudRatesFile.RecoverData();
+            _sensorList.SensorList = _sensorListFile.RecoverData();
+
         }
 
 
@@ -73,7 +91,6 @@ namespace SDA_Core
 
                 result.Rows.Add(newRow);
             }
-
             return result;
         }
 
@@ -89,7 +106,6 @@ namespace SDA_Core
 
                 result.Rows.Add(newRow);
             }
-
             return result;
         }
 
@@ -105,9 +121,53 @@ namespace SDA_Core
 
                 result.Rows.Add(newRow);
             }
+            return result;
+        }
+
+        static public DataTable ReceivedSensorsToDataTable()
+        {
+            DataTable result = new DataTable();
+
+            result.Columns.Add("Sensor Name", typeof(string));
+
+            foreach (SDA_Core.Data.Containers.SensorData value in _sensorsFormat.SensorList)
+            {
+                DataRow newRow = result.NewRow();
+                newRow[0] = value.SensorName;
+
+                result.Rows.Add(newRow);
+            }
 
             return result;
         }
-    }
 
+        static public List<Measurement> GetSensorsFormat()
+        {
+            List<Measurement> result = new List<Measurement>();
+            foreach (SensorData sensor in _sensorsFormat.SensorList)
+            {
+
+                foreach(MeasurementList format in sensor.Values)
+                {
+                    result.Add(format.Measures[0]);
+                }
+            }
+
+            return result;
+        }
+
+        static public void SaveSensorsToBinary()
+        {
+            _sensorListFile.ClearBinary();
+            _sensorListFile.SaveData(_sensorList.SensorList);
+        }
+
+        static public void SaveBaudRatesToBinary()
+        {
+            _baudRatesFile.ClearBinary();
+            _baudRatesFile.SaveData(_baudRatesList.BaudRates);
+        }
+
+
+    }
 }

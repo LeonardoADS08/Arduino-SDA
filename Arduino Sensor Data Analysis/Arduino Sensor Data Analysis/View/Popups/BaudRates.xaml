@@ -11,7 +11,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <GroupBox x:Name="GB_BaudRates" Header="Baud Rates" Margin="10" d:IsLocked="True"/>
-        <DataGrid x:Name="DG_BaudRates" HorizontalAlignment="Left" Margin="21,31,0,0" VerticalAlignment="Top" Height="114" Width="325" GridLinesVisibility="None"/>
+        <DataGrid x:Name="DG_BaudRates" HorizontalAlignment="Left" Margin="21,31,0,0" VerticalAlignment="Top" Height="114" Width="325" GridLinesVisibility="None" LoadingRow="DG_BaudRates_LoadingRow"/>
         <Label x:Name="L_BaudRate" Content="Baud Rate" HorizontalAlignment="Left" Margin="116,147,0,0" VerticalAlignment="Top" Height="25"/>
         <TextBox x:Name="TB_BaudRate" HorizontalAlignment="Left" Height="20" Margin="184,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="162"/>
         <Button x:Name="B_NewBaudRate" Content="New" HorizontalAlignment="Left" Margin="247,175,0,0" VerticalAlignment="Top" Width="99" Click="B_NewBaudRate_Click"/>

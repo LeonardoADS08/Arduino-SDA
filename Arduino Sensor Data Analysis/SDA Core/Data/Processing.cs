@@ -53,13 +53,13 @@ namespace SDA_Core.Data
                     newMeasure.Name = format[i].Name;
                     receivedData.Add(newMeasure);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    RuntimeLogs.SendLog("Imposible convertir: " + rawColumnsData[i], "Processing.Process(string, ref SensorDataArray, bool = false)");
+                    RuntimeLogs.SendLog(ex.Message, "Processing.Process(string, ref SensorDataArray, bool = false)");
                 }
                 
             }
-            resultTable.Add(receivedData);
+            resultTable.AddRow(receivedData);
         }
 
         /// <summary>
