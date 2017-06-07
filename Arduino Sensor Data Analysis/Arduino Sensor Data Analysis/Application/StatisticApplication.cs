@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SDA_Core.Analysis
+namespace SDA_Program.Application
 {
-    public class Statistics : Analysis
+    class StatisticApplication
     {
-
     }
 }

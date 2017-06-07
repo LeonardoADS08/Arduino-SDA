@@ -14,17 +14,17 @@ namespace SDA_Core.Communication
     /// <summary>
     /// ES: Clase para la comunicación serial con un arduino, la clase utiliza un hilo independiente especialmente para escuchar los datos que envia el arduino.
     /// </summary>
-    public class SerialConnection : Connection
+    public class SerialConnectionOld : Connection
     {
-        private BaudRates _serialConfiguration;
+        private BaudRatesOld _serialConfiguration;
         private SerialPort _serialConnection;
 
         /// <summary>
         /// ES: Constructor de la clase Serial.
         /// </summary>
-        public SerialConnection()
+        public SerialConnectionOld()
         {
-            _serialConfiguration = new BaudRates();
+            _serialConfiguration = new BaudRatesOld();
             _serialConnection = new SerialPort();
 
         }
@@ -35,7 +35,7 @@ namespace SDA_Core.Communication
         /// <param name="portName">ES: Nombre del puerto al que está conectado el arduino.</param>
         /// <param name="baudRate">ES: Ratio de baudios (Baud Rate).</param>
         /// <param name="hearInterval">ES: Intervalo de tiempo (ms.) al que se debe escuchar el Serial del arduino.</param>
-        public SerialConnection(string port, BaudRates baudRate)
+        public SerialConnectionOld(string port, BaudRatesOld baudRate)
         {
             _serialConnection = new SerialPort(port, baudRate.BaudRate);
         }
@@ -78,7 +78,7 @@ namespace SDA_Core.Communication
                 if (!_serialConnection.IsOpen) _serialConnection.Open();
                 return _serialConnection.ReadLine();
             }
-            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnection).FullName + ".Read()"); }
+            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnectionOld).FullName + ".Read()"); }
             return "";
         }
 
@@ -93,7 +93,7 @@ namespace SDA_Core.Communication
                 if (!_serialConnection.IsOpen) _serialConnection.Open();
                 _serialConnection.Write(message);
             }
-            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnection).FullName + ".Write()"); }
+            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnectionOld).FullName + ".Write()"); }
         }
 
         
@@ -107,7 +107,7 @@ namespace SDA_Core.Communication
             {
                 return _serialConnection.IsOpen;
             }
-            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnection).FullName + ".Available()"); }
+            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnectionOld).FullName + ".Available()"); }
             return false;
         }
 
@@ -124,7 +124,7 @@ namespace SDA_Core.Communication
                     //_thread.Start();
                 }
             }
-            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnection).FullName + ".Open()"); }
+            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnectionOld).FullName + ".Open()"); }
         }   
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace SDA_Core.Communication
                     //_thread.Abort();
                 }
             }
-            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnection).FullName + ".Close()"); }
+            catch (Exception ex) { Data.RuntimeLogs.SendLog(ex.Message, typeof(SerialConnectionOld).FullName + ".Close()"); }
         }
 
         /// <summary>

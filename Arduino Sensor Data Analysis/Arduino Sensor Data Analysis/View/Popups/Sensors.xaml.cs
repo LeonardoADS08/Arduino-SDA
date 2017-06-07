@@ -19,32 +19,43 @@ namespace SDA_Program.View.Popups
     /// </summary>
     public partial class Sensors : Window
     {
-        SDA_Program.Interface.Sensors IO;
+        Interface.SensorInterface IO;
+        Application.SensorApplication APP;
+
         public Sensors()
         {
             InitializeComponent();
-            IO = new Interface.Sensors();
 
-            IO.LoadSensors(DG_Sensors);
-        }
+            IO = new Interface.SensorInterface();
+            APP = new Application.SensorApplication();
 
-        private void B_AddField_Click(object sender, RoutedEventArgs e)
-        {
-            IO.NewSensorField(DG_NewSensor, TB_Measure, TB_Unit);
-        }
-
-        private void B_Save_Click(object sender, RoutedEventArgs e)
-        {
-            IO.NewSensor(DG_Sensors, DG_NewSensor, TB_SensorName);
+            IO.LoadMeasurementUnit(CB_MeasureUnits, APP.GetMeasureUnits());
+            IO.LoadSensors(DG_Sensors, APP.GetSensors());
         }
 
         private void B_DeleteSensor_Click(object sender, RoutedEventArgs e)
         {
             IO.DeleteSensor(DG_Sensors);
         }
+
         private void B_DeleteSensorField_Click(object sender, RoutedEventArgs e)
         {
-            IO.DeleteSensorField(DG_NewSensor);
+            IO.DeleteField(DG_NewSensor);
+        }
+
+        private void B_AddField_Click(object sender, RoutedEventArgs e)
+        {
+            IO.NewField(DG_NewSensor, CB_MeasureUnits);
+        }
+
+        private void B_Save_Click(object sender, RoutedEventArgs e)
+        {
+            IO.NewSensor(DG_NewSensor, DG_Sensors, TB_SensorName);
+        }
+
+        private void B_SaveData_Click(object sender, RoutedEventArgs e)
+        {
+            APP.SaveDataToBinary(IO.GetData());
         }
 
         private void DG_Sensors_LoadingRow(object sender, DataGridRowEventArgs e)

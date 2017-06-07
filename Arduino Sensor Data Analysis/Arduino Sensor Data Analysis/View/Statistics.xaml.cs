@@ -20,15 +20,13 @@ namespace SDA_Program.View
     /// </summary>
     public partial class Statistics : Page
     {
-        Interface.Statistics IO;
+        Interface.StatisticsInterface IO;
         public Statistics()
         {
             InitializeComponent();
 
-            IO = new Interface.Statistics();
+            IO = new Interface.StatisticsInterface();
 
-            IO.LoadColumns(CB_General_Variables);
-            IO.LoadColumns(CB_Charts_Variables);
         }
 
 

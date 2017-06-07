@@ -31,7 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icono.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Windows.Design.Extensibility, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -55,32 +56,39 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Communication\Connection.cs" />
-    <Compile Include="Communication\BaudRates.cs" />
-    <Compile Include="Communication\SerialConnection.cs" />
-    <Compile Include="Analysis\Analysis.cs" />
-    <Compile Include="Data\Files\DataSerializer.cs" />
-    <Compile Include="Data\Files\BaudRatesList.cs" />
-    <Compile Include="Data\Files\SensorLists.cs" />
-    <Compile Include="Data\Processing.cs" />
-    <Compile Include="Analysis\Statistics.cs" />
-    <Compile Include="Data\Container\Measurement.cs" />
-    <Compile Include="Data\Container\MeasurementList.cs" />
-    <Compile Include="Data\Container\SensorData.cs" />
-    <Compile Include="Program\Program.cs" />
+    <Compile Include="Business\Arrays\BaudRatesArray.cs" />
+    <Compile Include="Business\Arrays\MeasureArray.cs" />
+    <Compile Include="Business\Arrays\MeasurementArray.cs" />
+    <Compile Include="Business\Arrays\MeasureUnitArray.cs" />
+    <Compile Include="Business\Arrays\PortArray.cs" />
+    <Compile Include="Business\Arrays\SensorData.cs" />
+    <Compile Include="Business\Arrays\SensorDataArray.cs" />
+    <Compile Include="Business\Arrays\UnitArray.cs" />
+    <Compile Include="Business\BaudRates.cs" />
+    <Compile Include="Business\Arrays\GenericArray.cs" />
+    <Compile Include="Business\Measure.cs" />
+    <Compile Include="Business\Measurement.cs" />
+    <Compile Include="Business\MeasureUnit.cs" />
+    <Compile Include="Business\Unit.cs" />
+    <Compile Include="Business\Port.cs" />
+    <Compile Include="Business\SerialConnection.cs" />
+    <Compile Include="Data\BaudRatesSerializer.cs" />
+    <Compile Include="Data\MeasurementSerializer.cs" />
+    <Compile Include="Data\MeasuresSerializer.cs" />
+    <Compile Include="Data\MeasureUnitSerializer.cs" />
+    <Compile Include="Data\SensorDataSerializer.cs" />
+    <Compile Include="Data\UnitSerializer.cs" />
+    <Compile Include="Functional\Data.cs" />
+    <Compile Include="Functional\DataSerializer.cs" />
+    <Compile Include="Functional\Processing.cs" />
+    <Compile Include="Functional\RuntimeLogs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\RuntimeLogs.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Icono.ico" />
+    <Compile Include="SerialConnectionOld.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <None Include="Program.cd" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

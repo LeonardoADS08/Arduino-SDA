@@ -19,13 +19,16 @@ namespace SDA_Program.View.Popups
     /// </summary>
     public partial class BaudRates : Window
     {
-        SDA_Program.Interface.BaudRates IO;
+        SDA_Program.Interface.BaudRatesInterface IO;
+        SDA_Program.Application.BaudRatesApplication APP;
+
         public BaudRates()
         {
             InitializeComponent();
-            IO = new Interface.BaudRates();
+            IO = new Interface.BaudRatesInterface();
+            APP = new Application.BaudRatesApplication();
 
-            IO.LoadBaudRates(DG_BaudRates);
+            IO.LoadDataGrid(DG_BaudRates, APP);
         }
 
         private void B_DeleteBaudRate_Click(object sender, RoutedEventArgs e)
@@ -36,6 +39,11 @@ namespace SDA_Program.View.Popups
         private void B_NewBaudRate_Click(object sender, RoutedEventArgs e)
         {
             IO.NewBaudRate(DG_BaudRates, TB_BaudRate);
+        }
+
+        private void B_Save_Click(object sender, RoutedEventArgs e)
+        {
+            APP.SaveDataToBinary(IO.GetData());
         }
 
         private void DG_BaudRates_LoadingRow(object sender, DataGridRowEventArgs e)

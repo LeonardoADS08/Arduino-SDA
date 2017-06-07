@@ -22,28 +22,34 @@ namespace Arduino_Sensor_Data_Analysis
     /// </summary>
     public partial class MainWindow : Window
     {
-        SDA_Program.Interface.MainWindow IO;
+        SDA_Program.Interface.MainWindowInterface IO;
+        SDA_Program.View.Home HomePage;
+        SDA_Program.View.Statistics StatisticsPage;
+        SDA_Program.View.Configurations ConfigurationsPage;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            IO = new SDA_Program.Interface.MainWindow();
+            IO = new SDA_Program.Interface.MainWindowInterface();
 
-            IO.HomeClicked(B_Home, B_Statistics, FrameWindow);
+            IO.HomeClicked(B_Home, B_Statistics, B_Configurations, F_Frame);
+
         }
 
         private void B_Home_Click(object sender, RoutedEventArgs e)
         {
-            IO.HomeClicked(B_Home, B_Statistics, FrameWindow);
+            IO.HomeClicked(B_Home, B_Statistics, B_Configurations, F_Frame);
         }
 
-        private void B_Profiles_Click(object sender, RoutedEventArgs e)
+        private void B_Configurations_Click(object sender, RoutedEventArgs e)
         {
-
-            IO.StatisticsClicked(B_Home, B_Statistics, FrameWindow);
+            IO.ConfigurationClicked(B_Home, B_Statistics, B_Configurations, F_Frame);
         }
 
-       
+        private void B_Statistics_Click(object sender, RoutedEventArgs e)
+        {
+            IO.StatisticsClicked(B_Home, B_Statistics, B_Configurations, F_Frame);
+        }
     }
 }

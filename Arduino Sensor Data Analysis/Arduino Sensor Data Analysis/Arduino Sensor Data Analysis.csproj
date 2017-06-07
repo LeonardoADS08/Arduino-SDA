@@ -104,11 +104,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Interface\BaudRates.cs" />
-    <Compile Include="Interface\Home.cs" />
-    <Compile Include="Interface\MainWindow.cs" />
-    <Compile Include="Interface\Sensors.cs" />
-    <Compile Include="Interface\Statistics.cs" />
+    <Compile Include="Application\BaudRatesApplication.cs" />
+    <Compile Include="Application\ConfigurationsApplication.cs" />
+    <Compile Include="Application\HomeApplication.cs" />
+    <Compile Include="Application\MainWindowApplication.cs" />
+    <Compile Include="Application\MeasuresApplication.cs" />
+    <Compile Include="Application\MeasureUnitApplication.cs" />
+    <Compile Include="Application\SensorApplication.cs" />
+    <Compile Include="Application\StatisticApplication.cs" />
+    <Compile Include="Application\UnitApplication.cs" />
+    <Compile Include="Interface\BaudRatesInterface.cs" />
+    <Compile Include="Interface\ConfigurationsInterface.cs" />
+    <Compile Include="Interface\HomeInterface.cs" />
+    <Compile Include="Interface\MainWindowInterface.cs" />
+    <Compile Include="Interface\MeasuresInterface.cs" />
+    <Compile Include="Interface\MeasureUnitInterface.cs" />
+    <Compile Include="Interface\SensorInterface.cs" />
+    <Compile Include="Interface\StatisticsInterface.cs" />
+    <Compile Include="Interface\UnitInterface.cs" />
     <Compile Include="View\Configurations.xaml.cs">
       <DependentUpon>Configurations.xaml</DependentUpon>
     </Compile>
@@ -118,8 +131,17 @@
     <Compile Include="View\Popups\BaudRates.xaml.cs">
       <DependentUpon>BaudRates.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Popups\Measures.xaml.cs">
+      <DependentUpon>Measures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Popups\MeasureUnit.xaml.cs">
+      <DependentUpon>MeasureUnit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Popups\Sensors.xaml.cs">
       <DependentUpon>Sensors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Popups\Units.xaml.cs">
+      <DependentUpon>Units.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
@@ -148,7 +170,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Popups\Measures.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Popups\MeasureUnit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Popups\Sensors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Popups\Units.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

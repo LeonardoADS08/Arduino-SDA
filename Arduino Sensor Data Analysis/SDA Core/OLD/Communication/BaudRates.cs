@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SDA_Core.Communication
 {
     [Serializable]
-    public class BaudRates
+    public class BaudRatesOld
     {
         private int _baudRate;
 
@@ -17,12 +17,12 @@ namespace SDA_Core.Communication
             set { _baudRate = value; }
         }
 
-        public BaudRates()
+        public BaudRatesOld()
         {
             _baudRate = 0;
         }
 
-        public BaudRates(int baudrate)
+        public BaudRatesOld(int baudrate)
         {
             _baudRate = baudrate;
         }
