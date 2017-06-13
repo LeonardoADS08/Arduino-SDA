@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SDA_Core.Business.Arrays
 {
-    public class PortArray
+    public class PortArray : Port
     {
         private GenericArray<Port> _list;
 

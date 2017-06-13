@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SDA_Core.Business.Arrays
 {
-    public class BaudRatesArray
+    public class BaudRatesArray : BaudRates
     {
         private GenericArray<BaudRates> _list;
 

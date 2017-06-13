@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SDA_Core.Business.Arrays
 {
     [Serializable]
-    public class MeasureUnitArray
+    public class MeasureUnitArray : MeasureUnit
     {
         private GenericArray<MeasureUnit> _list;
 

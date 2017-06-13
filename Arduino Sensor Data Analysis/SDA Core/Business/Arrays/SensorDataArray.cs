@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SDA_Core.Business.Arrays
 {
     [Serializable]
-    public class SensorDataArray
+    public class SensorDataArray : SensorData
     {
         private GenericArray<SensorData> _list;
 

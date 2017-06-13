@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SDA_Core.Business
 {
     [Serializable]
-    public class Measurement
+    public class Measurement : Measure
     {
         private MeasureUnit _measureInformation;
         private double _value;
