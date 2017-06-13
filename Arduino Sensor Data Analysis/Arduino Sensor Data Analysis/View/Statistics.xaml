@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:local="clr-namespace:SDA_Program.View"
       xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="SDA_Program.View.Statistics"
       mc:Ignorable="d" 
@@ -10,21 +11,25 @@
       Title="Statistics" Background="#ECF0F1">
 
     <Grid>
-        <Grid x:Name="G_General" Margin="10,10,10,0" VerticalAlignment="Top" Height="200">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="G_General" Margin="10,10,10,0" VerticalAlignment="Top" Height="177">
             <GroupBox x:Name="GB_Statistic" Header="General" FontSize="24" d:IsLocked="True" />
-            <DataGrid x:Name="DG_General" Margin="10,73,10,10"/>
-            <Label x:Name="L_Summary" Content="Respect to:" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" FontSize="14"/>
-            <ComboBox x:Name="CB_General_Variables" HorizontalAlignment="Left" Margin="93,41,0,0" VerticalAlignment="Top" Width="170"/>
+            <DataGrid x:Name="DG_General" Margin="10,73,10,10" GridLinesVisibility="None"/>
+            <Label x:Name="L_TimeColumn" Content="Time column:" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" FontSize="14"/>
+            <ComboBox x:Name="CB_General_Columns" HorizontalAlignment="Left" Margin="108,44,0,0" VerticalAlignment="Top" Width="170"/>
+            <Button x:Name="B_Generate" Content="Generate" HorizontalAlignment="Left" Margin="290,45,0,0" VerticalAlignment="Top" Width="116" Click="B_Generate_Click"/>
         </Grid>
-        <Grid x:Name="G_Charts" Margin="10,215,10,10">
+        <Grid x:Name="G_Charts" Margin="10,195,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <GroupBox x:Name="GB_Charts" Header="Charts" FontSize="24" d:IsLocked="True"/>
-            <Label x:Name="L_Summary_Copy" Content="Respect to:" HorizontalAlignment="Left" Margin="19,36,0,0" VerticalAlignment="Top" FontSize="14"/>
-            <ComboBox x:Name="CB_Charts_Variables" HorizontalAlignment="Left" Margin="112,36,0,0" VerticalAlignment="Top" Width="176"/>
-            <Label x:Name="L_TimeRange" Content="Time range" HorizontalAlignment="Left" Margin="19,63,0,0" VerticalAlignment="Top" Width="89" FontSize="14"/>
-            <TextBox x:Name="TB_InitTime" HorizontalAlignment="Left" Height="23" Margin="112,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80"/>
-            <TextBox x:Name="TB_FinalTime" HorizontalAlignment="Left" Height="23" Margin="208,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80"/>
-            <Label x:Name="L_to" Content="-" HorizontalAlignment="Left" Margin="192,58,0,433" VerticalAlignment="Center" Width="16" Height="22" />
-            <Button x:Name="B_LoadChanges" Content="Load" HorizontalAlignment="Left" Margin="180,91,0,0" VerticalAlignment="Top" Width="108" Height="22"/>
+            <lvc:CartesianChart x:Name="CC_General" Series="{Binding SeriesCollection}" Margin="15,76,24,14"/>
+            <Label x:Name="L_Chart" Content="Time column:" HorizontalAlignment="Left" Margin="30,37,0,0" VerticalAlignment="Top" FontSize="14"/>
+            <ComboBox x:Name="CB_DataColumn" HorizontalAlignment="Left" Margin="128,41,0,0" VerticalAlignment="Top" Width="170"/>
+            <Button x:Name="B_GenerateChart" Content="Generate chart" HorizontalAlignment="Left" Margin="316,41,0,0" VerticalAlignment="Top" Width="116" Click="B_GenerateChart_Click"/>
         </Grid>
     </Grid>
 </Page>

@@ -19,7 +19,7 @@ using SDA_Core;
 
 namespace SDA_Program.Interface
 {
-    class HomeInterface
+    public class HomeInterface
     {
         private SerialPort serialConnection;
         private SDA_Core.Functional.Processing processer;
@@ -116,7 +116,7 @@ namespace SDA_Program.Interface
                 MessageBox.Show("Not selected sensors.", "Error", MessageBoxButton.OK);
                 return;
             }
-
+            DG_SerialMonitor.DataContext = null;
             SDA_Core.Business.Port port = (SDA_Core.Business.Port)CB_SerialPort.SelectedItem;
             SDA_Core.Business.BaudRates baudrate = (SDA_Core.Business.BaudRates)CB_BaudRate.SelectedItem;
 
@@ -180,8 +180,10 @@ namespace SDA_Program.Interface
         {
             while (serialConnection.IsOpen)
             {
-                //if (DG_SerialMonitor.Items.Count == 0 || DG_SerialMonitor.Items.Count != communication.Rows)
+                if (DG_SerialMonitor.Items.Count == 0)
                     DG_SerialMonitor.DataContext = dataManager.SensorDataToDataTable(communication);
+                else
+                    DG_SerialMonitor.DataContext = dataManager.UpdateSensorDataDataTable(((DataView)DG_SerialMonitor.ItemsSource).ToTable(), communication);
                 await Task.Delay(150);
             }
         }
@@ -193,6 +195,8 @@ namespace SDA_Program.Interface
             G_Serial.IsEnabled = true;
             B_Connect.IsEnabled = true;
         }
+
+        public SDA_Core.Business.Arrays.SensorData GetSerialMonitorData() => communication;
 
         public void UpdateTable(DataGrid DG_SensorList) => DG_SensorList.ItemsSource = dataManager.SensorsListToDataTable(selectedSensors).AsDataView();
     }

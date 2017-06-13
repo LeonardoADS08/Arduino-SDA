@@ -23,8 +23,8 @@ namespace SDA_Program.View
     /// </summary>
     public partial class Home : Page
     {
-        Interface.HomeInterface IO;
-        Application.HomeApplication APP;
+        public Interface.HomeInterface IO;
+        private Application.HomeApplication APP;
 
 
         public Home()
@@ -37,17 +37,6 @@ namespace SDA_Program.View
             IO.LoadBaudRates(CB_BaudRate, APP.GetBaudRates());
             IO.LoadSensors(CB_Sensors, APP.GetSensors());
         }
-
-        private async void UpdateSerialMonitor()
-        {
-         /*   while (IO.SerialConnection.Available())
-            {
-                DG_Monitor.DataContext = SDA_Core.Program.SerialMonitor;
-                await Task.Delay(100);
-            }
-            G_Serial.IsEnabled = true;*/
-        }
-        
 
         private void I_RefreshPorts_MouseDown(object sender, MouseButtonEventArgs e)
         {

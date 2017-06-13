@@ -31,6 +31,8 @@ namespace SDA_Core.Business.Arrays
 
         public bool Exists(T data) => _array.Any(value => value.Equals(data));
 
-        
+        public T First() => _array.First();
+
+        public T Last() => _array.Last();
     }
 }

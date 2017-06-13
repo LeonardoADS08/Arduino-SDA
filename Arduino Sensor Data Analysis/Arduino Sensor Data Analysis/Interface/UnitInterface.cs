@@ -16,7 +16,7 @@ using SDA_Core;
 
 namespace SDA_Program.Interface
 {
-    class UnitInterface
+    public class UnitInterface
     {
         SDA_Core.Business.Arrays.UnitArray unitArray;
         SDA_Core.Functional.Data dataManager;

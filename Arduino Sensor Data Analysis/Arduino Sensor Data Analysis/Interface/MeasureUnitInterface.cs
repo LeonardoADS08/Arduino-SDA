@@ -16,7 +16,7 @@ using SDA_Core;
 
 namespace SDA_Program.Interface
 {
-    class MeasureUnitInterface
+    public class MeasureUnitInterface
     {
         SDA_Core.Business.Arrays.MeasureUnitArray measureUnitArray;
         SDA_Core.Functional.Data dataManager;

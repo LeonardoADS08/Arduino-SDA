@@ -16,7 +16,7 @@ using SDA_Core;
 
 namespace SDA_Program.Interface
 {
-    class BaudRatesInterface
+    public class BaudRatesInterface
     {
         SDA_Core.Business.Arrays.BaudRatesArray baudRates;
         SDA_Core.Functional.Data dataManager;

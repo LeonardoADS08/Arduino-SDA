@@ -4,6 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.IO.Ports;
+using System.Diagnostics;
 
 namespace SDA_Core.Functional
 {
@@ -109,7 +116,14 @@ namespace SDA_Core.Functional
 
             for (int i = 0; i < data.Columns.Size; ++i)
             {
-                result.Columns.Add(data.Columns[i].Measure.Name + " (" + data.Columns[i].Unit.Name + ")", typeof(double));
+                string columnName = data.Columns[i].Measure.Name + " (" + data.Columns[i].Unit.Name + ")";
+                int tr = 1;
+                while (result.Columns.Contains(columnName))
+                {
+                    columnName = data.Columns[i].Measure.Name + tr.ToString() +" (" + data.Columns[i].Unit.Name + ")";
+                    tr++;
+                }
+               result.Columns.Add(columnName, typeof(double));
             }
 
             for (int i = 0; i < data.Rows; ++i)
@@ -126,6 +140,47 @@ namespace SDA_Core.Functional
             }
 
             return result;
+        }
+
+        public DataTable UpdateSensorDataDataTable(DataTable data, Business.Arrays.SensorData information)
+        {
+            int size = data.Rows.Count;
+            // Limita el numero de filas a 100
+            if (size >= 100)
+            {
+                int last = information.Rows - 1;
+                data.Rows.RemoveAt(0);
+                DataRow newRow = data.NewRow();
+                for (int j = 0; j < information.Columns.Size; ++j)
+                {
+                    try
+                    {
+                        Business.Measurement actual = information.Columns[j].List[last];
+                        newRow[j] = actual.Value;
+                    }
+                    catch { break; }
+                }
+                data.Rows.Add(newRow);
+            }
+            else
+            {
+                for (int i = size; i < information.Rows; ++i)
+                {
+                    DataRow newRow = data.NewRow();
+
+                    for (int j = 0; j < information.Columns.Size; ++j)
+                    {
+                        try
+                        {
+                            Business.Measurement actual = information.Columns[j].List[i];
+                            newRow[j] = actual.Value;
+                        }
+                        catch { break; }
+                    }
+                    data.Rows.Add(newRow);
+                }
+            }
+            return data;
         }
     }
 }

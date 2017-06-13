@@ -12,11 +12,11 @@ namespace SDA_Core.Data
     {
         static private Functional.DataSerializer<Business.Unit> _serializer;
 
-        public static DataSerializer<Unit> Serializer { get => _serializer; set => _serializer = value; }
+        public static DataSerializer<Business.Unit> Serializer { get => _serializer; set => _serializer = value; }
 
         static UnitSerializer()
         {
-            _serializer = new DataSerializer<Unit>();
+            _serializer = new DataSerializer<Business.Unit>();
         }
 
     }

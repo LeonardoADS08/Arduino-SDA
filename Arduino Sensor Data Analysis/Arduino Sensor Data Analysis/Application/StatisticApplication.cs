@@ -8,5 +8,15 @@ namespace SDA_Program.Application
 {
     class StatisticApplication
     {
+
+        public SDA_Core.Business.Arrays.MeasureUnitArray GetColumns()
+        {
+            SDA_Core.Business.Arrays.MeasureUnitArray result = new SDA_Core.Business.Arrays.MeasureUnitArray();
+
+            return result;
+        }
     }
+
+
+
 }

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using SDA_Core.Communication;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Controls;
@@ -24,13 +24,7 @@ namespace SDA_Core.Functional
         /// </summary>
         public Processing() { }
 
-        /// <summary>
-        /// ES: Procesa datos recogidos por Arduino SDA.
-        /// </summary>
-        /// <param name="rawData">ES: String con los datos sin procesar.</param>
-        /// <param name="resultTable">ES: SensorDataArray donde se almacenaran los resultados</param>
-        /// <param name="clearTable">ES: Indicar 'true' si se quiere limpiar los datos de la tabla</param>
-        public void Process(string rawData, ref Business.Arrays.SensorData resultTable)
+        private void ProcessThread(string rawData, ref Business.Arrays.SensorData resultTable)
         {
             // Se verifica que el mensaje sea para SDA.
             if (rawData.StartsWith("SDA: ")) rawData = rawData.Remove(0, 5);
@@ -57,11 +51,24 @@ namespace SDA_Core.Functional
                 {
                     RuntimeLogs.SendLog(ex.Message, "Processing.Process(string, ref SensorDataArray)");
                 }
-                
+
             }
 
             resultTable.AddRow(receivedData);
-            
+        }
+
+        /// <summary>
+        /// ES: Procesa datos recogidos por Arduino SDA.
+        /// </summary>
+        /// <param name="rawData">ES: String con los datos sin procesar.</param>
+        /// <param name="resultTable">ES: SensorDataArray donde se almacenaran los resultados</param>
+        /// <param name="clearTable">ES: Indicar 'true' si se quiere limpiar los datos de la tabla</param>
+        public void Process(string rawData, ref Business.Arrays.SensorData resultTable)
+        {
+            Business.Arrays.SensorData result = resultTable;
+            Thread processThread = new Thread(() => ProcessThread(rawData, ref result));
+            processThread.Start();
+            resultTable = result;
         }
 
         /// <summary>

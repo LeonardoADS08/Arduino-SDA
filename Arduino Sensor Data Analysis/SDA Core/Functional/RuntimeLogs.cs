@@ -32,7 +32,7 @@ namespace SDA_Core.Functional
                 else final = direction + " - " + message + "\r\n";
                 File.AppendAllText(logfile, final);
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
                // MessageBox.Show("An error message cannot be saved in the runtime log.\n" + ex.Message, "Error - RuntimeLog", MessageBoxButtons.OK);
             }

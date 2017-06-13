@@ -16,7 +16,7 @@ using SDA_Core;
 
 namespace SDA_Program.Interface
 {
-    class ConfigurationsInterface
+    public class ConfigurationsInterface
     {
         SDA_Core.Functional.Data dataManager;
 
