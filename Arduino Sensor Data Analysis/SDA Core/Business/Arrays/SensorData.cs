@@ -26,9 +26,18 @@ namespace SDA_Core.Business.Arrays
 
         public void AddRow(GenericArray<Measurement> row)
         {
+            if (row.Size != _columns.Size) return;
             for (int i = 0; i < _columns.Size; ++i)
             {
-                _columns[i].List.Add(row[i]);
+                try
+                {
+                    _columns[i].List.Add(row[i]);
+                }
+                catch (Exception ex)
+                {
+                    Functional.RuntimeLogs.SendLog(ex.Message, "SensorData.AddRow(GenericArray<Measurement>)");
+                    return;
+                }
             }
             _rows++;
         }

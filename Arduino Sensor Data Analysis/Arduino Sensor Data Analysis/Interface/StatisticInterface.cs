@@ -150,18 +150,17 @@ namespace SDA_Program.Interface
             int dataColumn = CB_Selected.SelectedIndex;
             C_General.Series = null;
 
-            ChartValues<double> column = new ChartValues<double>();
+            ChartValues<double> series = new ChartValues<double>();
             for (int i = 0; i < data.Rows; ++i)
             {
-                column.Add(data.Columns[dataColumn].List[i].Value);
+                series.Add(data.Columns[dataColumn].List[i].Value);
             }
 
             SeriesCollection SeriesCollection = new SeriesCollection
             {
                 new LineSeries
                 {
-                    Values = column
-                    
+                    Values = series
                 },
             };
             //C_General.AddToView(SeriesCollection);

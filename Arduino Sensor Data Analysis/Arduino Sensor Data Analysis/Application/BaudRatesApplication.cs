@@ -18,7 +18,11 @@ namespace SDA_Program.Application
             }
         }
 
-        public void SaveData(SDA_Core.Business.Arrays.BaudRatesArray newData) => List = newData.List;
+       /* public void SaveData(SDA_Core.Business.Arrays.BaudRatesArray newData)
+        {
+            List = newData.List;
+            SaveDataToBinary(newData);
+        }*/
 
         public SDA_Core.Business.Arrays.BaudRatesArray GetData() => this;
 

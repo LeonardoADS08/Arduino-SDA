@@ -167,10 +167,7 @@ namespace SDA_Program.Interface
                     string message = serialConnection.ReadLine();
                     if (message != "") processer.Process(message, ref communication);
                 }
-                catch (Exception ex)
-                {
-                    return;
-                }
+                catch (Exception ex) { return; }
                 
                 await Task.Delay(100);
             }
@@ -183,7 +180,10 @@ namespace SDA_Program.Interface
                 if (DG_SerialMonitor.Items.Count == 0)
                     DG_SerialMonitor.DataContext = dataManager.SensorDataToDataTable(communication);
                 else
+                {
                     DG_SerialMonitor.DataContext = dataManager.UpdateSensorDataDataTable(((DataView)DG_SerialMonitor.ItemsSource).ToTable(), communication);
+                    //dataManager.UpdateSensorDataDataTable(DG_SerialMonitor, communication);
+                }
                 await Task.Delay(150);
             }
         }
