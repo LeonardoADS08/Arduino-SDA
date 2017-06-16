@@ -33,7 +33,7 @@
 
         </Grid>
         <GroupBox x:Name="GB_SerialMonitor" Header="Serial Monitor" Margin="340,10,10,10" FontSize="24">
-            <DataGrid x:Name="DG_Monitor" Margin="5" GridLinesVisibility="None" ItemsSource="{Binding}" FontSize="14" IsSynchronizedWithCurrentItem="False" Focusable="True" IsHitTestVisible="True" SelectionMode="Single" IsReadOnly="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" LoadingRow="DG_Monitor_LoadingRow"/>
+            <DataGrid x:Name="DG_Monitor" Margin="5" GridLinesVisibility="None" ItemsSource="{Binding}" FontSize="14" Focusable="True" IsHitTestVisible="True" SelectionMode="Single" IsReadOnly="True" LoadingRow="DG_Monitor_LoadingRow" VerticalScrollBarVisibility="Visible"/>
         </GroupBox>
 
 

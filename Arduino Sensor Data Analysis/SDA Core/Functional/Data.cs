@@ -111,8 +111,8 @@ namespace SDA_Core.Functional
             }
             return result;
         }
-
-        public DataTable SensorDataToDataTable(Business.Arrays.SensorData data)
+        // Comunicación
+        private DataTable SensorDataDataTableFormat(Business.Arrays.SensorData data)
         {
             DataTable result = new DataTable();
 
@@ -122,68 +122,32 @@ namespace SDA_Core.Functional
                 int tr = 1;
                 while (result.Columns.Contains(columnName))
                 {
-                    columnName = data.Columns[i].Measure.Name + tr.ToString() +" (" + data.Columns[i].Unit.Name + ")";
+                    columnName = data.Columns[i].Measure.Name + tr.ToString() + " (" + data.Columns[i].Unit.Name + ")";
                     tr++;
                 }
-               result.Columns.Add(columnName, typeof(double));
+                result.Columns.Add(columnName, typeof(double));
             }
-
-            for (int i = 0; i < data.Rows; ++i)
-            {
-                DataRow newRow = result.NewRow();
-
-                for (int j = 0; j < data.Columns.Size; ++j)
-                {
-                    Business.Measurement actual = data.Columns[j].List[i];
-                    newRow[j] = actual.Value;
-                }
-
-                result.Rows.Add(newRow);
-            }
-
             return result;
         }
 
-        public DataTable UpdateSensorDataDataTable(DataTable data, Business.Arrays.SensorData information)
+        public void SensorDataToDataTable(ref DataTable data, Business.Arrays.SensorData information)
         {
-            int size = data.Rows.Count;
-            // Limita el numero de filas a 100
-            if (size >= 100)
+            int init = data.Rows.Count, last = information.Rows;
+
+            if (data.Columns.Count == 0) data = SensorDataDataTableFormat(information);
+
+
+            for (int i = init; i < last; ++i)
             {
-                int last = information.Rows - 1;
-                data.Rows.RemoveAt(0);
                 DataRow newRow = data.NewRow();
                 for (int j = 0; j < information.Columns.Size; ++j)
                 {
-                    try
-                    {
-                        Business.Measurement actual = information.Columns[j].List[last];
-                        newRow[j] = actual.Value;
-                    }
+                    try { newRow[j] = information.Columns[j].List[i].Value; }
                     catch { break; }
                 }
                 data.Rows.Add(newRow);
             }
-            else
-            {
-                for (int i = size; i < information.Rows; ++i)
-                {
-                    DataRow newRow = data.NewRow();
-
-                    for (int j = 0; j < information.Columns.Size; ++j)
-                    {
-                        try
-                        {
-                            Business.Measurement actual = information.Columns[j].List[i];
-                            newRow[j] = actual.Value;
-                        }
-                        catch { break; }
-                    }
-                    data.Rows.Add(newRow);
-                }
-            }
-            return data;
+            
         }
-
     }
 }

@@ -25,7 +25,8 @@ namespace SDA_Program.Interface
     {
         SDA_Core.Business.Arrays.SensorData communication;
         bool calculate = false;
-        int chart = 0;
+        int timeInterval = 500;
+        int maxElementsToShow = 10;
 
         public void LoadColumns(ComboBox CB_Columns, SDA_Core.Business.Arrays.SensorData data)
         {
@@ -58,7 +59,7 @@ namespace SDA_Program.Interface
             result.Columns.Add("Total time (" + communication.Columns[timeColumn].Unit.Name + ")", typeof(double) );
            
             // Calculando tiempo total
-            row.Add(communication.Columns[timeColumn].List.Last().Value - communication.Columns[timeColumn].List.First().Value);
+            row.Add( Math.Round(communication.Columns[timeColumn].List.Last().Value - communication.Columns[timeColumn].List.First().Value, 4));
 
             // Prom
             for (int i = 0; i < communication.Columns.Size; ++i)
@@ -150,8 +151,12 @@ namespace SDA_Program.Interface
             int dataColumn = CB_Selected.SelectedIndex;
             C_General.Series = null;
 
+            // Calculos para mostrar cuantos elementos seran mostrados.
+            int init = 0;
+            if (data.Rows > maxElementsToShow) init = data.Rows - maxElementsToShow;
+
             ChartValues<double> series = new ChartValues<double>();
-            for (int i = 0; i < data.Rows; ++i)
+            for (int i = init; i < data.Rows; ++i)
             {
                 series.Add(data.Columns[dataColumn].List[i].Value);
             }
@@ -163,7 +168,6 @@ namespace SDA_Program.Interface
                     Values = series
                 },
             };
-            //C_General.AddToView(SeriesCollection);
             C_General.Series = SeriesCollection;
 
             UpdateChart(C_General, data, dataColumn);
@@ -172,25 +176,42 @@ namespace SDA_Program.Interface
 
         private async void UpdateChart(CartesianChart C_General, SDA_Core.Business.Arrays.SensorData data, int dataColumn)
         {
+            // Para asegurarse que otras llamadas de UpdateChart sean terminadas
+            calculate = false;
+            await Task.Delay(1500);
             calculate = true;
-            int actualChart = chart;
-            chart++;
-            int init = C_General.Series[0].Values.Count;
+
+            int position = C_General.Series[0].Values.Count - 1;
+            double newValue = -1;
+
             while (calculate)
             {
-                double newValue;
                 try
                 {
-                    newValue = data.Columns[dataColumn].List[init].Value;
+                    if (data.Rows - 1 >= position)
+                    {
+                        newValue = data.Columns[dataColumn].List[position].Value;
+                        C_General.Series[0].Values.Add(newValue);
+                        position++;
+                    }
                 }
                 catch
                 {
-                    await Task.Delay(500);
+                    await Task.Delay(timeInterval);
                     continue;
                 }
-                C_General.Series[0].Values.Add(newValue);
-                init++;
-                await Task.Delay(250);
+
+
+                // Solo se muestran 'maxElementsToShow' valores en la gráfica
+                if (C_General.Series[0].Values.Count > maxElementsToShow)
+                {
+                    try { C_General.Series[0].Values.RemoveAt(0); }
+                    catch { break; }
+                }
+
+                
+
+                await Task.Delay(timeInterval);
             }
         }
     }

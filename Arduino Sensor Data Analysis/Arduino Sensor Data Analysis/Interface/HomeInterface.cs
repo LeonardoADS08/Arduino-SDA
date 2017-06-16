@@ -21,6 +21,8 @@ namespace SDA_Program.Interface
 {
     public class HomeInterface
     {
+        int timeInterval = 1000;
+
         private SerialPort serialConnection;
         private SDA_Core.Functional.Processing processer;
         private SDA_Core.Business.Arrays.SensorDataArray selectedSensors;
@@ -136,7 +138,7 @@ namespace SDA_Program.Interface
                 serialConnection.Open();
                 if (serialConnection.IsOpen)
                 {
-                    Thread thread = new Thread(() => OpenSerialConnection(DG_SerialMonitor));
+                    Thread thread = new Thread(() => OpenSerialConnection());
                     thread.Start();
                     UpdateMonitor(DG_SerialMonitor);
                     G_Sensors.IsEnabled = false;
@@ -158,38 +160,44 @@ namespace SDA_Program.Interface
 
         }
 
-        private async void OpenSerialConnection(DataGrid DG_SerialMonitor)
+        private async void OpenSerialConnection()
         {
             while (serialConnection.IsOpen)
             {
                 try
                 {
                     string message = serialConnection.ReadLine();
-                    if (message != "") processer.Process(message, ref communication);
+                    if (message != "") processer.Process(message, communication);
                 }
                 catch (Exception ex) { return; }
                 
-                await Task.Delay(100);
+                await Task.Delay(timeInterval);
             }
         }
 
         private async void UpdateMonitor(DataGrid DG_SerialMonitor)
         {
+            DataTable tableData = new DataTable();
+            DG_SerialMonitor.DataContext = tableData;
+            bool formatSet = false;
+
             while (serialConnection.IsOpen)
             {
-                if (DG_SerialMonitor.Items.Count == 0)
-                    DG_SerialMonitor.DataContext = dataManager.SensorDataToDataTable(communication);
-                else
+                dataManager.SensorDataToDataTable(ref tableData, communication);
+
+                if (!formatSet && tableData.Columns.Count != 0)
                 {
-                    DG_SerialMonitor.DataContext = dataManager.UpdateSensorDataDataTable(((DataView)DG_SerialMonitor.ItemsSource).ToTable(), communication);
-                    //dataManager.UpdateSensorDataDataTable(DG_SerialMonitor, communication);
+                    formatSet = true;
+                    DG_SerialMonitor.DataContext = tableData;
                 }
-                await Task.Delay(150);
+
+                await Task.Delay(timeInterval);
             }
         }
 
         public void StopConnection(Grid G_Serial, Grid G_Sensors, Button B_Connect)
         {
+            if (serialConnection == null) return;
             if (serialConnection.IsOpen) serialConnection.Close();
             G_Sensors.IsEnabled = true;
             G_Serial.IsEnabled = true;

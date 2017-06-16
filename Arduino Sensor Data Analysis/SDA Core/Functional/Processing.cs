@@ -24,7 +24,7 @@ namespace SDA_Core.Functional
         /// </summary>
         public Processing() { }
 
-        private void ProcessThread(string rawData, ref Business.Arrays.SensorData resultTable)
+        private void ProcessThread(string rawData, Business.Arrays.SensorData resultTable)
         {
             // Se verifica que el mensaje sea para SDA.
             if (rawData.StartsWith("SDA: ")) rawData = rawData.Remove(0, 5);
@@ -32,7 +32,10 @@ namespace SDA_Core.Functional
 
             // Se separan los datos
             string[] rawColumnsData = rawData.Split(' ');
+
             Business.Arrays.GenericArray<Business.Measurement> receivedData = new Business.Arrays.GenericArray<Business.Measurement>();
+            Business.MeasureUnit measureInfo;
+            Business.Measurement newMeasure;
 
             // Se convierten los datos a double
             for (int i = 0; i < rawColumnsData.Length; ++i)
@@ -41,17 +44,13 @@ namespace SDA_Core.Functional
                 {
                     double processedData = Convert.ToDouble(rawColumnsData[i]);
 
-                    Business.MeasureUnit measureInfo = new Business.MeasureUnit(resultTable.Columns[i].Measure, resultTable.Columns[i].Unit);
-                    Business.Measurement newMeasure = new Business.Measurement(measureInfo);
+                    measureInfo = new Business.MeasureUnit(resultTable.Columns[i].Measure, resultTable.Columns[i].Unit);
+                    newMeasure = new Business.Measurement(measureInfo);
 
                     newMeasure.Value = processedData;
                     receivedData.Add(newMeasure);
                 }
-                catch (Exception ex)
-                {
-                    RuntimeLogs.SendLog(ex.Message, "Processing.Process(string, ref SensorDataArray)");
-                }
-
+                catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, "Processing.Process(string, ref Business.Arrays.SensorData )"); }
             }
 
             resultTable.AddRow(receivedData);
@@ -63,29 +62,11 @@ namespace SDA_Core.Functional
         /// <param name="rawData">ES: String con los datos sin procesar.</param>
         /// <param name="resultTable">ES: SensorDataArray donde se almacenaran los resultados</param>
         /// <param name="clearTable">ES: Indicar 'true' si se quiere limpiar los datos de la tabla</param>
-        public void Process(string rawData, ref Business.Arrays.SensorData resultTable)
+        public void Process(string rawData, Business.Arrays.SensorData resultTable)
         {
-            Business.Arrays.SensorData result = resultTable;
-            Thread processThread = new Thread(() => ProcessThread(rawData, ref result));
-            processThread.Start();
-            resultTable = result;
+            ThreadStart ts = delegate { ProcessThread(rawData, resultTable); };
+            new Thread(ts).Start();
         }
-
-        /// <summary>
-        /// ES: Procesa datos recogidos por Arduino SDA que están almacenados en una lista.
-        /// </summary>
-        /// <param name="rawData">ES: Lista de strings con los datos sin procesar. </param>
-        /// <param name="resultTable">ES: SensorDataArray donde se almacenaran los resultados</param>
-        /// <param name="clearTable">ES: Indicar 'true' si se quiere limpiar los datos de la tabla</param>
-        public void Process(List<String> rawData, ref Business.Arrays.SensorData resultTable, bool clearTable = false)
-        {
-            if (clearTable) resultTable.Columns.Clear();
-            foreach (string data in rawData)
-            {
-                Process(data, ref resultTable);
-            }
-        }
-
 
     }
 }
