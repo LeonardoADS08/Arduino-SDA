@@ -24,16 +24,19 @@ namespace SDA_Program.View
     {
         private SDA_Core.Business.Arrays.SensorData data;
         Interface.StatisticInterface IO;
-        public Statistics(SDA_Core.Business.Arrays.SensorData newData)
+
+        public Statistics()
         {
             InitializeComponent();
-            data = newData;
 
             IO = new Interface.StatisticInterface();
+        }
 
+        public void LoadData(SDA_Core.Business.Arrays.SensorData newData)
+        {
+            data = newData;
             IO.LoadColumns(CB_General_Columns, data);
             IO.LoadColumns(CB_DataColumn, data);
-            
         }
 
         private void B_Generate_Click(object sender, RoutedEventArgs e)

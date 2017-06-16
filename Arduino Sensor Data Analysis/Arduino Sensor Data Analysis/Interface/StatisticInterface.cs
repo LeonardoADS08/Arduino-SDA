@@ -201,15 +201,12 @@ namespace SDA_Program.Interface
                     continue;
                 }
 
-
                 // Solo se muestran 'maxElementsToShow' valores en la gráfica
                 if (C_General.Series[0].Values.Count > maxElementsToShow)
                 {
                     try { C_General.Series[0].Values.RemoveAt(0); }
                     catch { break; }
                 }
-
-                
 
                 await Task.Delay(timeInterval);
             }

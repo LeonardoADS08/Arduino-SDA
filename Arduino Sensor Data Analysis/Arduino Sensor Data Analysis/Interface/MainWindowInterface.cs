@@ -18,13 +18,23 @@ namespace SDA_Program.Interface
 {
     class MainWindowInterface
     {
+        // Views
         private SDA_Program.View.Home homeFrame;
         private SDA_Program.View.Statistics statisticsFrame;
         private SDA_Program.View.Configurations configurationsFrame;
 
+        // Arrays
+        private SDA_Core.Business.Arrays.BaudRatesArray baudRatesData;
+        private SDA_Core.Business.Arrays.MeasureArray measuressData;
+        private SDA_Core.Business.Arrays.MeasureUnitArray measureUnitsData;
+        private SDA_Core.Business.Arrays.SensorDataArray SensorsData;
+        private SDA_Core.Business.Arrays.UnitArray UnitssData;
+
+
         public MainWindowInterface()
         {
             homeFrame = new View.Home();
+            statisticsFrame = new View.Statistics();
             configurationsFrame = new View.Configurations();
         }
 
@@ -44,7 +54,8 @@ namespace SDA_Program.Interface
             B_Statistics.Background = new SolidColorBrush(Color.FromRgb(98, 174, 178));
             B_Configurations.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));
 
-            F_Page.Content = new SDA_Program.View.Statistics(homeFrame.IO.GetSerialMonitorData());
+            statisticsFrame.LoadData(homeFrame.IO.GetSerialMonitorData());
+            F_Page.Content = statisticsFrame;
         }
 
         public void ConfigurationClicked(Button B_Home, Button B_Statistics, Button B_Configurations, Frame F_Page)
