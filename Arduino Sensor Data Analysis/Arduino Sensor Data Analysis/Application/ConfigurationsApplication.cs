@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace SDA_Program.Application
 {
+    /// <summary>
+    /// ES: Clase para manejar los flujos de datos de la ventana 'Configurations'
+    /// </summary>
     public class ConfigurationsApplication
     {
-
+        /// <summary>
+        /// ES: Devuelve los datos almacenados del arreglo 'Measure' del programa.
+        /// </summary>
+        /// <returns>ES: Datos que existen durante la ejecución del programa.</returns>
         public SDA_Core.Business.Arrays.MeasureArray GetMeasures()
         {
             SDA_Core.Business.Arrays.MeasureArray result = new SDA_Core.Business.Arrays.MeasureArray();
@@ -20,6 +26,10 @@ namespace SDA_Program.Application
             return result;
         }
 
+        /// <summary>
+        /// ES: Devuelve los datos almacenados del arreglo 'Unit' del programa.
+        /// </summary>
+        /// <returns>ES: Datos que existen durante la ejecución del programa.</returns>
         public SDA_Core.Business.Arrays.UnitArray GetUnits()
         {
             SDA_Core.Business.Arrays.UnitArray result = new SDA_Core.Business.Arrays.UnitArray();
@@ -31,6 +41,10 @@ namespace SDA_Program.Application
             return result;
         }
 
+        /// <summary>
+        /// ES: Devuelve los datos almacenados del arreglo 'MeasureUnit' del programa.
+        /// </summary>
+        /// <returns>ES: Datos que existen durante la ejecución del programa.</returns>
         public SDA_Core.Business.Arrays.MeasureUnitArray GetMeasureUnits()
         {
             SDA_Core.Business.Arrays.MeasureUnitArray result = new SDA_Core.Business.Arrays.MeasureUnitArray();
@@ -42,6 +56,10 @@ namespace SDA_Program.Application
             return result;
         }
 
+        /// <summary>
+        /// ES: Devuelve los datos almacenados del arreglo 'BaudRates' del programa.
+        /// </summary>
+        /// <returns>ES: Datos que existen durante la ejecución del programa.</returns>
         public SDA_Core.Business.Arrays.BaudRatesArray GetBaudRates()
         {
             SDA_Core.Business.Arrays.BaudRatesArray result = new SDA_Core.Business.Arrays.BaudRatesArray();
@@ -53,6 +71,10 @@ namespace SDA_Program.Application
             return result;
         }
 
+        /// <summary>
+        /// ES: Devuelve los datos almacenados del arreglo 'Sensors' del programa.
+        /// </summary>
+        /// <returns>ES: Datos que existen durante la ejecución del programa.</returns>
         public SDA_Core.Business.Arrays.SensorDataArray GetSensors()
         {
             SDA_Core.Business.Arrays.SensorDataArray result = new SDA_Core.Business.Arrays.SensorDataArray();

@@ -6,17 +6,28 @@ using System.Threading.Tasks;
 
 namespace SDA_Program.Application
 {
+    /// <summary>
+    /// ES: Clase para manejar los flujos de datos de la ventana 'MeasureUnit'
+    /// </summary>
     class MeasureUnitApplication
     {
         public MeasureUnitApplication() { }
 
         public SDA_Core.Business.Arrays.MeasureUnitArray GetData() => Data.MeasureUnitsDataArray;
 
+        /// <summary>
+        /// ES: Guarda los nuevos datos ingresados al binario.
+        /// </summary>
+        /// <param name="data">ES: Nuevos datos a guardar</param>
         public void SaveDataToBinary(SDA_Core.Business.Arrays.MeasureUnitArray data)
         {
             SDA_Core.Data.MeasureUnitSerializer.Save(data);
         }
 
+        /// <summary>
+        /// ES: Devuelve los datos almacenados del arreglo 'Measure' del programa.
+        /// </summary>
+        /// <returns>ES: Datos que existen durante la ejecución del programa.</returns>
         public SDA_Core.Business.Arrays.MeasureArray GetMeasures()
         {
             SDA_Core.Business.Arrays.MeasureArray result = new SDA_Core.Business.Arrays.MeasureArray();
@@ -28,6 +39,10 @@ namespace SDA_Program.Application
             return result;
         }
 
+        /// <summary>
+        /// ES: Devuelve los datos almacenados del arreglo 'Unit' del programa.
+        /// </summary>
+        /// <returns>ES: Datos que existen durante la ejecución del programa.</returns>
         public SDA_Core.Business.Arrays.UnitArray GetUnits()
         {
             SDA_Core.Business.Arrays.UnitArray result = new SDA_Core.Business.Arrays.UnitArray();

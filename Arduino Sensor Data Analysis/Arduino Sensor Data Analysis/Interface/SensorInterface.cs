@@ -20,6 +20,7 @@ namespace SDA_Program.Interface
     {
         private SDA_Core.Business.Arrays.SensorDataArray sensors;
         private SDA_Core.Business.Arrays.MeasureUnitArray measureUnitList;
+        // Objeto de una clase 'funcional' para hacer transformaciones.
         private SDA_Core.Functional.Data dataManager;
         private SDA_Core.Business.Arrays.MeasureUnitArray newSensorFormat;
 

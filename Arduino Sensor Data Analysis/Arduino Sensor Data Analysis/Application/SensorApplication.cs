@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SDA_Program.Application
 {
+    /// <summary>
+    /// ES: Clase para manejar los flujos de datos de la ventana 'Sensor'
+    /// </summary>
     class SensorApplication : SDA_Core.Business.Arrays.SensorDataArray
     {
 
@@ -33,6 +36,10 @@ namespace SDA_Program.Application
             return result;
         }
 
+        /// <summary>
+        /// ES: Guarda los nuevos datos ingresados al binario.
+        /// </summary>
+        /// <param name="data">ES: Nuevos datos a guardar</param>
         public void SaveDataToBinary(SDA_Core.Business.Arrays.SensorDataArray data)
         {
             SDA_Core.Data.SensorDataSerializer.Save(data);

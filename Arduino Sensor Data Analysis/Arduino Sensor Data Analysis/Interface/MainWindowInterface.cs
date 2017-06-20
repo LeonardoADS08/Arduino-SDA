@@ -23,6 +23,9 @@ namespace SDA_Program.Interface
         private SDA_Program.View.Statistics statisticsFrame;
         private SDA_Program.View.Configurations configurationsFrame;
 
+        /// <summary>
+        /// ES: Constructor de la clase MainWindowInterface
+        /// </summary>
         public MainWindowInterface()
         {
             homeFrame = new View.Home();
@@ -32,6 +35,9 @@ namespace SDA_Program.Interface
 
         // Color seleccionado   : 98, 174, 178
         // Color deseleccionado : 100, 151, 153
+
+        // Todos los siguientes metodos son para cambiar de ventana, y cambiar el color del botón cuando es seleccionado.
+
         public void HomeClicked(Button B_Home, Button B_Statistics, Button B_Configurations ,Frame F_Page)
         {
             B_Home.Background = new SolidColorBrush(Color.FromRgb(98, 174, 178));

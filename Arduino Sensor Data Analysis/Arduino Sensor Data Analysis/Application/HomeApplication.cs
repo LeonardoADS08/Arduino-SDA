@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace SDA_Program.Application
 {
+    /// <summary>
+    /// ES: Clase para manejar los flujos de datos de la ventana 'Home'
+    /// </summary>
     class HomeApplication
     {
 
         public HomeApplication() { }
 
+        /// <summary>
+        /// ES: Devuelve los datos almacenados del arreglo 'BaudRates' del programa.
+        /// </summary>
+        /// <returns>ES: Datos que existen durante la ejecución del programa.</returns>
         public SDA_Core.Business.Arrays.BaudRatesArray GetBaudRates()
         {
             SDA_Core.Business.Arrays.BaudRatesArray result = new SDA_Core.Business.Arrays.BaudRatesArray();
@@ -22,6 +29,10 @@ namespace SDA_Program.Application
             return result;
         }
 
+        /// <summary>
+        /// ES: Devuelve los datos almacenados del arreglo 'Sensors' del programa.
+        /// </summary>
+        /// <returns>ES: Datos que existen durante la ejecución del programa.</returns>
         public SDA_Core.Business.Arrays.SensorDataArray GetSensors()
         {
             SDA_Core.Business.Arrays.SensorDataArray result = new SDA_Core.Business.Arrays.SensorDataArray();

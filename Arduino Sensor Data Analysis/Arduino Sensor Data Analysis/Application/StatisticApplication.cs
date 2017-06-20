@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace SDA_Program.Application
 {
+    /// <summary>
+    /// ES: Clase para manejar los flujos de datos de la ventana 'Statistic'
+    ///     Esta ventana no necesita de datos, ya que estos se pasan como parametro al abrir la ventana.
+    /// </summary>
     class StatisticApplication
     {
 
-        public SDA_Core.Business.Arrays.MeasureUnitArray GetColumns()
-        {
-            SDA_Core.Business.Arrays.MeasureUnitArray result = new SDA_Core.Business.Arrays.MeasureUnitArray();
-            return result;
-        }
     }
 
 }

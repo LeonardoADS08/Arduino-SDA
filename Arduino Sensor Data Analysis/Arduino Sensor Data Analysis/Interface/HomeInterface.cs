@@ -21,14 +21,23 @@ namespace SDA_Program.Interface
 {
     public class HomeInterface
     {
+        // Intervalo al que se debe escuchar al arduino
         int timeInterval = 1000;
 
+        // Objeto para realizar la conexión Serial.
         private SerialPort serialConnection;
+        // Objeto de una clase 'funcional' para procesar los datos recibidos por el arduino
         private SDA_Core.Functional.Processing processer;
+        // Obeto que almacena la estructura de sensores que recibira del arduino durante la comunicacion.
         private SDA_Core.Business.Arrays.SensorDataArray selectedSensors;
+        // Objeto de una clase 'funcional' para hacer transformaciones.
         private SDA_Core.Functional.Data dataManager;
+        // Objeto que almacena todos los datos procesados que se han recibido del arduino.
         private SDA_Core.Business.Arrays.SensorData communication;
 
+        /// <summary>
+        /// ES: Constructor de la clase HomeInterface.
+        /// </summary>
         public HomeInterface()
         {
             selectedSensors = new SDA_Core.Business.Arrays.SensorDataArray();
@@ -37,6 +46,10 @@ namespace SDA_Program.Interface
             communication = new SDA_Core.Business.Arrays.SensorData();
         }
 
+        /// <summary>
+        /// ES: Carga los puertos serial a un comboBox.
+        /// </summary>
+        /// <param name="CB_SerialPorts">ES: ComboBox donde se deben cargar los datos</param>
         public void LoadSerialPorts(ComboBox CB_SerialPorts)
         {
             CB_SerialPorts.Items.Clear();
@@ -50,6 +63,11 @@ namespace SDA_Program.Interface
             }
         }
 
+        /// <summary>
+        /// ES: Carga los baudRates a un comboBox.
+        /// </summary>
+        /// <param name="CB_BaudRates">ES: ComboBox donde se deben cargar los datos</param>
+        /// <param name="data">ES: Datos a cargar.</param>
         public void LoadBaudRates(ComboBox CB_BaudRates, SDA_Core.Business.Arrays.BaudRatesArray data)
         {
             CB_BaudRates.Items.Clear();
@@ -62,6 +80,11 @@ namespace SDA_Program.Interface
             }
         }
 
+        /// <summary>
+        /// ES: Carga los sensores a un comboBox.
+        /// </summary>
+        /// <param name="CB_Sensors">ES: ComboBox donde se deben cargar los datos</param>
+        /// <param name="data">ES: Datos a cargar.</param>
         public void LoadSensors(ComboBox CB_Sensors, SDA_Core.Business.Arrays.SensorDataArray data)
         {
             CB_Sensors.Items.Clear();
@@ -74,6 +97,10 @@ namespace SDA_Program.Interface
             }
         }
 
+        /// <summary>
+        /// ES: Elimina un sensor de lo seleccionados.
+        /// </summary>
+        /// <param name="DG_SensorList">ES: DataGrid donde se deben realizar los cambios.</param>
         public void DeleteSensor(DataGrid DG_SensorList)
         {
             if (DG_SensorList.SelectedItem == null) return;
@@ -82,8 +109,14 @@ namespace SDA_Program.Interface
             UpdateTable(DG_SensorList);
         }
 
+        /// <summary>
+        /// ES: A partir de un comboBox añade el seleccionado a la estructura de datos recibidos.
+        /// </summary>
+        /// <param name="DG_SensorList">ES: DataGrid donde se deben realizar los cambios.</param>
+        /// <param name="CB_Sensors">ES: ComboBox donde se encuentran los sensores.</param>
         public void AddSensor(DataGrid DG_SensorList, ComboBox CB_Sensors)
         {
+            // Validaciones
             if (CB_Sensors.SelectedItem == null)
             {
                 MessageBox.Show("Empty fields found.", "Error", MessageBoxButton.OK);
@@ -97,12 +130,24 @@ namespace SDA_Program.Interface
                 return;
             }
 
+            // Se añade el nuevo sensor, se reinicializa el comboBox y se actualiza la tabla
             selectedSensors.List.Add(sensor);
+            CB_Sensors.SelectedIndex = -1;
             UpdateTable(DG_SensorList);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="DG_SerialMonitor">ES: DataGrid donde se deben realizar los cambios.</param>
+        /// <param name="CB_SerialPort">ES: ComboBox donde se encuentra el serialPort seleccionado.</param>
+        /// <param name="CB_BaudRate">ES: ComboBox donde se encuentran el baudRate seleccionado.</param>
+        /// <param name="G_Serial">ES: Grid a bloquear cambios a las configuraciones durante la comunicación.</param>
+        /// <param name="G_Sensors">ES: Grid a bloquear cambios a las configuraciones durante la comunicación.</param>
+        /// <param name="B_Connect">ES: Botón a bloquear cambios a las configuraciones durante la comunicación.</param>
         public void StartConnection(DataGrid DG_SerialMonitor, ComboBox CB_SerialPort, ComboBox CB_BaudRate, Grid G_Serial, Grid G_Sensors, Button B_Connect)
         {
+            // Validaciones 
             if (CB_SerialPort.SelectedItem == null)
             {
                 MessageBox.Show("Select a port.", "Error", MessageBoxButton.OK);
@@ -118,10 +163,14 @@ namespace SDA_Program.Interface
                 MessageBox.Show("Not selected sensors.", "Error", MessageBoxButton.OK);
                 return;
             }
+            // Se limpia el SerialMonitor
             DG_SerialMonitor.DataContext = null;
+
+            // Se obtiene el puerto y el baudRate
             SDA_Core.Business.Port port = (SDA_Core.Business.Port)CB_SerialPort.SelectedItem;
             SDA_Core.Business.BaudRates baudrate = (SDA_Core.Business.BaudRates)CB_BaudRate.SelectedItem;
 
+            // Se inicializa el objeto que recibira los datos procesados.
             communication = new SDA_Core.Business.Arrays.SensorData();
             for (int i = 0; i < selectedSensors.List.Size; ++i)
             {
@@ -131,10 +180,13 @@ namespace SDA_Program.Interface
                 }
             }
 
+            // Se inicializa el objeto que realizará la conexión a serial.
             serialConnection = new SerialPort(port.Name, baudrate.Value);
 
+            // Se intenta la conexión con el arduino.
             try
             {
+                // Si se abre la conexion, se bloquea el interfaz de configuraciones y en un nuevo hilo se abre el método que escuchara y procesará los datos del arduino.
                 serialConnection.Open();
                 if (serialConnection.IsOpen)
                 {
@@ -160,6 +212,9 @@ namespace SDA_Program.Interface
 
         }
 
+        /// <summary>
+        /// ES: Método asincrónico que escucha un arduino y procesa los datos recibidos.
+        /// </summary>
         private async void OpenSerialConnection()
         {
             while (serialConnection.IsOpen)
@@ -175,6 +230,9 @@ namespace SDA_Program.Interface
             }
         }
 
+        /// <summary>
+        /// ES: Método asincrónico que actualiza el serialMonitor con los nuevos datos recibidos..
+        /// </summary>
         private async void UpdateMonitor(DataGrid DG_SerialMonitor)
         {
             DataTable tableData = new DataTable();
@@ -195,6 +253,12 @@ namespace SDA_Program.Interface
             }
         }
 
+        /// <summary>
+        /// ES: Método para detener la conexión manualmente.
+        /// </summary>
+        /// <param name="G_Serial">ES: Grid a desbloquear para reactivar las configuraciones.</param>
+        /// <param name="G_Sensors">ES: Grid a desbloquear para reactivar las configuraciones.</param>
+        /// <param name="B_Connect">ES: Botón a desbloquear para reactivar las configuraciones.</param>
         public void StopConnection(Grid G_Serial, Grid G_Sensors, Button B_Connect)
         {
             if (serialConnection == null) return;
@@ -204,14 +268,24 @@ namespace SDA_Program.Interface
             B_Connect.IsEnabled = true;
         }
 
+        /// <summary>
+        /// ES: Obtiene los datos que se han obtenido durante la comunicación.
+        /// </summary>
+        /// <returns>ES: Datos del serialMonitor.</returns>
         public SDA_Core.Business.Arrays.SensorData GetSerialMonitorData() => communication;
 
+        /// <summary>
+        /// ES: Estado de la conexión con el arduino.
+        /// </summary>
         public bool ConnectionState()
         {
             if (serialConnection != null) return serialConnection.IsOpen;
             return false;
         }
 
+        /// <summary>
+        /// ES: Método encargado de desbloquear el interfaz si es que la conexión se finaliza subitamente.
+        /// </summary>
         public async void CheckConnection(Grid G_Serial, Grid G_Sensors, Button B_Connect)
         {
             while (true)
@@ -221,6 +295,10 @@ namespace SDA_Program.Interface
             }
         }
 
+        /// <summary>
+        /// ES: Método para actualizar un dataGrid.
+        /// </summary>
+        /// <param name="DG_SensorList">ES: DataGrid a realizar los cambios.</param>
         public void UpdateTable(DataGrid DG_SensorList) => DG_SensorList.ItemsSource = dataManager.SensorsListToDataTable(selectedSensors).AsDataView();
     }
 }

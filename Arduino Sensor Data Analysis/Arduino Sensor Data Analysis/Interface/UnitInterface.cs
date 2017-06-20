@@ -19,6 +19,7 @@ namespace SDA_Program.Interface
     public class UnitInterface
     {
         SDA_Core.Business.Arrays.UnitArray unitArray;
+        // Objeto de una clase 'funcional' para hacer transformaciones.
         SDA_Core.Functional.Data dataManager;
 
         public UnitInterface()
@@ -38,6 +39,11 @@ namespace SDA_Program.Interface
             }
 
             SDA_Core.Business.Unit newUnit = new SDA_Core.Business.Unit(TB_Unit.Text);
+            if (unitArray.List.Exists(newUnit))
+            {
+                MessageBox.Show("Value alredy exists.", "Error", MessageBoxButton.OK);
+                return;
+            }
             unitArray.List.Add(newUnit);
 
             TB_Unit.Text = "";
