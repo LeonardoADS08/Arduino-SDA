@@ -28,7 +28,7 @@ namespace SDA_Program.View.Popups
             IO = new Interface.MeasuresInterface();
             APP = new Application.MeasuresApplication();
 
-            IO.LoadDataGrid(DG_Measures, APP);
+            IO.LoadDataGrid(DG_Measures, APP.GetData());
         }
 
         private void B_SaveData_Click(object sender, RoutedEventArgs e)

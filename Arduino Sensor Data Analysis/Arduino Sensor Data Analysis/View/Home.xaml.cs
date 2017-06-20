@@ -36,11 +36,18 @@ namespace SDA_Program.View
             IO.LoadSerialPorts(CB_Ports);
             IO.LoadBaudRates(CB_BaudRate, APP.GetBaudRates());
             IO.LoadSensors(CB_Sensors, APP.GetSensors());
+
+            IO.CheckConnection(G_SerialConnection, G_ReceivedData, B_Connect);
         }
 
         private void I_RefreshPorts_MouseDown(object sender, MouseButtonEventArgs e)
         {
             IO.LoadSerialPorts(CB_Ports);
+        }
+
+        private void I_RefreshBaudRates_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            IO.LoadBaudRates(CB_BaudRate, APP.GetBaudRates());
         }
 
         private void B_Delete_Click(object sender, RoutedEventArgs e)

@@ -28,7 +28,7 @@ namespace SDA_Program.View.Popups
             IO = new Interface.BaudRatesInterface();
             APP = new Application.BaudRatesApplication();
 
-            IO.LoadDataGrid(DG_BaudRates, APP);
+            IO.LoadDataGrid(DG_BaudRates, APP.GetData());
         }
 
         private void B_DeleteBaudRate_Click(object sender, RoutedEventArgs e)

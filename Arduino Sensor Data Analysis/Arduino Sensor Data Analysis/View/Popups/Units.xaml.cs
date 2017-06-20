@@ -29,7 +29,7 @@ namespace SDA_Program.View.Popups
             IO = new Interface.UnitInterface();
             APP = new Application.UnitApplication();
 
-            IO.LoadDataGrid(DG_Units, APP);
+            IO.LoadDataGrid(DG_Units, APP.GetData());
         }
 
         private void B_Delete_Click(object sender, RoutedEventArgs e)

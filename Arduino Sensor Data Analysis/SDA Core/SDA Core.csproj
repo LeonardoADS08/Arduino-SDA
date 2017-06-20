@@ -73,10 +73,16 @@
     <Compile Include="Business\Unit.cs" />
     <Compile Include="Business\Port.cs" />
     <Compile Include="Business\SerialConnection.cs" />
+    <Compile Include="Data\BaudRateFile.cs" />
     <Compile Include="Data\BaudRatesSerializer.cs" />
+    <Compile Include="Data\FilesConfigurations.cs" />
+    <Compile Include="Data\MeasuresFile.cs" />
     <Compile Include="Data\MeasuresSerializer.cs" />
+    <Compile Include="Data\MeasuresUnitFile.cs" />
     <Compile Include="Data\MeasureUnitSerializer.cs" />
+    <Compile Include="Data\SensorDataFile.cs" />
     <Compile Include="Data\SensorDataSerializer.cs" />
+    <Compile Include="Data\UnitFile.cs" />
     <Compile Include="Data\UnitSerializer.cs" />
     <Compile Include="Functional\Data.cs" />
     <Compile Include="Functional\DataSerializer.cs" />

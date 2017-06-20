@@ -6,33 +6,16 @@ using System.Threading.Tasks;
 
 namespace SDA_Program.Application
 {
-    public class BaudRatesApplication : SDA_Core.Business.Arrays.BaudRatesArray
+    public class BaudRatesApplication
     {
 
-        public BaudRatesApplication()
-        {
-            List<SDA_Core.Business.BaudRates> data = SDA_Core.Data.BaudRatesSerializer.Serializer.RecoverData();
-            foreach (SDA_Core.Business.BaudRates value in data)
-            {
-                this.List.Add(value);
-            }
-        }
+        public BaudRatesApplication() { }
 
-       /* public void SaveData(SDA_Core.Business.Arrays.BaudRatesArray newData)
-        {
-            List = newData.List;
-            SaveDataToBinary(newData);
-        }*/
-
-        public SDA_Core.Business.Arrays.BaudRatesArray GetData() => this;
+        public SDA_Core.Business.Arrays.BaudRatesArray GetData() => Data.BaudRatesDataArray;
 
         public void SaveDataToBinary(SDA_Core.Business.Arrays.BaudRatesArray data)
         {
-                SDA_Core.Data.BaudRatesSerializer.Serializer.ClearBinary();
-                for (int i = 0; i < data.List.Size; ++i)
-                {
-                    SDA_Core.Data.BaudRatesSerializer.Serializer.SaveData(data.List[i]);
-                }
+            SDA_Core.Data.BaudRatesSerializer.Save(data);
         }
         
     }

@@ -6,28 +6,15 @@ using System.Threading.Tasks;
 
 namespace SDA_Program.Application
 {
-    class MeasuresApplication : SDA_Core.Business.Arrays.MeasureArray
+    class MeasuresApplication 
     {
-        public MeasuresApplication()
-        {
-            List<SDA_Core.Business.Measure> data = SDA_Core.Data.MeasuresSerializer.Serializer.RecoverData();
-            foreach (SDA_Core.Business.Measure value in data)
-            {
-                this.List.Add(value);
-            }
-        }
+        public MeasuresApplication() { }
 
-        public void SaveData(SDA_Core.Business.Arrays.MeasureArray newData) => List = newData.List;
-
-        public SDA_Core.Business.Arrays.MeasureArray GetData() => this;
+        public SDA_Core.Business.Arrays.MeasureArray GetData() => Data.MeasuresDataArray;
 
         public void SaveDataToBinary(SDA_Core.Business.Arrays.MeasureArray data)
         {
-            SDA_Core.Data.MeasuresSerializer.Serializer.ClearBinary();
-            for (int i = 0; i < data.List.Size; ++i)
-            {
-                SDA_Core.Data.MeasuresSerializer.Serializer.SaveData(data.List[i]);
-            }
+            SDA_Core.Data.MeasuresSerializer.Save(data);
         }
     
     }

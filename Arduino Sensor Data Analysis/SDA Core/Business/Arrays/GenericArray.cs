@@ -34,5 +34,7 @@ namespace SDA_Core.Business.Arrays
         public T First() => _array.First();
 
         public T Last() => _array.Last();
+
+        public List<T> GetList() => _array;
     }
 }

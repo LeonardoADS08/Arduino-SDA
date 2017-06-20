@@ -206,6 +206,21 @@ namespace SDA_Program.Interface
 
         public SDA_Core.Business.Arrays.SensorData GetSerialMonitorData() => communication;
 
+        public bool ConnectionState()
+        {
+            if (serialConnection != null) return serialConnection.IsOpen;
+            return false;
+        }
+
+        public async void CheckConnection(Grid G_Serial, Grid G_Sensors, Button B_Connect)
+        {
+            while (true)
+            {
+                if (!ConnectionState()) StopConnection(G_Serial, G_Sensors, B_Connect);
+                await Task.Delay(1000);
+            }
+        }
+
         public void UpdateTable(DataGrid DG_SensorList) => DG_SensorList.ItemsSource = dataManager.SensorsListToDataTable(selectedSensors).AsDataView();
     }
 }

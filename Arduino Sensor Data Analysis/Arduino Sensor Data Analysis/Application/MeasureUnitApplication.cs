@@ -6,34 +6,21 @@ using System.Threading.Tasks;
 
 namespace SDA_Program.Application
 {
-    class MeasureUnitApplication : SDA_Core.Business.Arrays.MeasureUnitArray
+    class MeasureUnitApplication
     {
-        public MeasureUnitApplication()
-        {
-            List<SDA_Core.Business.MeasureUnit> data = SDA_Core.Data.MeasureUnitSerializer.Serializer.RecoverData();
-            foreach (SDA_Core.Business.MeasureUnit value in data)
-            {
-                this.List.Add(value);
-            }
-        }
+        public MeasureUnitApplication() { }
 
-        public void SaveData(SDA_Core.Business.Arrays.MeasureUnitArray newData) => List = newData.List;
-
-        public SDA_Core.Business.Arrays.MeasureUnitArray GetData() => this;
+        public SDA_Core.Business.Arrays.MeasureUnitArray GetData() => Data.MeasureUnitsDataArray;
 
         public void SaveDataToBinary(SDA_Core.Business.Arrays.MeasureUnitArray data)
         {
-            SDA_Core.Data.MeasureUnitSerializer.Serializer.ClearBinary();
-            for (int i = 0; i < data.List.Size; ++i)
-            {
-                SDA_Core.Data.MeasureUnitSerializer.Serializer.SaveData(data.List[i]);
-            }
+            SDA_Core.Data.MeasureUnitSerializer.Save(data);
         }
 
         public SDA_Core.Business.Arrays.MeasureArray GetMeasures()
         {
             SDA_Core.Business.Arrays.MeasureArray result = new SDA_Core.Business.Arrays.MeasureArray();
-            List<SDA_Core.Business.Measure> binary = SDA_Core.Data.MeasuresSerializer.Serializer.RecoverData();
+            List<SDA_Core.Business.Measure> binary = Data.MeasuresDataList;
             foreach (var value in binary)
             {
                 result.List.Add(value);
@@ -44,7 +31,7 @@ namespace SDA_Program.Application
         public SDA_Core.Business.Arrays.UnitArray GetUnits()
         {
             SDA_Core.Business.Arrays.UnitArray result = new SDA_Core.Business.Arrays.UnitArray();
-            List<SDA_Core.Business.Unit> binary = SDA_Core.Data.UnitSerializer.Serializer.RecoverData();
+            List<SDA_Core.Business.Unit> binary = Data.UnitsDataList;
             foreach (var value in binary)
             {
                 result.List.Add(value);

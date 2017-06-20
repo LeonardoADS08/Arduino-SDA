@@ -9,15 +9,12 @@ namespace SDA_Program.Application
     class SensorApplication : SDA_Core.Business.Arrays.SensorDataArray
     {
 
-        public SensorApplication()
-        {
-
-        }
+        public SensorApplication() { }
 
         public SDA_Core.Business.Arrays.SensorDataArray GetSensors()
         {
             SDA_Core.Business.Arrays.SensorDataArray result = new SDA_Core.Business.Arrays.SensorDataArray();
-            List<SDA_Core.Business.Arrays.SensorData> binary = SDA_Core.Data.SensorDataSerializer.Serializer.RecoverData();
+            List<SDA_Core.Business.Arrays.SensorData> binary = Data.SensorsDataList;
             foreach (var value in binary)
             {
                 result.List.Add(value);
@@ -28,7 +25,7 @@ namespace SDA_Program.Application
         public SDA_Core.Business.Arrays.MeasureUnitArray GetMeasureUnits()
         {
             SDA_Core.Business.Arrays.MeasureUnitArray result = new SDA_Core.Business.Arrays.MeasureUnitArray();
-            List<SDA_Core.Business.MeasureUnit> binary = SDA_Core.Data.MeasureUnitSerializer.Serializer.RecoverData();
+            List<SDA_Core.Business.MeasureUnit> binary = Data.MeasureUnitsDataList;
             foreach (var value in binary)
             {
                 result.List.Add(value);
@@ -38,11 +35,7 @@ namespace SDA_Program.Application
 
         public void SaveDataToBinary(SDA_Core.Business.Arrays.SensorDataArray data)
         {
-            SDA_Core.Data.SensorDataSerializer.Serializer.ClearBinary();
-            for (int i = 0; i < data.List.Size; ++i)
-            {
-                SDA_Core.Data.SensorDataSerializer.Serializer.SaveData(data.List[i]);
-            }
+            SDA_Core.Data.SensorDataSerializer.Save(data);
         }
     }
 }

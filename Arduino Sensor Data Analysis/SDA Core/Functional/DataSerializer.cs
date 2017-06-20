@@ -121,10 +121,11 @@ namespace SDA_Core.Functional
         {
             try
             {
-                Stream stream = ReadStream();
+                /*Stream stream = ReadStream();
                 int typeSize = Marshal.SizeOf(typeof(T));
                 stream.Seek((IdRegister - 1) * typeSize, SeekOrigin.Begin);
-                return (T)_formatter.Deserialize(stream);
+                return (T)_formatter.Deserialize(stream);*/
+                return this.RecoverData()[IdRegister];
             }
             catch (Exception ex) { RuntimeLogs.SendLog(ex.Message, typeof(DataSerializer<T>).Name + ".RecoverData(int)"); }
             return default(T);
@@ -149,10 +150,11 @@ namespace SDA_Core.Functional
         /// <param name="IdRegister">ES: Identificador del registro que se desea eliminar.</param>
         public void DeleteRegister(int IdRegister)
         {
+            IdRegister--;
             try
             {
                 List<T> list = this.RecoverData();
-                list.Remove(list[IdRegister]);
+                list.RemoveAt(IdRegister);
                 this.ClearBinary();
                 this.SaveData(list);
             }
@@ -166,6 +168,7 @@ namespace SDA_Core.Functional
         /// <param name="data">ES: Elemento por el cual debe actualizado</param>
         public void UpdateData(int IdRegister, T data)
         {
+            IdRegister--;
             try
             {
                 List<T> list = this.RecoverData();

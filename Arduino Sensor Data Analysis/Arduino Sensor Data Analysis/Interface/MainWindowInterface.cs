@@ -23,14 +23,6 @@ namespace SDA_Program.Interface
         private SDA_Program.View.Statistics statisticsFrame;
         private SDA_Program.View.Configurations configurationsFrame;
 
-        // Arrays
-        private SDA_Core.Business.Arrays.BaudRatesArray baudRatesData;
-        private SDA_Core.Business.Arrays.MeasureArray measuressData;
-        private SDA_Core.Business.Arrays.MeasureUnitArray measureUnitsData;
-        private SDA_Core.Business.Arrays.SensorDataArray SensorsData;
-        private SDA_Core.Business.Arrays.UnitArray UnitssData;
-
-
         public MainWindowInterface()
         {
             homeFrame = new View.Home();

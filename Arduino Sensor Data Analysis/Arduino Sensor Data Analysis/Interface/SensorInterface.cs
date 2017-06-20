@@ -101,6 +101,7 @@ namespace SDA_Program.Interface
                 SDA_Core.Business.Arrays.MeasurementArray newMeasurementArray = new SDA_Core.Business.Arrays.MeasurementArray();
                 newMeasurementArray.Measure = newSensorFormat.List[i].Measure;
                 newMeasurementArray.Unit = newSensorFormat.List[i].Unit;
+                newMeasurementArray.IdMeasureUnit = newSensorFormat.List[i].IdMeasureUnit;
                 newSensor.Columns.Add(newMeasurementArray);
             }
 
