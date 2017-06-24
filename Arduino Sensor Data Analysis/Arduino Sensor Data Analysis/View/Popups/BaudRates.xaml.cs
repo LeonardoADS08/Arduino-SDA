@@ -19,8 +19,8 @@ namespace SDA_Program.View.Popups
     /// </summary>
     public partial class BaudRates : Window
     {
-        SDA_Program.Interface.BaudRatesInterface IO;
-        SDA_Program.Application.BaudRatesApplication APP;
+        private SDA_Program.Interface.BaudRatesInterface IO;
+        private SDA_Program.Application.BaudRatesApplication APP;
 
         public BaudRates()
         {

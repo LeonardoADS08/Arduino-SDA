@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Data;
-using System.IO.Ports;
-using System.Diagnostics;
-using SDA_Core;
+﻿using System.Data;
 
 namespace SDA_Core.Functional
 {
@@ -111,6 +97,7 @@ namespace SDA_Core.Functional
             }
             return result;
         }
+
         // Comunicación
         private DataTable SensorDataDataTableFormat(Business.Arrays.SensorData data)
         {
@@ -136,7 +123,6 @@ namespace SDA_Core.Functional
 
             if (data.Columns.Count == 0) data = SensorDataDataTableFormat(information);
 
-
             for (int i = init; i < last; ++i)
             {
                 DataRow newRow = data.NewRow();
@@ -147,7 +133,6 @@ namespace SDA_Core.Functional
                 }
                 data.Rows.Add(newRow);
             }
-            
         }
     }
 }

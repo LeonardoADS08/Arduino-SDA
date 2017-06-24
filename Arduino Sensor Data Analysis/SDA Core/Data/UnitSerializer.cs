@@ -1,24 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Data;
-using System.Diagnostics;
-using SDA_Core;
-using SDA_Core.Business;
+﻿using SDA_Core.Business;
 using SDA_Core.Functional;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace SDA_Core.Data
 {
-    public static class UnitSerializer 
+    public static class UnitSerializer
     {
         static private Functional.DataSerializer<UnitFile> _serializer;
 
@@ -103,6 +90,5 @@ namespace SDA_Core.Data
                 _serializer.SaveData(ConvertToFile(values.List[i]));
             }
         }
-
     }
 }

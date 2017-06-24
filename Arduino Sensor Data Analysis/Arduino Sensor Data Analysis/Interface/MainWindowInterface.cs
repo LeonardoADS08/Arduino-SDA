@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SDA_Core;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,15 +13,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Data;
-using SDA_Core;
 
 namespace SDA_Program.Interface
 {
-    class MainWindowInterface
+    internal class MainWindowInterface
     {
         // Views
         private SDA_Program.View.Home homeFrame;
+
         private SDA_Program.View.Statistics statisticsFrame;
         private SDA_Program.View.Configurations configurationsFrame;
 
@@ -38,7 +39,7 @@ namespace SDA_Program.Interface
 
         // Todos los siguientes metodos son para cambiar de ventana, y cambiar el color del botón cuando es seleccionado.
 
-        public void HomeClicked(Button B_Home, Button B_Statistics, Button B_Configurations ,Frame F_Page)
+        public void HomeClicked(Button B_Home, Button B_Statistics, Button B_Configurations, Frame F_Page)
         {
             B_Home.Background = new SolidColorBrush(Color.FromRgb(98, 174, 178));
             B_Statistics.Background = new SolidColorBrush(Color.FromRgb(100, 151, 153));

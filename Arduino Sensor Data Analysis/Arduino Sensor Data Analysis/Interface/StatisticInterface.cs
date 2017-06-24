@@ -1,5 +1,11 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using SDA_Core;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,21 +18,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Data;
-using System.IO.Ports;
-using System.Diagnostics;
-using SDA_Core;
-using LiveCharts;
-using LiveCharts.Wpf;
 
 namespace SDA_Program.Interface
 {
     public class StatisticInterface
     {
-        SDA_Core.Business.Arrays.SensorData communication;
-        bool calculate = false;
-        int timeInterval = 500;
-        int maxElementsToShow = 10;
+        private SDA_Core.Business.Arrays.SensorData communication;
+        private bool calculate = false;
+        private int timeInterval = 500;
+        private int maxElementsToShow = 10;
 
         public void LoadColumns(ComboBox CB_Columns, SDA_Core.Business.Arrays.SensorData data)
         {
@@ -56,10 +56,10 @@ namespace SDA_Program.Interface
             // Añade las columnas
             DataTable result = new DataTable();
 
-            result.Columns.Add("Total time (" + communication.Columns[timeColumn].Unit.Name + ")", typeof(double) );
-           
+            result.Columns.Add("Total time (" + communication.Columns[timeColumn].Unit.Name + ")", typeof(double));
+
             // Calculando tiempo total
-            row.Add( Math.Round(communication.Columns[timeColumn].List.Last().Value - communication.Columns[timeColumn].List.First().Value, 4));
+            row.Add(Math.Round(communication.Columns[timeColumn].List.Last().Value - communication.Columns[timeColumn].List.First().Value, 4));
 
             // Prom
             for (int i = 0; i < communication.Columns.Size; ++i)
@@ -130,17 +130,14 @@ namespace SDA_Program.Interface
                 row.Add(min);
             }
 
-
             DataRow newRow = result.NewRow();
             for (int i = 0; i < row.Count; ++i)
             {
                 newRow[i] = row[i];
-
             }
             result.Rows.Add(newRow);
 
             DG_Statistic.ItemsSource = result.AsDataView();
-            
         }
 
         public void GenerateChart(CartesianChart C_General, SDA_Core.Business.Arrays.SensorData data, ComboBox CB_Selected)
@@ -171,7 +168,6 @@ namespace SDA_Program.Interface
             C_General.Series = SeriesCollection;
 
             UpdateChart(C_General, data, dataColumn);
-            
         }
 
         private async void UpdateChart(CartesianChart C_General, SDA_Core.Business.Arrays.SensorData data, int dataColumn)
@@ -213,4 +209,3 @@ namespace SDA_Program.Interface
         }
     }
 }
- 

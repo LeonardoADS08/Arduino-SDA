@@ -19,8 +19,8 @@ namespace SDA_Program.View.Popups
     /// </summary>
     public partial class Sensors : Window
     {
-        Interface.SensorInterface IO;
-        Application.SensorApplication APP;
+        private Interface.SensorInterface IO;
+        private Application.SensorApplication APP;
 
         public Sensors()
         {

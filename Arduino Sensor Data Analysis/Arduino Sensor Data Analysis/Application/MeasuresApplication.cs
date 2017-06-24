@@ -9,9 +9,11 @@ namespace SDA_Program.Application
     /// <summary>
     /// ES: Clase para manejar los flujos de datos de la ventana 'Measures'
     /// </summary>
-    class MeasuresApplication 
+    internal class MeasuresApplication
     {
-        public MeasuresApplication() { }
+        public MeasuresApplication()
+        {
+        }
 
         public SDA_Core.Business.Arrays.MeasureArray GetData() => Data.MeasuresDataArray;
 
@@ -23,6 +25,5 @@ namespace SDA_Program.Application
         {
             SDA_Core.Data.MeasuresSerializer.Save(data);
         }
-    
     }
 }

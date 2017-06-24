@@ -1,10 +1,10 @@
-﻿using System;
+﻿using SDA_Core.Business;
+using SDA_Core.Business.Arrays;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SDA_Core.Business.Arrays;
-using SDA_Core.Business;
 
 namespace SDA_Program
 {
@@ -100,6 +100,5 @@ namespace SDA_Program
                 _unitsData = value.List.GetList();
             }
         }
-
     }
 }

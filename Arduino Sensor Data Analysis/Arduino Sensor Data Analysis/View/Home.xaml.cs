@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -13,8 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Data;
-using System.Diagnostics;
 
 namespace SDA_Program.View
 {
@@ -25,7 +25,6 @@ namespace SDA_Program.View
     {
         public Interface.HomeInterface IO;
         private Application.HomeApplication APP;
-
 
         public Home()
         {
@@ -84,7 +83,5 @@ namespace SDA_Program.View
         {
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
-
-
     }
 }

@@ -1,15 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.IO;
-using System.Windows.Forms;
-using System.Windows.Controls;
-using System.Data;
-using System.Diagnostics;
-using System.Globalization;
 
 namespace SDA_Core.Functional
 {
@@ -18,7 +8,6 @@ namespace SDA_Core.Functional
     /// </summary>
     public class Processing
     {
-
         /// <summary>
         /// ES: Constructor de la clase Processing.
         /// </summary>
@@ -67,6 +56,5 @@ namespace SDA_Core.Functional
             ThreadStart ts = delegate { ProcessThread(rawData, resultTable); };
             new Thread(ts).Start();
         }
-
     }
 }

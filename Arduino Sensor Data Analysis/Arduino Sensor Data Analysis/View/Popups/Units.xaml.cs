@@ -19,8 +19,8 @@ namespace SDA_Program.View.Popups
     /// </summary>
     public partial class Units : Window
     {
-        SDA_Program.Interface.UnitInterface IO;
-        SDA_Program.Application.UnitApplication APP;
+        private SDA_Program.Interface.UnitInterface IO;
+        private SDA_Program.Application.UnitApplication APP;
 
         public Units()
         {

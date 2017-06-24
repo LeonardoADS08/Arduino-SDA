@@ -1,20 +1,5 @@
-﻿using System;
+﻿using SDA_Core.Functional;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Data;
-using System.Diagnostics;
-using SDA_Core;
-using SDA_Core.Business;
-using SDA_Core.Functional;
 
 namespace SDA_Core.Data
 {
@@ -32,9 +17,13 @@ namespace SDA_Core.Data
         }
 
         static public int BaudRatesId() => _serializer.RecoverData()[0];
+
         static public int MeasuresId() => _serializer.RecoverData()[1];
+
         static public int UnitsId() => _serializer.RecoverData()[2];
+
         static public int MeasuresUnitId() => _serializer.RecoverData()[3];
+
         static public int SensorDataId() => _serializer.RecoverData()[4];
 
         static public void PlusBaudRatesId()
@@ -51,7 +40,6 @@ namespace SDA_Core.Data
             values[1]++;
             _serializer.ClearBinary();
             _serializer.SaveData(values);
-
         }
 
         static public void PlusUnitsId()

@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Diagnostics;
 
 namespace SDA_Program.Application
 {
     /// <summary>
     /// ES: Clase para manejar los flujos de datos de la ventana 'Unit'
     /// </summary>
-    public class UnitApplication 
+    public class UnitApplication
     {
-        public UnitApplication() { }
-
+        public UnitApplication()
+        {
+        }
 
         public SDA_Core.Business.Arrays.UnitArray GetData() => Data.UnitsDataArray;
 

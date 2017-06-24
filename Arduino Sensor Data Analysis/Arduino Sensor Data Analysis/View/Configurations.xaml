@@ -1,10 +1,10 @@
 ﻿<Page x:Class="SDA_Program.View.Configurations"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:SDA_Program.View"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="Configurations" Background="#ECF0F1">
 
@@ -12,32 +12,30 @@
         <Grid x:Name="G_Configurations" Margin="10">
             <GroupBox x:Name="GB_Configurations" Header="Configurations" FontSize="24" />
             <Grid x:Name="G_Units" Margin="20,45,0,364" HorizontalAlignment="Left">
-                <GroupBox x:Name="GB_Units" Header="Units" FontSize="20" Width="334" d:IsLocked="True"/>
-                <DataGrid x:Name="DG_Units" Margin="20,70,20,20" GridLinesVisibility="None"/>
-                <Button x:Name="B_Units" Content="Manage" Margin="20,45,20,0" VerticalAlignment="Top" VerticalContentAlignment="Top" Click="B_Units_Click"/>
+                <GroupBox x:Name="GB_Units" Header="Units" FontSize="20" Width="334" d:IsLocked="True" />
+                <DataGrid x:Name="DG_Units" Margin="20,70,20,20" GridLinesVisibility="None" />
+                <Button x:Name="B_Units" Content="Manage" Margin="20,45,20,0" VerticalAlignment="Top" VerticalContentAlignment="Top" Click="B_Units_Click" />
             </Grid>
             <Grid x:Name="G_MeasureUnits" Margin="365,45,346,20">
-                <GroupBox x:Name="GB_MeasuresUnits" Header="Measures Units" FontSize="20" d:IsLocked="True"/>
-                <DataGrid x:Name="DG_MeasuresUnits" Margin="20,70,20,20" GridLinesVisibility="None"/>
-                <Button x:Name="B_MeasureUnits" Content="Manage" Margin="20,45,20,0" VerticalAlignment="Top" VerticalContentAlignment="Top" Click="B_MeasureUnits_Click"/>
+                <GroupBox x:Name="GB_MeasuresUnits" Header="Measures Units" FontSize="20" d:IsLocked="True" />
+                <DataGrid x:Name="DG_MeasuresUnits" Margin="20,70,20,20" GridLinesVisibility="None" />
+                <Button x:Name="B_MeasureUnits" Content="Manage" Margin="20,45,20,0" VerticalAlignment="Top" VerticalContentAlignment="Top" Click="B_MeasureUnits_Click" />
             </Grid>
             <Grid x:Name="G_Measures" Margin="20,0,0,20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="333">
-                <GroupBox x:Name="GB_Measures" Header="Measures" FontSize="20" Width="334" HorizontalContentAlignment="Right" VerticalContentAlignment="Stretch" d:IsLocked="True"/>
-                <DataGrid x:Name="DG_Measures" Margin="20,70,20,20" GridLinesVisibility="None"/>
-                <Button x:Name="B_Measures" Content="Manage" Margin="20,45,20,0" VerticalAlignment="Top" VerticalContentAlignment="Top" Click="B_Measures_Click"/>
+                <GroupBox x:Name="GB_Measures" Header="Measures" FontSize="20" Width="334" HorizontalContentAlignment="Right" VerticalContentAlignment="Stretch" d:IsLocked="True" />
+                <DataGrid x:Name="DG_Measures" Margin="20,70,20,20" GridLinesVisibility="None" />
+                <Button x:Name="B_Measures" Content="Manage" Margin="20,45,20,0" VerticalAlignment="Top" VerticalContentAlignment="Top" Click="B_Measures_Click" />
             </Grid>
             <Grid x:Name="G_BaudRates" Margin="0,45,20,364" HorizontalAlignment="Right" Width="306">
-                <GroupBox x:Name="GB_BaudRates" Header="Baud Rates" FontSize="20" d:IsLocked="True"/>
-                <DataGrid x:Name="DG_BaudRates" Margin="20,70,20,20" GridLinesVisibility="None"/>
-                <Button x:Name="B_BaudRates" Content="Manage" Margin="20,45,20,0" VerticalAlignment="Top" VerticalContentAlignment="Top" Click="B_BaudRates_Click"/>
+                <GroupBox x:Name="GB_BaudRates" Header="Baud Rates" FontSize="20" d:IsLocked="True" />
+                <DataGrid x:Name="DG_BaudRates" Margin="20,70,20,20" GridLinesVisibility="None" />
+                <Button x:Name="B_BaudRates" Content="Manage" Margin="20,45,20,0" VerticalAlignment="Top" VerticalContentAlignment="Top" Click="B_BaudRates_Click" />
             </Grid>
             <Grid x:Name="G_Sensors" Margin="0,0,20,10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="333" Width="306">
-                <GroupBox x:Name="GB_Sensors" Header="Sensors" FontSize="20" Width="334" HorizontalContentAlignment="Right" VerticalContentAlignment="Stretch" d:IsLocked="True"/>
-                <DataGrid x:Name="DG_Sensors" Margin="20,70,20,20" GridLinesVisibility="None"/>
-                <Button x:Name="B_Sensors" Content="Manage" Margin="20,45,20,0" VerticalAlignment="Top" VerticalContentAlignment="Top" Click="B_Sensors_Click"/>
+                <GroupBox x:Name="GB_Sensors" Header="Sensors" FontSize="20" Width="334" HorizontalContentAlignment="Right" VerticalContentAlignment="Stretch" d:IsLocked="True" />
+                <DataGrid x:Name="DG_Sensors" Margin="20,70,20,20" GridLinesVisibility="None" />
+                <Button x:Name="B_Sensors" Content="Manage" Margin="20,45,20,0" VerticalAlignment="Top" VerticalContentAlignment="Top" Click="B_Sensors_Click" />
             </Grid>
-
         </Grid>
-
     </Grid>
 </Page>

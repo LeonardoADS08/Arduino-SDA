@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using LiveCharts;
-using LiveCharts.Wpf;
 
 namespace SDA_Program.View
 {
@@ -23,7 +23,7 @@ namespace SDA_Program.View
     public partial class Statistics : Page
     {
         private SDA_Core.Business.Arrays.SensorData data;
-        Interface.StatisticInterface IO;
+        private Interface.StatisticInterface IO;
 
         public Statistics()
         {
@@ -42,7 +42,6 @@ namespace SDA_Program.View
         private void B_Generate_Click(object sender, RoutedEventArgs e)
         {
             IO.LoadStatistic(DG_General, CB_General_Columns);
-
         }
 
         private void B_GenerateChart_Click(object sender, RoutedEventArgs e)

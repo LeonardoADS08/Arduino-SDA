@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SDA_Core;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +13,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Data;
-using SDA_Core;
 
 namespace SDA_Program.Interface
 {
@@ -20,8 +20,10 @@ namespace SDA_Program.Interface
     {
         private SDA_Core.Business.Arrays.SensorDataArray sensors;
         private SDA_Core.Business.Arrays.MeasureUnitArray measureUnitList;
+
         // Objeto de una clase 'funcional' para hacer transformaciones.
         private SDA_Core.Functional.Data dataManager;
+
         private SDA_Core.Business.Arrays.MeasureUnitArray newSensorFormat;
 
         public SensorInterface()
@@ -74,7 +76,7 @@ namespace SDA_Program.Interface
             }
 
             int selected = CB_MeasurementUnit.SelectedIndex;
-            newSensorFormat.List.Add( measureUnitList.List[selected] );
+            newSensorFormat.List.Add(measureUnitList.List[selected]);
 
             CB_MeasurementUnit.SelectedIndex = -1;
 
@@ -110,12 +112,12 @@ namespace SDA_Program.Interface
             sensors.List.Add(newSensor);
             UpdateNewSensorTable(DG_NewSensor);
             UpdateSensorsTable(DG_Sensors);
-            
         }
 
         public SDA_Core.Business.Arrays.SensorDataArray GetData() => sensors;
 
         public void UpdateSensorsTable(DataGrid DG_Sensors) => DG_Sensors.ItemsSource = dataManager.SensorsListToDataTable(sensors).AsDataView();
+
         public void UpdateNewSensorTable(DataGrid DG_NewSensor) => DG_NewSensor.ItemsSource = dataManager.MeasureUnitListToDataTable(newSensorFormat).AsDataView();
     }
 }

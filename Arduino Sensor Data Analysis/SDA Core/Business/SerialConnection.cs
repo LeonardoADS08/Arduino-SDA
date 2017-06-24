@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SDA_Core.Business
+﻿namespace SDA_Core.Business
 {
     public class SerialConnection
     {
@@ -25,7 +19,5 @@ namespace SDA_Core.Business
             _baudRate = baudRate;
             _port = portName;
         }
-
-        
     }
 }

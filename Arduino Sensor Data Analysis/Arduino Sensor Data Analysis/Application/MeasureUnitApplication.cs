@@ -9,9 +9,11 @@ namespace SDA_Program.Application
     /// <summary>
     /// ES: Clase para manejar los flujos de datos de la ventana 'MeasureUnit'
     /// </summary>
-    class MeasureUnitApplication
+    internal class MeasureUnitApplication
     {
-        public MeasureUnitApplication() { }
+        public MeasureUnitApplication()
+        {
+        }
 
         public SDA_Core.Business.Arrays.MeasureUnitArray GetData() => Data.MeasureUnitsDataArray;
 

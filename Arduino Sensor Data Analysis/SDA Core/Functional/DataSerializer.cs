@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
-using System.Runtime.InteropServices;
 
 namespace SDA_Core.Functional
 {
     /// <summary>
-    /// ES: Clase generica encargada de almacenar y leer archivos binarios de tipo <T>. 
+    /// ES: Clase generica encargada de almacenar y leer archivos binarios de tipo <T>.
     ///     NOTA: La clase pasada para instanciar este objeto debe ser Serializable.
     /// </summary>
     public class DataSerializer<T>
     {
-        // ES: _fileName  = Nombre del archivo donde se guardara o se deberá leer los datos serializados  
+        // ES: _fileName  = Nombre del archivo donde se guardara o se deberá leer los datos serializados
         private string _fileDirection;
-        // ES: _formatter = Objeto para darle formato binario a los archivos a escribir                     
+
+        // ES: _formatter = Objeto para darle formato binario a los archivos a escribir
         private IFormatter _formatter;
 
         /// <summary>
@@ -30,8 +27,7 @@ namespace SDA_Core.Functional
         /// ES: Instancia de una clase Stream para escritura.
         /// </summary>
         /// <returns>ES: Stream en modo escritura.</returns>
-        private Stream WriteStream() => new FileStream(_fileDirection, FileMode.Append, FileAccess.Write, FileShare.ReadWrite); 
-
+        private Stream WriteStream() => new FileStream(_fileDirection, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
 
         /// <summary>
         /// ES: Instancia de una clase Stream para lectura.

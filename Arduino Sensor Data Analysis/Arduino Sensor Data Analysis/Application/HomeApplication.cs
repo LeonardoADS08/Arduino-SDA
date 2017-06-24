@@ -9,10 +9,11 @@ namespace SDA_Program.Application
     /// <summary>
     /// ES: Clase para manejar los flujos de datos de la ventana 'Home'
     /// </summary>
-    class HomeApplication
+    internal class HomeApplication
     {
-
-        public HomeApplication() { }
+        public HomeApplication()
+        {
+        }
 
         /// <summary>
         /// ES: Devuelve los datos almacenados del arreglo 'BaudRates' del programa.
@@ -43,7 +44,5 @@ namespace SDA_Program.Application
             }
             return result;
         }
-
-
     }
 }

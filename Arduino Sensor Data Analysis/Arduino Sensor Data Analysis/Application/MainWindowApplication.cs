@@ -10,7 +10,7 @@ namespace SDA_Program.Application
     /// ES: Clase para manejar los flujos de datos de la ventana 'MainWindow'
     ///     Debido a que esta ventana es solo para controlar el menú de navegación no necesita de datos.
     /// </summary>
-    class MainWindowApplication
+    internal class MainWindowApplication
     {
     }
 }

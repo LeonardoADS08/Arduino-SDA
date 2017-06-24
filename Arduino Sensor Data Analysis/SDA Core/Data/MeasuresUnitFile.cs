@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SDA_Core.Data
 {
     [Serializable]
-    class MeasuresUnitFile
+    internal class MeasuresUnitFile
     {
         private int _id;
         private int _idMeasure;

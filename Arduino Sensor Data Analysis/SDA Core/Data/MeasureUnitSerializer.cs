@@ -1,24 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Data;
-using System.Diagnostics;
-using SDA_Core;
-using SDA_Core.Business;
+﻿using SDA_Core.Business;
 using SDA_Core.Functional;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace SDA_Core.Data
 {
-    static public class MeasureUnitSerializer 
+    static public class MeasureUnitSerializer
     {
         static private Functional.DataSerializer<MeasuresUnitFile> _serializer;
 
@@ -47,8 +34,8 @@ namespace SDA_Core.Data
             List<MeasuresUnitFile> data = _serializer.RecoverData();
             foreach (MeasuresUnitFile br in data)
             {
-                if (!br.Deleted && 
-                    br.IdMeasure == value.Measure.IdMeasure && 
+                if (!br.Deleted &&
+                    br.IdMeasure == value.Measure.IdMeasure &&
                     br.IdUnit == value.Unit.IdUnit) return true;
             }
             return false;
@@ -95,7 +82,6 @@ namespace SDA_Core.Data
                 {
                     MessageBox.Show("Value: " + values.List[i].Measure.Name + "( " + values.List[i].Unit.Name + ") alredy exists.");
                     continue;
-
                 }
 
                 if (values.List[i].IdMeasureUnit == -1)
@@ -104,7 +90,6 @@ namespace SDA_Core.Data
                     FilesConfigurations.PlusMeasuresUnitId();
                 }
 
-                
                 _serializer.SaveData(ConvertToFile(values.List[i]));
             }
         }

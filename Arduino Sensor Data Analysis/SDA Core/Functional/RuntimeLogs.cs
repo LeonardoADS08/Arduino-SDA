@@ -1,23 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using System.Diagnostics;
-using System.Windows.Forms;
 using System.Threading;
 
 namespace SDA_Core.Functional
 {
     /// <summary>
-    /// ES: Una clase que almacena registros en tiempo de ejecución, enfocado para guardar mensajes de excepciones u otros errores, 
+    /// ES: Una clase que almacena registros en tiempo de ejecución, enfocado para guardar mensajes de excepciones u otros errores,
     ///     para que sea posteriormente analizado y sea más fácil encontrar errores.
     ///     Este proceso se ejecuta en otro hilo.
     /// </summary>
-    static class RuntimeLogs
+    internal static class RuntimeLogs
     {
-
         private static void WriteLine(string message, string direction, bool enumerate = true)
         {
             try
@@ -34,7 +27,7 @@ namespace SDA_Core.Functional
             }
             catch //(Exception ex)
             {
-               // MessageBox.Show("An error message cannot be saved in the runtime log.\n" + ex.Message, "Error - RuntimeLog", MessageBoxButtons.OK);
+                // MessageBox.Show("An error message cannot be saved in the runtime log.\n" + ex.Message, "Error - RuntimeLog", MessageBoxButtons.OK);
             }
         }
 
@@ -56,8 +49,6 @@ namespace SDA_Core.Functional
                 WriteLine(ex.Message, nameof(RuntimeLogs) + "SendLog(string, string, bool = true)", false);
                 WriteLine(message, direction, enumerate);
             }
-            
         }
-
     }
 }

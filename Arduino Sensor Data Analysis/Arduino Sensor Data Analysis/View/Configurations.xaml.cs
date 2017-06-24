@@ -20,8 +20,8 @@ namespace SDA_Program.View
     /// </summary>
     public partial class Configurations : Page
     {
-        Interface.ConfigurationsInterface IO;
-        Application.ConfigurationsApplication APP;
+        private Interface.ConfigurationsInterface IO;
+        private Application.ConfigurationsApplication APP;
 
         public Configurations()
         {
@@ -76,7 +76,5 @@ namespace SDA_Program.View
             IO.LoadBaudRates(DG_BaudRates, APP.GetBaudRates());
             IO.LoadSensors(DG_Sensors, APP.GetSensors());
         }
-
-        
     }
 }

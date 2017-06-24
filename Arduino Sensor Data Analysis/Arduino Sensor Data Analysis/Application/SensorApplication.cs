@@ -9,10 +9,11 @@ namespace SDA_Program.Application
     /// <summary>
     /// ES: Clase para manejar los flujos de datos de la ventana 'Sensor'
     /// </summary>
-    class SensorApplication : SDA_Core.Business.Arrays.SensorDataArray
+    internal class SensorApplication : SDA_Core.Business.Arrays.SensorDataArray
     {
-
-        public SensorApplication() { }
+        public SensorApplication()
+        {
+        }
 
         public SDA_Core.Business.Arrays.SensorDataArray GetSensors()
         {

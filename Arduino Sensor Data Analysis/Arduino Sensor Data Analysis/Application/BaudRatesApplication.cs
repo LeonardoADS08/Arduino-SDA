@@ -11,8 +11,9 @@ namespace SDA_Program.Application
     /// </summary>
     public class BaudRatesApplication
     {
-
-        public BaudRatesApplication() { }
+        public BaudRatesApplication()
+        {
+        }
 
         /// <summary>
         /// ES: Devuelve los datos almacenados en los arreglos del programa.
@@ -28,6 +29,5 @@ namespace SDA_Program.Application
         {
             SDA_Core.Data.BaudRatesSerializer.Save(data);
         }
-        
     }
 }

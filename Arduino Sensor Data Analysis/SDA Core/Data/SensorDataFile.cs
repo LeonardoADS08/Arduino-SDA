@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
 
 namespace SDA_Core.Data
 {
     [Serializable]
-    class SensorDataFile
+    internal class SensorDataFile
     {
         private int _id;
         private List<int> _idMeasuresUnits;
@@ -20,7 +16,10 @@ namespace SDA_Core.Data
         public string SensorName { get => _sensorName; set => _sensorName = value; }
         public bool Deleted { get => _deleted; set => _deleted = value; }
 
-        public SensorDataFile () { _id = -1; }
+        public SensorDataFile()
+        {
+            _id = -1;
+        }
 
         public SensorDataFile(Business.Arrays.SensorData data)
         {
@@ -32,9 +31,6 @@ namespace SDA_Core.Data
             {
                 _idMeasuresUnits.Add(data.Columns[i].IdMeasureUnit);
             }
-            
         }
-
-        
     }
 }

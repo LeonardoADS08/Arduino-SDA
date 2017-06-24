@@ -1,5 +1,9 @@
-﻿using System;
+﻿using SDA_Core;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,26 +16,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Data;
-using System.IO.Ports;
-using System.Diagnostics;
-using SDA_Core;
 
 namespace SDA_Program.Interface
 {
     public class HomeInterface
     {
         // Intervalo al que se debe escuchar al arduino
-        int timeInterval = 1000;
+        private int timeInterval = 1000;
 
         // Objeto para realizar la conexión Serial.
         private SerialPort serialConnection;
+
         // Objeto de una clase 'funcional' para procesar los datos recibidos por el arduino
         private SDA_Core.Functional.Processing processer;
+
         // Obeto que almacena la estructura de sensores que recibira del arduino durante la comunicacion.
         private SDA_Core.Business.Arrays.SensorDataArray selectedSensors;
+
         // Objeto de una clase 'funcional' para hacer transformaciones.
         private SDA_Core.Functional.Data dataManager;
+
         // Objeto que almacena todos los datos procesados que se han recibido del arduino.
         private SDA_Core.Business.Arrays.SensorData communication;
 
@@ -137,7 +141,7 @@ namespace SDA_Program.Interface
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="DG_SerialMonitor">ES: DataGrid donde se deben realizar los cambios.</param>
         /// <param name="CB_SerialPort">ES: ComboBox donde se encuentra el serialPort seleccionado.</param>
@@ -147,7 +151,7 @@ namespace SDA_Program.Interface
         /// <param name="B_Connect">ES: Botón a bloquear cambios a las configuraciones durante la comunicación.</param>
         public void StartConnection(DataGrid DG_SerialMonitor, ComboBox CB_SerialPort, ComboBox CB_BaudRate, Grid G_Serial, Grid G_Sensors, Button B_Connect)
         {
-            // Validaciones 
+            // Validaciones
             if (CB_SerialPort.SelectedItem == null)
             {
                 MessageBox.Show("Select a port.", "Error", MessageBoxButton.OK);
@@ -202,14 +206,12 @@ namespace SDA_Program.Interface
                     MessageBox.Show("Can't connect.", "Unknown error", MessageBoxButton.OK);
                     return;
                 }
-                
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Exception found", MessageBoxButton.OK);
                 return;
             }
-
         }
 
         /// <summary>
@@ -225,7 +227,7 @@ namespace SDA_Program.Interface
                     if (message != "") processer.Process(message, communication);
                 }
                 catch (Exception ex) { return; }
-                
+
                 await Task.Delay(timeInterval);
             }
         }

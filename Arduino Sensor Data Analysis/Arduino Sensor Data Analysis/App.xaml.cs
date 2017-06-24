@@ -14,5 +14,4 @@ namespace Arduino_Sensor_Data_Analysis
     public partial class App : Application
     {
     }
-
 }

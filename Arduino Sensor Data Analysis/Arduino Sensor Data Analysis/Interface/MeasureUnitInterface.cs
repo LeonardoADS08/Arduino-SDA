@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SDA_Core;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,17 +13,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Data;
-using SDA_Core;
 
 namespace SDA_Program.Interface
 {
     public class MeasureUnitInterface
     {
         // Arreglo para almacenar los datos del dataGrid.
-        SDA_Core.Business.Arrays.MeasureUnitArray measureUnitArray;
+        private SDA_Core.Business.Arrays.MeasureUnitArray measureUnitArray;
+
         // Objeto de una clase 'funcional' para hacer transformaciones.
-        SDA_Core.Functional.Data dataManager;
+        private SDA_Core.Functional.Data dataManager;
 
         /// <summary>
         /// ES: Constructor de la clase MeasureUnitInterface.

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,8 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Data;
-using System.Threading;
 
 namespace Arduino_Sensor_Data_Analysis
 {
@@ -22,10 +22,10 @@ namespace Arduino_Sensor_Data_Analysis
     /// </summary>
     public partial class MainWindow : Window
     {
-        SDA_Program.Interface.MainWindowInterface IO;
-        SDA_Program.View.Home HomePage;
-        SDA_Program.View.Statistics StatisticsPage;
-        SDA_Program.View.Configurations ConfigurationsPage;
+        private SDA_Program.Interface.MainWindowInterface IO;
+        private SDA_Program.View.Home HomePage;
+        private SDA_Program.View.Statistics StatisticsPage;
+        private SDA_Program.View.Configurations ConfigurationsPage;
 
         public MainWindow()
         {
@@ -34,7 +34,6 @@ namespace Arduino_Sensor_Data_Analysis
             IO = new SDA_Program.Interface.MainWindowInterface();
 
             IO.HomeClicked(B_Home, B_Statistics, B_Configurations, F_Frame);
-
         }
 
         private void B_Home_Click(object sender, RoutedEventArgs e)

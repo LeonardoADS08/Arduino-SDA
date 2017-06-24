@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SDA_Core;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,18 +13,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Data;
-using SDA_Core;
 
 namespace SDA_Program.Interface
 {
     public class BaudRatesInterface
     {
         // Almacenamiento para los dataGrids.
-        SDA_Core.Business.Arrays.BaudRatesArray baudRates;
+        private SDA_Core.Business.Arrays.BaudRatesArray baudRates;
 
         // Objeto de una clase 'funcional' para hacer transformaciones.
-        SDA_Core.Functional.Data dataManager;
+        private SDA_Core.Functional.Data dataManager;
 
         /// <summary>
         /// ES: Constructor de la clase BaudRatesInterface.
@@ -58,7 +58,7 @@ namespace SDA_Program.Interface
                 MessageBox.Show("Can't convert '" + TB_BaudRate.Text + "' to integer.", "Error", MessageBoxButton.OK);
                 return;
             }
-            
+
             // Se genera el objeto y se valida que no exista ya.
             SDA_Core.Business.BaudRates newBaudRate = new SDA_Core.Business.BaudRates(baudRateValue);
             if (baudRates.List.Exists(newBaudRate))
@@ -100,6 +100,5 @@ namespace SDA_Program.Interface
         /// ES: Devuelve los datos que se muestran en el dataGrid.
         /// </summary>
         public SDA_Core.Business.Arrays.BaudRatesArray GetData() => baudRates;
-
     }
 }

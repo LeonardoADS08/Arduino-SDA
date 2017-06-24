@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SDA_Core.Business
 {
@@ -26,6 +22,5 @@ namespace SDA_Core.Business
             _IdMeasure = -1;
             _name = name;
         }
-
     }
 }

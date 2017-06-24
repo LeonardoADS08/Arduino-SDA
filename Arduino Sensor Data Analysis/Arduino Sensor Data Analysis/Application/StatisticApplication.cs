@@ -10,9 +10,7 @@ namespace SDA_Program.Application
     /// ES: Clase para manejar los flujos de datos de la ventana 'Statistic'
     ///     Esta ventana no necesita de datos, ya que estos se pasan como parametro al abrir la ventana.
     /// </summary>
-    class StatisticApplication
+    internal class StatisticApplication
     {
-
     }
-
 }

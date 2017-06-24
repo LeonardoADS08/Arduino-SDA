@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SDA_Core.Data
 {
     [Serializable]
-    class MeasuresFile
+    internal class MeasuresFile
     {
         private int _id;
         private string _measure;
@@ -17,7 +13,10 @@ namespace SDA_Core.Data
         public string Measure { get => _measure; set => _measure = value; }
         public bool Deleted { get => _deleted; set => _deleted = value; }
 
-        public MeasuresFile() { _id = -1; }
+        public MeasuresFile()
+        {
+            _id = -1;
+        }
 
         public MeasuresFile(Business.Measure value)
         {

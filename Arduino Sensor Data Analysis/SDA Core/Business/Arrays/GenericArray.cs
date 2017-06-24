@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SDA_Core.Business.Arrays
 {
@@ -23,9 +21,9 @@ namespace SDA_Core.Business.Arrays
 
         public GenericArray(List<T> data) => _array = data;
 
-        public void Add(T data) => _array.Add(data); 
+        public void Add(T data) => _array.Add(data);
 
-        public void Clear() => _array.Clear(); 
+        public void Clear() => _array.Clear();
 
         public void Remove(int position) => _array.RemoveAt(position);
 

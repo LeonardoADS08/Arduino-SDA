@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SDA_Core;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,16 +13,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Data;
-using SDA_Core;
 
 namespace SDA_Program.Interface
 {
     public class UnitInterface
     {
-        SDA_Core.Business.Arrays.UnitArray unitArray;
+        private SDA_Core.Business.Arrays.UnitArray unitArray;
+
         // Objeto de una clase 'funcional' para hacer transformaciones.
-        SDA_Core.Functional.Data dataManager;
+        private SDA_Core.Functional.Data dataManager;
 
         public UnitInterface()
         {
@@ -65,6 +66,5 @@ namespace SDA_Program.Interface
         }
 
         public SDA_Core.Business.Arrays.UnitArray GetData() => unitArray;
-
     }
 }

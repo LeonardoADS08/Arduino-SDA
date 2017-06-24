@@ -9,22 +9,20 @@
     <Grid>
         <Grid x:Name="G_Sensor" Margin="10,10,10,32">
             <GroupBox x:Name="GB_Sensors" Header="Sensors" />
-            <DataGrid x:Name="DG_Sensors" Margin="20,25,23,0" VerticalAlignment="Top" GridLinesVisibility="None" LoadingRow="DG_Sensors_LoadingRow" Height="106"/>
-            <Button x:Name="B_DeleteSensor" Content="Delete" HorizontalAlignment="Right" Margin="0,135,23,0" VerticalAlignment="Top" Width="132" Click="B_DeleteSensor_Click"/>
+            <DataGrid x:Name="DG_Sensors" Margin="20,25,23,0" VerticalAlignment="Top" GridLinesVisibility="None" LoadingRow="DG_Sensors_LoadingRow" Height="106" />
+            <Button x:Name="B_DeleteSensor" Content="Delete" HorizontalAlignment="Right" Margin="0,135,23,0" VerticalAlignment="Top" Width="132" Click="B_DeleteSensor_Click" />
             <Grid x:Name="G_NewSensor" Margin="10,157,10,10">
-                <GroupBox x:Name="GB_NewSensor" Header="New sensor" d:IsLocked="True"/>
-                <DataGrid x:Name="DG_NewSensor" Height="94" VerticalAlignment="Top" GridLinesVisibility="None" LoadingRow="DG_NewSensor_LoadingRow" Margin="20,20,20,0"/>
-                <Button x:Name="B_DeleteSensorField" Content="Delete" HorizontalAlignment="Left" Margin="287,118,0,0" VerticalAlignment="Top" Width="140" Click="B_DeleteSensorField_Click"/>
-                <Label x:Name="L_MeasureUnit" Content="Measure unit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,141,0,0"/>
-                <ComboBox x:Name="CB_MeasureUnits" HorizontalAlignment="Left" Margin="106,145,0,0" VerticalAlignment="Top" Width="169"/>
-                <Button x:Name="B_AddField" Content="Add field" HorizontalAlignment="Left" Margin="287,146,0,0" VerticalAlignment="Top" Width="140" Click="B_AddField_Click"/>
-                <Label x:Name="L_Name" Content="Sensor name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,171,0,0"/>
-                <TextBox x:Name="TB_SensorName" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="169" Margin="106,175,0,0"/>
-                <Button x:Name="B_Save" Content="Save sensor" HorizontalAlignment="Left" Margin="287,175,0,0" VerticalAlignment="Top" Width="140" Height="22" Click="B_Save_Click"/>
+                <GroupBox x:Name="GB_NewSensor" Header="New sensor" d:IsLocked="True" />
+                <DataGrid x:Name="DG_NewSensor" Height="94" VerticalAlignment="Top" GridLinesVisibility="None" LoadingRow="DG_NewSensor_LoadingRow" Margin="20,20,20,0" />
+                <Button x:Name="B_DeleteSensorField" Content="Delete" HorizontalAlignment="Left" Margin="287,118,0,0" VerticalAlignment="Top" Width="140" Click="B_DeleteSensorField_Click" />
+                <Label x:Name="L_MeasureUnit" Content="Measure unit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,141,0,0" />
+                <ComboBox x:Name="CB_MeasureUnits" HorizontalAlignment="Left" Margin="106,145,0,0" VerticalAlignment="Top" Width="169" />
+                <Button x:Name="B_AddField" Content="Add field" HorizontalAlignment="Left" Margin="287,146,0,0" VerticalAlignment="Top" Width="140" Click="B_AddField_Click" />
+                <Label x:Name="L_Name" Content="Sensor name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,171,0,0" />
+                <TextBox x:Name="TB_SensorName" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="169" Margin="106,175,0,0" />
+                <Button x:Name="B_Save" Content="Save sensor" HorizontalAlignment="Left" Margin="287,175,0,0" VerticalAlignment="Top" Width="140" Height="22" Click="B_Save_Click" />
             </Grid>
-
         </Grid>
-        <Button x:Name="B_SaveData" Content="Save data" HorizontalAlignment="Right" Margin="0,0,10,5" VerticalAlignment="Bottom" Width="198" Height="22" Click="B_SaveData_Click"/>
-
+        <Button x:Name="B_SaveData" Content="Save data" HorizontalAlignment="Right" Margin="0,0,10,5" VerticalAlignment="Bottom" Width="198" Height="22" Click="B_SaveData_Click" />
     </Grid>
 </Window>

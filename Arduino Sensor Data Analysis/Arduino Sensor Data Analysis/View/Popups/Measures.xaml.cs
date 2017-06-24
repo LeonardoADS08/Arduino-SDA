@@ -19,8 +19,8 @@ namespace SDA_Program.View.Popups
     /// </summary>
     public partial class Measures : Window
     {
-        SDA_Program.Interface.MeasuresInterface IO;
-        SDA_Program.Application.MeasuresApplication APP;
+        private SDA_Program.Interface.MeasuresInterface IO;
+        private SDA_Program.Application.MeasuresApplication APP;
 
         public Measures()
         {
